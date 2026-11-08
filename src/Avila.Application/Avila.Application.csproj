@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Avila.Platform\Avila.Platform.csproj" />
+    <ProjectReference Include="..\Avila.SharedKernel\Avila.SharedKernel.csproj" />
+    <ProjectReference Include="..\Modules\Administration\Avila.Modules.Administration.Contracts\Avila.Modules.Administration.Contracts.csproj" />
+    <ProjectReference Include="..\Modules\Inventory\Avila.Modules.Inventory.Contracts\Avila.Modules.Inventory.Contracts.csproj" />
+    <ProjectReference Include="..\Modules\Sales\Avila.Modules.Sales.Contracts\Avila.Modules.Sales.Contracts.csproj" />
+    <ProjectReference Include="..\Modules\Billing\Avila.Modules.Billing.Contracts\Avila.Modules.Billing.Contracts.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

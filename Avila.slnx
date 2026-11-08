@@ -1,0 +1,30 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Avila.Api/Avila.Api.csproj" />
+    <Project Path="src/Avila.Application/Avila.Application.csproj" />
+    <Project Path="src/Avila.Platform/Avila.Platform.csproj" />
+    <Project Path="src/Avila.SharedKernel/Avila.SharedKernel.csproj" />
+    <Project Path="src/Avila.Spike/Avila.Spike.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Administration/">
+    <Project Path="src/Modules/Administration/Avila.Modules.Administration.Contracts/Avila.Modules.Administration.Contracts.csproj" />
+    <Project Path="src/Modules/Administration/Avila.Modules.Administration/Avila.Modules.Administration.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Billing/">
+    <Project Path="src/Modules/Billing/Avila.Modules.Billing.Contracts/Avila.Modules.Billing.Contracts.csproj" />
+    <Project Path="src/Modules/Billing/Avila.Modules.Billing/Avila.Modules.Billing.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Inventory/">
+    <Project Path="src/Modules/Inventory/Avila.Modules.Inventory.Contracts/Avila.Modules.Inventory.Contracts.csproj" />
+    <Project Path="src/Modules/Inventory/Avila.Modules.Inventory/Avila.Modules.Inventory.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Sales/">
+    <Project Path="src/Modules/Sales/Avila.Modules.Sales.Contracts/Avila.Modules.Sales.Contracts.csproj" />
+    <Project Path="src/Modules/Sales/Avila.Modules.Sales/Avila.Modules.Sales.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Avila.IntegrationTests/Avila.IntegrationTests.csproj" />
+    <Project Path="tests/Avila.ProductionTests/Avila.ProductionTests.csproj" />
+  </Folder>
+</Solution>

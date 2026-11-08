@@ -1,0 +1,15 @@
+# Build and test artifacts
+bin/
+obj/
+TestResults/
+*.trx
+test-output*.log
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# Local environment
+.env
+.env.*
