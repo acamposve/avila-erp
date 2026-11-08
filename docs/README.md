@@ -92,6 +92,7 @@ Línea base documental **v1.0** (2026-11-08). Todos los documentos están en esp
 | [decisions/ADR-009-accounting-and-cutover.md](decisions/ADR-009-accounting-and-cutover.md) | Contabilización y cutover R2→R3 | Aceptado técnicamente; validación contable pendiente |
 | [architecture/spike-verification-2026-11-08.md](architecture/spike-verification-2026-11-08.md) | Evidencia T-01…T-19 (19 pruebas) sobre PostgreSQL 18 | Spike verificado; producción pendiente |
 | [architecture/r1-vertical-slice.md](architecture/r1-vertical-slice.md) | Esqueleto de producción, migraciones y flujo R1 | Scaffold verificado; endpoints/auth pendientes |
+| [architecture/hardening-refinement.md](architecture/hardening-refinement.md) | Refinamiento P1/P2 por historia, ADR, prueba y dueño | T-003 implementado; revisión pendiente |
 | [backlog/epics.md](../backlog/epics.md) | Epics por release | Aprobado como línea base |
 | [backlog/releases.md](../backlog/releases.md) | Contenido y criterios de salida por release | Aprobado como línea base |
 | [backlog/sprint-backlog.md](../backlog/sprint-backlog.md) | Sprint 0 y siguientes, historias iniciales | Vivo |

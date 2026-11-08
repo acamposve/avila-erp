@@ -7,9 +7,11 @@
 - **Rama:** `docs/t-001-t-002-closeout`
 - **Commit base:** `da808d1` (`Merge pull request #4`)
 - **Commit de evidencia:** `e637c8a`
-- **PR:** [#5](https://github.com/acamposve/avila-erp/pull/5)
+- **PR:** [#5](https://github.com/acamposve/avila-erp/pull/5) — fusionado
+- **Aprobación:** @acamposve, 2026-11-08
+- **Merge commit:** `ab30745`
 - **Entorno:** local Windows; documentación y revisión, sin cambios de entorno
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -19,7 +21,8 @@
 | 2 | `git show origin/main:docs/decisions/README.md` | `DEC-001`, `DEC-003`, `DEC-008` con estado y dueño | [`../../../docs/decisions/README.md`](../../../docs/decisions/README.md) |
 | 3 | Revisión de `tasks/T-002-decisions.md` | Criterios de aceptación y flujo verificados | [`../../T-002-decisions.md`](../../T-002-decisions.md) |
 | 4 | `dotnet test Avila.slnx` | 21/21 (baseline de T-001; sin cambios de código) | [`../T-001/raw/test-output.txt`](../T-001/raw/test-output.txt) |
-| 5 | Comprobación de enlaces Markdown | 0 enlaces roto | Reporte del PR |
+| 5 | `gh pr view 5` | PR #5 fusionado; T-002 verificado | [`raw/pr-state.txt`](raw/pr-state.txt) |
+| 6 | Comprobación de enlaces Markdown | 0 enlaces roto | Reporte del PR |
 
 ## Resultado
 
@@ -28,7 +31,7 @@
 - `DEC-001` queda aprobada en proveedor y mecanismo (DigitalOcean + Terraform); la región sigue pendiente, con `nyc3` como candidata.
 - La propiedad de las decisiones R1 queda en @acamposve; la capacidad no está cuantificada.
 - No se autoaprobó ninguna decisión; no se inventaron plazos legales ni regiones definitivas.
-- T-002 queda `implemented`; la revisión humana decide el paso a `verified`.
+- T-002 queda **`verified`**: aprobado y fusionado en PR #5 (`ab30745`).
 
 ## Bloqueos registrados
 
@@ -38,7 +41,7 @@
 | `DEC-008` validación legal de retención | @acamposve / Legal externo | Pendiente antes de R2 |
 | Capacidad R1 | @acamposve | No cuantificada |
 | ADR de stack de identidad antes de T-006 | @acamposve / Arquitectura | Pendiente; DEC-003 no selecciona librería |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 

@@ -4,7 +4,7 @@
 **Question:** does each task generate **logs** and **documents in the code**?
 **Verdict at validation time:** **No — 0 of 37 tasks were fully validated.**
 
-> **Update 2026-11-08 (T-001/T-002 closeout):** T-001 is **`verified`** after PR #3 merged; T-002 has an evidence package and is `implemented`, pending review. Verified count: **1/37**. The validation snapshot below is preserved, with the T-001/T-002 rows updated.
+> **Update 2026-11-08 (T-003):** T-001 and T-002 are **`verified`** after PRs #3 and #5 merged. T-003 has an evidence package and is `implemented`, pending review. Verified count: **2/37**. The validation snapshot below is preserved, with the T-001/T-002/T-003 rows updated.
 
 This is not a statement that the code is worthless. It is a statement that the repository does not contain the artifacts needed to prove each task was executed, reviewed, and verified.
 
@@ -40,10 +40,10 @@ Tasks whose purpose is a decision, review or gate may substitute a decision reco
 
 | ID | Finding | Evidence |
 |---|---|---|
-| F-01 | **At validation time, no task had a committed execution log.** | No per-task log existed. T-001 and T-002 now have one; 2/37. Root `test-output*.log` files are ignored and not task-specific. |
-| F-02 | **At validation time, no task had a task-specific output document in code.** | `tasks/T-*.md` are inputs, not evidence. T-001 and T-002 now have verification/decision documents; 2/37. |
+| F-01 | **At validation time, no task had a committed execution log.** | No per-task log existed. T-001, T-002 and T-003 now have one; 3/37. Root `test-output*.log` files are ignored and not task-specific. |
+| F-02 | **At validation time, no task had a task-specific output document in code.** | `tasks/T-*.md` are inputs, not evidence. T-001, T-002 and T-003 now have verification/decision documents; 3/37. |
 | F-03 | **The application has no structured logging/observability.** | Zero matches for `ILogger`, `Serilog`, `OpenTelemetry`, `ActivitySource` or `Meter` in `src/`. |
-| F-04 | **At baseline: 11 tasks had partial code, 6 had docs/decision material, and 20 had not started. T-001 is now verified and T-002 implemented; 4 remain docs-only.** | See matrix. |
+| F-04 | **At baseline: 11 tasks had partial code, 6 had docs/decision material, and 20 had not started. T-001/T-002 are now verified and T-003 implemented; 3 remain docs-only.** | See matrix. |
 | F-05 | **The task plan was not committed at validation time.** | `tasks/` and `docs/project-execution-plan.md` were untracked; this change adds them to Git. `docs/README.md` was modified. |
 | F-06 | **The original task definitions did not require a log artifact or code document.** | The new [`tasks/evidence/README.md`](../tasks/evidence/README.md) requires `execution-log.md`, `verification.md` and `code-map.md`; T-001 and T-002 now follow it. |
 | F-07 | **Tests are not mapped to task IDs.** | 21 tests pass, but no test class or `dotnet test` filter references `T-0xx`. |
@@ -55,13 +55,13 @@ Tasks whose purpose is a decision, review or gate may substitute a decision reco
 
 | Status | Count | Tasks |
 |---|---:|---|
-| Fully verified | **1** | T-001 |
-| Implemented, evidence pending review | 1 | T-002 |
+| Fully verified | **2** | T-001, T-002 |
+| Implemented, evidence pending review | 1 | T-003 |
 | Partial code | 11 | T-005, T-007, T-009, T-012, T-014, T-015, T-017, T-019, T-020, T-024, T-025 |
-| Docs/decision only, pending | 4 | T-003, T-004, T-018, T-023 |
+| Docs/decision only, pending | 3 | T-004, T-018, T-023 |
 | Not started | 20 | T-006, T-008, T-010, T-011, T-013, T-016, T-021, T-022, T-026, T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034, T-035, T-036, T-037 |
-| Task-specific logs | **2** | T-001, T-002 |
-| Task-specific documents | **2** | T-001, T-002 |
+| Task-specific logs | **3** | T-001, T-002, T-003 |
+| Task-specific documents | **3** | T-001, T-002, T-003 |
 | Structured application logs | **0** | — |
 
 ---
@@ -73,8 +73,8 @@ Legend: `—` = not applicable or none; `No` = no task-specific artifact.
 | Task | Phase | Code state | Test evidence | Execution log | Task output doc | Validated |
 |---|---|---|---|---|---|---|
 | T-001 Baseline | 0 | Docs + evidence | 21/21 | **Yes** | **Yes** | **Yes — verified** |
-| T-002 Decisions | 0 | Decision evidence | Decision register | **Yes** | **Yes** | **No — implemented** |
-| T-003 Hardening backlog | 0 | Docs | — | No | No | **No** |
+| T-002 Decisions | 0 | Decision evidence | Decision register | **Yes** | **Yes** | **Yes — verified** |
+| T-003 Hardening backlog | 0 | Hardening evidence | Hardening matrix | **Yes** | **Yes** | **No — implemented** |
 | T-004 R5 dependency | 0 | Docs | — | No | No | **No** |
 | T-005 Tenancy/UoW/RLS | R1 | Partial production | UoW/RLS tests | No | No | **No** |
 | T-006 Identity | R1 | Not started | — | No | No | **No** |
@@ -184,12 +184,12 @@ Code search: no ILogger/Serilog/OpenTelemetry/ActivitySource/Meter in src/
 Task refs in .cs: none
 Test command: dotnet test Avila.slnx
 Result:      21 passed, 0 failed
-Task logs found: 2 — T-001, T-002
-Task documents found: 2 — T-001, T-002
+Task logs found: 3 — T-001, T-002, T-003
+Task documents found: 3 — T-001, T-002, T-003
 Git:         at validation time tasks/ and docs/project-execution-plan.md were untracked; committed with this change
 ```
 
-The test result is valid evidence for the implementation that exists. It is not evidence that every task met its acceptance criteria at validation time, because no task-specific mapping existed then. T-001 is now verified; T-002 is implemented pending review.
+The test result is valid evidence for the implementation that exists. It is not evidence that every task met its acceptance criteria at validation time, because no task-specific mapping existed then. T-001/T-002 are now verified; T-003 is implemented pending review.
 
 ---
 
@@ -197,7 +197,7 @@ The test result is valid evidence for the implementation that exists. It is not 
 
 At validation time, the repository had meaningful code, tests and architecture documents, but it did **not** satisfy the requirement that every task generates logs and documents in the code. The gap was structural: task definitions did not require those artifacts, the application has no structured logging, and no task evidence package had been produced.
 
-The first two packages now exist: T-001 verified and T-002 implemented. The next task is **T-003**; the next code exemplar remains **T-005**, not 37 retroactive documents.
+The first three packages now exist: T-001/T-002 verified and T-003 implemented. The next task is **T-004**; the next code exemplar remains **T-005**, not 37 retroactive documents.
 
 ---
 
@@ -206,6 +206,6 @@ The first two packages now exist: T-001 verified and T-002 implemented. The next
 - The task plan, project execution plan and this report are committed.
 - [`tasks/evidence/README.md`](../tasks/evidence/README.md) defines the required evidence package and status model.
 - [`tasks/README.md`](../tasks/README.md) requires the package for every task.
-- **T-001 is `verified`; T-002 is `implemented`, pending review.** Verified count: **1/37**.
-- No application code, logging or task implementation was changed by this framework or the T-001/T-002 evidence.
+- **T-001 and T-002 are `verified`; T-003 is `implemented`, pending review.** Verified count: **2/37**.
+- No application code, logging or task implementation was changed by this framework or the T-001/T-002/T-003 evidence.
 - T-005 remains the recommended first **code** exemplar, but its implementation package must wait for explicit authorization and T-003.
