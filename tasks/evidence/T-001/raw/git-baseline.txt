@@ -1,0 +1,14 @@
+Baseline captured: 2026-11-08T13:38:11.4018226-03:00
+Branch: docs/t-001-baseline
+Base commit: f69cf7bdf562aac4e8546ba92447470cf271f738
+Base commit subject: Merge pull request #2 from acamposve/docs/task-evidence-framework
+Main commit: f69cf7bdf562aac4e8546ba92447470cf271f738
+Task specs: 37
+Evidence packages: 1
+
+Pull requests:
+2	docs: add task evidence framework and validation report	docs/task-evidence-framework	MERGED	2026-11-08T16:23:28Z
+1	feat: bootstrap ÁVILA ERP docs, architecture baseline and R1 vertical slice	feature/r1-production-skeleton	MERGED	2026-11-08T15:54:03Z
+
+Application logging search (src/*.cs):
+No matches for ILogger|LogInformation|LogError|Serilog|OpenTelemetry|ActivitySource|Meter
