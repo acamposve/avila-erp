@@ -1,0 +1,7 @@
+Captured: 2026-11-08T13:37:58.6019445-03:00
+OS: Microsoft Windows 10.0.26300
+PowerShell: 5.1.26100.9818
+dotnet: 10.0.403
+docker: Docker version 29.9.2, build a82e528
+PostgreSQL: postgres:18-alpine via Testcontainers
+Timezone: America/Buenos_Aires (host); business date: America/Caracas
