@@ -10,8 +10,9 @@ Línea base documental **v1.0** (2026-11-08). Todos los documentos están en esp
 3. [Modelo de negocio](product/business-model.md)
 4. [Alcance funcional](product/functional-scope.md)
 5. [Roadmap](product/roadmap.md)
-6. [PRD](requirements/PRD.md)
-7. [Decisiones abiertas](decisions/README.md)
+6. [Plan de ejecución del proyecto](project-execution-plan.md)
+7. [PRD](requirements/PRD.md)
+8. [Decisiones abiertas](decisions/README.md)
 
 ### Para arquitectura y desarrollo
 1. [AGENTS.md](../AGENTS.md) (reglas obligatorias)
@@ -52,6 +53,7 @@ Línea base documental **v1.0** (2026-11-08). Todos los documentos están en esp
 | [product/target-market.md](product/target-market.md) | Segmentos, dolores, competencia, canales | Hipótesis de mercado |
 | [product/functional-scope.md](product/functional-scope.md) | Alcance por dominio y release | Aprobado como línea base |
 | [product/roadmap.md](product/roadmap.md) | Secuencia de releases, riesgos, criterios de salida | Aprobado como línea base |
+| [project-execution-plan.md](project-execution-plan.md) | Secuencia de ejecución, dependencias y compuertas del proyecto | Propuesta de ejecución; sin fechas |
 | [requirements/PRD.md](requirements/PRD.md) | Objetivos, usuarios, casos de uso, flujos, reglas | Aprobado como línea base |
 | [requirements/functional-requirements.md](requirements/functional-requirements.md) | Catálogo `MÓD-NNN` con release y prioridad | Aprobado como línea base |
 | [requirements/non-functional-requirements.md](requirements/non-functional-requirements.md) | RNF verificables (`NFR-CAT-NNN`) | Aprobado como línea base |
@@ -94,6 +96,7 @@ Línea base documental **v1.0** (2026-11-08). Todos los documentos están en esp
 | [backlog/releases.md](../backlog/releases.md) | Contenido y criterios de salida por release | Aprobado como línea base |
 | [backlog/sprint-backlog.md](../backlog/sprint-backlog.md) | Sprint 0 y siguientes, historias iniciales | Vivo |
 | [documentation-review.md](documentation-review.md) | Hallazgos, contradicciones resueltas, pendientes | Vivo |
+| [tasks-validation.md](tasks-validation.md) | Validación de logs y documentos por tarea (`T-001`…`T-037`) | Hallazgos abiertos |
 
 ## 3. Reglas de mantenimiento
 
