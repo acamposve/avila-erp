@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `docs/t-003-hardening-backlog`
 - **Commit base:** `ab30745` (`Merge pull request #5`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `c7716b0`
+- **PR:** [#6](https://github.com/acamposve/avila-erp/pull/6)
 - **Entorno:** local Windows; documentación, sin cambios de entorno
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
