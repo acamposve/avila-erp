@@ -23,7 +23,7 @@ Por tanto, el primer trabajo es contrastar el estado del código y las pruebas a
 
 | Fase | Resultado | Condición para avanzar |
 |---|---|---|
-| 0. Preparar y cerrar bloqueos | Línea base técnica reconciliada, responsables y decisiones bloqueantes identificados | Decisiones de R1 resueltas; trabajo preparado según Ready |
+| 0. Preparar y cerrar bloqueos | Línea base técnica reconciliada, responsables y decisiones bloqueantes identificados | Decisiones de R1 resueltas o con pendiente explícita; trabajo preparado según Ready |
 | 1. R1 — ÁVILA Core | Plataforma multi-tenant segura, operable y auditable | G1: criterios de salida de R1 cumplidos y aislamiento verificado |
 | 2. R2 — ÁVILA Comercial | Ciclo comercial y fiscal operable para un piloto | G2: piloto y validación fiscal externa documentados |
 | 3. R3 — ÁVILA Finance | Contabilidad, tesorería y fiscalidad completa | G3: conciliación y cierre mensual validados |
@@ -39,9 +39,11 @@ El orden refleja dependencias, no fechas ni una obligación de trabajar en paral
 
 1. Verificar qué historias del [sprint backlog](../backlog/sprint-backlog.md) y qué pruebas del scaffold están realmente implementadas y pasan.
 2. Confirmar responsables, capacidad, entornos, evidencia requerida y procedimiento de escalamiento para dependencias externas.
-3. Resolver los bloqueos de R1: `DEC-001` (cloud/región), `DEC-003` (identidad) y `DEC-008` (residencia/retención), según [decisiones abiertas](decisions/README.md).
+3. Resolver los bloqueos de R1: `DEC-003` (identidad) está aprobada; `DEC-001` (cloud) queda en DigitalOcean + Terraform con región pendiente; `DEC-008` (retención) queda aprobada técnicamente con validación legal pendiente, según [decisiones abiertas](decisions/README.md).
 4. Convertir los hallazgos de hardening en historias vinculadas a requisitos, pruebas y evidencia. Priorizar coordinación transaccional, contexto tenant/RLS, cobertura de tablas `platform`, concurrencia de numeración y procedimiento de migraciones bajo RLS.
 5. Reconciliar la dependencia de R5 respecto de R3 en roadmap, releases y criterios de salida; mantenerla bloqueada hasta que la documentación sea consistente.
+
+**Responsables y capacidad (2026-11-08):** @acamposve asume la propiedad de las decisiones de Arquitectura, Seguridad, Operaciones y Legal para R1. La capacidad comprometida aún no está cuantificada; no se fijan fechas ni sprints por suposición. `DEC-001` mantiene la región pendiente y `DEC-008` la validación legal.
 
 **Salida:** backlog listo, bloqueos explícitos con dueño y una línea base de estado contrastada con el repositorio. No se inicia trabajo dependiente de decisiones abiertas como si estas estuvieran aprobadas.
 
