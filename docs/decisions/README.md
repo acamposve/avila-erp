@@ -26,7 +26,7 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 
 | ID | Decisión | Contexto | Opciones | Recomendación | Dueño | Bloquea | Estado |
 |---|---|---|---|---|---|---|---|
-| DEC-001 | Proveedor cloud y región primaria | Latencia desde Venezuela, costo, residencia de datos | Azure Brazil South / AWS us-east-1 o sa-east-1 / proveedor local | Región cercana con soporte de PostgreSQL administrado; validar latencia y residencia | Arquitectura + Operaciones | R1 | **Aprobada (DigitalOcean + Terraform); región pendiente** |
+| DEC-001 | Proveedor cloud y región primaria | Latencia desde Venezuela, costo, residencia de datos | Azure Brazil South / AWS us-east-1 o sa-east-1 / DigitalOcean Droplet / proveedor local | Región cercana con soporte de PostgreSQL administrado; validar latencia y residencia | Arquitectura + Operaciones | R1 | **Aprobada (DigitalOcean + Terraform); región pendiente** |
 | DEC-002 | Medio de emisión fiscal | Nuevos medios digitales y fin de la obligatoriedad de máquina fiscal (ver [SRC-001](../compliance/regulatory-sources.md)) | Proveedor autorizado / imprenta digital / portal SENIAT / máquina fiscal | Integrar por adaptador con un proveedor autorizado; no construir emisión propia | Producto + Legal | R2 | **Pendiente** |
 | DEC-003 | Estrategia de identidad | Usuarios multi-organización, MFA, futuro SSO | Identidad propia / proveedor externo (Auth0, Entra) | Identidad propia con estándares abiertos y SSO futuro | Arquitectura + Seguridad | R1 | **Aprobada: identidad propia con estándares abiertos** |
 | DEC-004 | Almacenamiento documental | PDFs, adjuntos, evidencias | S3-compatible / disco de VM / base de datos | Objeto S3-compatible con URLs firmadas y cifrado | Arquitectura | R2 | **Pendiente** |
@@ -51,7 +51,7 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 
 | ID | Resolución registrada | Dueño | Evidencia / pendiente |
 |---|---|---|---|
-| `DEC-001` | **DigitalOcean Droplet**, aprovisionado con **Terraform**. La región primaria queda pendiente de fijar y medir latencia; no se creó infraestructura. | @acamposve | Región y prueba de latencia pendientes antes de producción |
+| `DEC-001` | **DigitalOcean Droplet**, aprovisionado con **Terraform**. La región primaria queda pendiente; `nyc3` es la candidata inicial por cercanía, sujeta a prueba de latencia. No se creó infraestructura. | @acamposve | Región y prueba de latencia pendientes antes de producción |
 | `DEC-003` | **Identidad propia con estándares abiertos**: usuarios, membresías multi-organización, MFA, sesiones y futuro SSO OIDC. Sin proveedor externo en R1. | @acamposve | Implementación en T-006; no se autoaprueba código |
 | `DEC-008` | **Retención y residencia por tipo de dato y jurisdicción**. La política técnica queda aprobada; la validación legal sigue pendiente. | @acamposve | Validación legal antes de R2; no se inventan plazos |
 
