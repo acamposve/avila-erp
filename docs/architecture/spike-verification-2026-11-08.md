@@ -118,7 +118,7 @@ The schema is **not** a production migration. It exists to verify mechanisms bef
 | P1-06 Platform RLS | **Verified for current schema** | T-09/T-09b passed; production inventory pending |
 | P1-07 Numbering | **Mechanism verified; production pending** | T-10/T-11/T-11b passed at 10k; migration pending |
 | P1-08 Cutover | **Mechanism verified; production pending** | T-12 passed with simplified dataset |
-| P1-09 R5 dependency | **Document corrected** | Roadmap/releases now say R5 depends on R3; review pending |
+| P1-09 R5 dependency | **Review delivered** | [T-004 review](r5-r3-dependency-review.md); one roadmap table and T-13 remain pending |
 
 **No P1 is closed by this document.** The evidence covers mechanisms and the current test schema, not production implementation.
 

@@ -1,7 +1,7 @@
 # T-003 — Verification
 
 **Task:** [T-003 — Refinar trabajo de hardening](../../T-003-hardening-backlog.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #6 merged 2026-11-08 (`93bd224`).
 **Date:** 2026-11-08
 
 ## 1. Acceptance criteria
@@ -78,4 +78,4 @@
 
 ## 8. Conclusion
 
-T-003 meets its acceptance criteria: the hardening work is mapped to stories, ADRs, tests, owners and dependencies, and spike evidence is explicitly separated from production. No finding is closed. The next task is **T-004**, and **T-005** remains the first code task.
+T-003 meets its acceptance criteria: the hardening work is mapped to stories, ADRs, tests, owners and dependencies, and spike evidence is explicitly separated from production. No finding is closed. It is **verified**. The next task is **T-004**, and **T-005** remains the first code task.

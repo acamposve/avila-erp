@@ -59,7 +59,7 @@ flowchart LR
 | `AUD-P1-06` RLS de `platform` | Clasificación tenant/global/infra; políticas y roles; introspección del esquema | [ADR-007 §2.5](../decisions/ADR-007-transaction-and-tenant-context.md#25-rls-en-tablas-de-negocio-y-platform) | Spike T-09/T-09b passed; production inventory pending | T-09, T-09b |
 | `AUD-P1-07` `branch_id` en numeración | `scope_type`/`scope_id` no nulo, unicidad por ámbito; alternativa sucursal obligatoria | [ADR-008 §2.6](../decisions/ADR-008-concurrency-by-aggregate.md#26-numeración-documental) | Spike T-10/T-11/T-11b passed at 10k; migration pending | T-10, T-11, T-11b |
 | `AUD-P1-08` Cutover R2→R3 | Apertura híbrida, partidas abiertas vinculadas, conciliación, activación | [ADR-009 §2.7](../decisions/ADR-009-accounting-and-cutover.md#27-apertura-contable-al-activar-r3) | Spike T-12 passed; production pending | T-12 |
-| `AUD-P1-09` R5→R3 | Declarar dependencia R3 o retirar `NOM-008` de R5 | Plan §7 `D-04` | Aprobada; verificación documental pendiente | T-13 (revisión documental) |
+| `AUD-P1-09` R5→R3 | Declarar dependencia R3 o retirar `NOM-008` de R5 | Plan §7 `D-04` | Revisión T-004 entregada; corrección de tabla y T-13 pendientes | T-13 (revisión documental) |
 
 ### 3.2 P2 con impacto directo
 
@@ -290,7 +290,7 @@ Ver [ADR-009 §2.7](../decisions/ADR-009-accounting-and-cutover.md#27-apertura-c
 | `P1-06` `platform` | T-09 y T-09b pasan; introspección cubre `platform`; 0 tablas tenant sin política | Test + script de introspección | **T-09/T-09b passed; production inventory pending** |
 | `P1-07` Numeración | T-10 y T-11 pasan; sin `NULL` ambiguo; sin duplicados | Test + migración | **T-10/T-11/T-11b passed at 10k; migration pending** |
 | `P1-08` Cutover | T-12 pasa; apertura conciliada; sin duplicados; activación | Test + reporte de conciliación | **T-12 passed; production pending** |
-| `P1-09` R5 | `D-04` aprobada y roadmap/releases actualizados; T-13 documental | Documento + revisión | **Decisión aprobada; verificación pendiente** |
+| `P1-09` R5 | `D-04` aprobada y roadmap/releases actualizados; T-13 documental | Documento + revisión | **Revisión T-004 entregada; tabla R5 y T-13 pendientes** |
 
 **Regla:** un P1 no se marca cerrado si solo existe el ADR. Se exige decisión aprobada, implementación y evidencia de prueba.
 

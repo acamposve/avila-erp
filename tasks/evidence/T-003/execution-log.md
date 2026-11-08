@@ -7,9 +7,11 @@
 - **Rama:** `docs/t-003-hardening-backlog`
 - **Commit base:** `ab30745` (`Merge pull request #5`)
 - **Commit de evidencia:** `c7716b0`
-- **PR:** [#6](https://github.com/acamposve/avila-erp/pull/6)
+- **PR:** [#6](https://github.com/acamposve/avila-erp/pull/6) — fusionado
+- **Aprobación:** @acamposve, 2026-11-08
+- **Merge commit:** `93bd224`
 - **Entorno:** local Windows; documentación, sin cambios de entorno
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -29,7 +31,7 @@
 - Los 9 P1 siguen **abiertos**: el spike no se declara producción.
 - Los 5 P2 sin impacto directo quedan fuera y requieren plan propio.
 - El mapa completo está en [hardening-refinement.md](../../../docs/architecture/hardening-refinement.md).
-- T-003 queda `implemented`; la revisión humana decide el paso a `verified`.
+- T-003 queda **`verified`**: aprobado y fusionado en PR #6 (`93bd224`).
 
 ## Bloqueos registrados
 
@@ -40,7 +42,7 @@
 | `P1-08` cutover | @acamposve + contabilidad | `D-02` y dataset R2 pendientes |
 | `P2-11` backfill | @acamposve | T-16 no ejecutada |
 | Capacidad de ejecución | @acamposve | No cuantificada |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 
