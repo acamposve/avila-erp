@@ -26,14 +26,14 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 
 | ID | Decisión | Contexto | Opciones | Recomendación | Dueño | Bloquea | Estado |
 |---|---|---|---|---|---|---|---|
-| DEC-001 | Proveedor cloud y región primaria | Latencia desde Venezuela, costo, residencia de datos | Azure Brazil South / AWS us-east-1 o sa-east-1 / proveedor local | Región cercana con soporte de PostgreSQL administrado; validar latencia y residencia | Arquitectura + Operaciones | R1 | **Pendiente** |
+| DEC-001 | Proveedor cloud y región primaria | Latencia desde Venezuela, costo, residencia de datos | Azure Brazil South / AWS us-east-1 o sa-east-1 / proveedor local | Región cercana con soporte de PostgreSQL administrado; validar latencia y residencia | Arquitectura + Operaciones | R1 | **Aprobada (DigitalOcean + Terraform); región pendiente** |
 | DEC-002 | Medio de emisión fiscal | Nuevos medios digitales y fin de la obligatoriedad de máquina fiscal (ver [SRC-001](../compliance/regulatory-sources.md)) | Proveedor autorizado / imprenta digital / portal SENIAT / máquina fiscal | Integrar por adaptador con un proveedor autorizado; no construir emisión propia | Producto + Legal | R2 | **Pendiente** |
-| DEC-003 | Estrategia de identidad | Usuarios multi-organización, MFA, futuro SSO | Identidad propia / proveedor externo (Auth0, Entra) | Identidad propia con estándares abiertos y SSO futuro | Arquitectura + Seguridad | R1 | **Pendiente** (propuesta en [security.md](../architecture/security.md)) |
+| DEC-003 | Estrategia de identidad | Usuarios multi-organización, MFA, futuro SSO | Identidad propia / proveedor externo (Auth0, Entra) | Identidad propia con estándares abiertos y SSO futuro | Arquitectura + Seguridad | R1 | **Aprobada: identidad propia con estándares abiertos** |
 | DEC-004 | Almacenamiento documental | PDFs, adjuntos, evidencias | S3-compatible / disco de VM / base de datos | Objeto S3-compatible con URLs firmadas y cifrado | Arquitectura | R2 | **Pendiente** |
 | DEC-005 | Moneda, redondeo y redenominación | Operación multimoneda y posibles cambios de escala | Escala fija / escala por versión de moneda | Escala por versión de moneda (ADR-004); ratificación de negocio | Producto + Contabilidad | R2 | **Resuelta técnicamente**, ratificación pendiente |
 | DEC-006 | Planes, precios y empaquetado | Modelo comercial | Por usuario / por plan / híbrido | Validar con pilotos antes de publicar | Dirección + Producto | Lanzamiento R2 | **Pendiente** |
 | DEC-007 | Retenciones de IVA e ISLR | Cálculo, comprobantes y libros | Implementar por regla configurable / diferir a R3 | Regla configurable con validación de especialista; R3 para comprobantes | Fiscal + Producto | R2 parcial / R3 | **Pendiente de validación legal** |
-| DEC-008 | Retención y residencia de datos | Plazos legales y expectativas del cliente | Retención única / por tipo de dato y jurisdicción | Política por tipo de dato, revisada por legal | Legal + Seguridad | R1/R2 | **Pendiente** |
+| DEC-008 | Retención y residencia de datos | Plazos legales y expectativas del cliente | Retención única / por tipo de dato y jurisdicción | Política por tipo de dato, revisada por legal | Legal + Seguridad | R1/R2 | **Aprobada técnicamente; validación legal pendiente** |
 | DEC-009 | Integración bancaria | Conciliación y pagos | API bancaria / archivo / ambos | Archivo en R3; API cuando exista oferta | Producto + Operaciones | R3 | **Pendiente** |
 | DEC-010 | Emisión fiscal offline en POS | Legalidad y contingencia | Emisión diferida / contingencia física / bloquear venta | Validar con especialista antes de R4 | Legal + Producto | R4 | **Pendiente de validación legal** |
 | DEC-011 | Fórmulas laborales | Prestaciones, utilidades, vacaciones, aportes | Fórmulas internas / motor configurable | Motor configurable con parámetros versionados y validación externa | Laboral + Producto | R5 | **Pendiente de validación legal** |
@@ -47,6 +47,22 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 | DEC-019 | Base y momento de liquidación de comisiones | Comisión al facturar o al cobrar | Al facturar / al cobrar / mixto | Validar con ventas; por defecto al cobrar para reducir riesgo | Producto + Comercial | R2 | **Pendiente** |
 | DEC-020 | Política de anulación de comprobantes fiscales | Anulación administrativa vs nota de crédito | Solo nota de crédito / anulación validada | Solo reversión documentada hasta validación legal | Legal + Fiscal | R2/R3 | **Pendiente de validación legal** |
 
+### 2.1 Resoluciones del 2026-11-08
+
+| ID | Resolución registrada | Dueño | Evidencia / pendiente |
+|---|---|---|---|
+| `DEC-001` | **DigitalOcean Droplet**, aprovisionado con **Terraform**. La región primaria queda pendiente de fijar y medir latencia; no se creó infraestructura. | @acamposve | Región y prueba de latencia pendientes antes de producción |
+| `DEC-003` | **Identidad propia con estándares abiertos**: usuarios, membresías multi-organización, MFA, sesiones y futuro SSO OIDC. Sin proveedor externo en R1. | @acamposve | Implementación en T-006; no se autoaprueba código |
+| `DEC-008` | **Retención y residencia por tipo de dato y jurisdicción**. La política técnica queda aprobada; la validación legal sigue pendiente. | @acamposve | Validación legal antes de R2; no se inventan plazos |
+
+Estas resoluciones desbloquean el diseño, pero **no** significan que R1 esté cerrado. `DEC-001` conserva la región abierta y `DEC-008` conserva la validación legal.
+
+### 2.2 Responsables y capacidad R1
+
+- **@acamposve** asume la propiedad de las decisiones de Arquitectura, Seguridad, Operaciones y Legal para R1, con validación externa cuando la materia lo exija.
+- **Capacidad comprometida:** no cuantificada todavía. No se fijan fechas ni sprints por suposición.
+- La aprobación de un PR no sustituye una validación legal, fiscal o contable.
+
 ## 3. Reglas para decisiones abiertas
 
 1. Toda decisión nueva se registra con ID secuencial, contexto, opciones, recomendación, dueño y release bloqueado.
@@ -57,7 +73,7 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 
 ## 4. Relación con los requisitos
 
-- `DEC-001`, `DEC-003`, `DEC-008` bloquean R1.
+- `DEC-001`, `DEC-003`, `DEC-008` bloquean R1. `DEC-003` está aprobada; `DEC-001` mantiene la región pendiente; `DEC-008` mantiene la validación legal pendiente.
 - `DEC-002`, `DEC-004`, `DEC-005`, `DEC-006`, `DEC-019` bloquean el lanzamiento de R2.
 - `DEC-007`, `DEC-009`, `DEC-012`, `DEC-018`, `DEC-020` bloquean partes de R3.
 - `DEC-010`, `DEC-013`, `DEC-017` bloquean R4.

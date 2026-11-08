@@ -142,6 +142,8 @@ Demostrar que ÁVILA ERP cumple sus requisitos, especialmente los que protegen d
 
 ## 10. CI/CD — compuertas
 
+> **Estado 2026-11-08:** el workflow base [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) cubre build, pruebas y migraciones limpias mediante Testcontainers. SAST, contrato, E2E, rendimiento y seguridad siguen pendientes y no se declaran cubiertos por este workflow.
+
 | Etapa | Debe pasar |
 |---|---|
 | Build | Compilación sin warnings críticos |
