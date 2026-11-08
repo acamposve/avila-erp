@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `docs/t-001-t-002-closeout`
 - **Commit base:** `da808d1` (`Merge pull request #4`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `e637c8a`
+- **PR:** [#5](https://github.com/acamposve/avila-erp/pull/5)
 - **Entorno:** local Windows; documentación y revisión, sin cambios de entorno
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
