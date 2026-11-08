@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `docs/t-001-baseline`
 - **Commit base:** `f69cf7b` (`Merge pull request #2`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `2fddc6c`
+- **PR:** [#3](https://github.com/acamposve/avila-erp/pull/3)
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
