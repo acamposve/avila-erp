@@ -71,6 +71,7 @@ Verificar que la documentación maestra sea internamente consistente, trazable y
 | F-20 | R6 prometía consolidación fuera de alcance e incluía `INT-004`/`INT-008` de releases previos | [roadmap.md](product/roadmap.md), [epics.md](../backlog/epics.md), [releases.md](../backlog/releases.md) | Consolidación marcada fuera de alcance; integraciones acotadas | Resuelto |
 | F-21 | `POS-R-12` prohibía persistir datos locales, incluida la cola offline pendiente | [point-of-sale.md](domain/point-of-sale.md) | Regla aclarada: solo se conserva la cola cifrada hasta reconciliar | Resuelto |
 | F-22 | `FAC-R-04` no consideraba la suma de notas de crédito parciales | [billing.md](domain/billing.md) | Invariante ajustada al acumulado | Resuelto |
+| F-23 | La tabla resumen del roadmap declara R5 depende de `R1, R2`, pero releases, diagrama, `NOM-008` y `AC-NOM-04` exigen R3 | [roadmap.md](product/roadmap.md) | Propuesta T-004: cambiar la tabla a `R1, R2, R3`; no se modificó el alcance | **Pendiente de aprobación** |
 
 ## 5. Estado de consistencia
 
