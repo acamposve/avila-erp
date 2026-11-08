@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `docs/t-004-r5-dependency`
 - **Commit base:** `93bd224` (`Merge pull request #6`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `4d335c7`
+- **PR:** [#7](https://github.com/acamposve/avila-erp/pull/7)
 - **Entorno:** local Windows; documentación, sin cambios de entorno
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
