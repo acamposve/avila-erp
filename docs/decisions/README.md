@@ -57,6 +57,8 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 
 Estas resoluciones desbloquean el diseño, pero **no** significan que R1 esté cerrado. `DEC-001` conserva la región abierta y `DEC-008` conserva la validación legal.
 
+**Evidencia de cierre T-002:** [execution-log](../../tasks/evidence/T-002/execution-log.md) · [verification](../../tasks/evidence/T-002/verification.md) · [decision-record](../../tasks/evidence/T-002/decision-record.md).
+
 ### 2.2 Responsables y capacidad R1
 
 - **@acamposve** asume la propiedad de las decisiones de Arquitectura, Seguridad, Operaciones y Legal para R1, con validación externa cuando la materia lo exija.
