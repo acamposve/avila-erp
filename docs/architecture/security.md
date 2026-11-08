@@ -45,6 +45,8 @@ Riesgos específicos del dominio:
 - **Invitaciones:** token firmado, expiración, un solo uso, aceptación con verificación de correo.
 - **SSO (R6):** OIDC/SAML por organización, con mapeo de roles y aprovisionamiento SCIM.
 
+> **Implementación T-006 (2026-11-08):** la primera rebanada usa **sesiones opacas del lado del servidor**: token aleatorio de 256 bits, solo se persiste SHA-256, expiración de 8 h y revocación inmediata; el secreto TOTP se cifra con AES-GCM usando una clave fuera del repositorio. JWT de acceso corto + refresh rotativo sigue siendo el objetivo para la API pública y requiere un ADR antes de sustituir este mecanismo. No se implementó recuperación de contraseña ni notificación de bloqueo.
+
 ## 4. Autorización
 
 - **Modelo:** RBAC con permisos granulares y alcance (tenant, empresa, sucursal, almacén).
@@ -172,10 +174,11 @@ Canal privado de reporte: definido en `CONTRIBUTING.md` (responsable de segurida
 
 ## 13. Pendientes
 
-- `DEC-003`: identidad y MFA.
+- `DEC-003`: aprobada (identidad propia); el ADR del stack HTTP/JWT frente a sesiones opacas sigue pendiente.
 - `DEC-008`: retención y residencia.
 - Base legal de tratamiento de datos personales: **PENDIENTE DE VALIDACIÓN LEGAL**.
 - Asignación del responsable de seguridad: `PENDIENTE`.
+- Recuperación de contraseña, notificación de bloqueo y rate limiting HTTP: pendientes.
 
 ## 14. Documentos relacionados
 
