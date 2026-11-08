@@ -126,6 +126,15 @@ CREATE POLICY tenant_isolation ON billing.invoices
 - Las políticas se crean en la misma migración que la tabla; una tabla sin política es un error de CI.
 - Las vistas y funciones expuestas respetan RLS o usan `security_invoker`.
 
+### 4.4 Implementación T-005
+
+- `platform.tenants` es una tabla **global**: no tiene `tenant_id` y no se concede a `avila_app`; se protege por privilegios, no por política de tenant.
+- `platform.tenant_settings` es tenant-scoped y tiene RLS forzada por `app.tenant_id`.
+- `avila_app` recibe solo los permisos de las tablas de negocio y de `platform.tenant_settings`; no es owner y no tiene `BYPASSRLS`.
+- El backfill se ejecuta **por tenant**, con una UoW y transacción por tenant; no usa estado ambiental compartido ni `BYPASSRLS`.
+- El middleware `TenantUnitOfWorkMiddleware` abre la UoW de `/api`; la identidad (T-006) debe resolver `ITenantContext` antes de exponer endpoints de negocio.
+- Evidencia: 19 pruebas de producción, introspección RLS, pool sin GUC residual y rollback inyectado.
+
 ## 5. Aislamiento en almacenamiento y caché
 
 ### Archivos
@@ -227,8 +236,8 @@ stateDiagram-v2
 
 ## 13. Decisiones y pendientes
 
-- `DEC-008`: retención y residencia de datos.
-- `DEC-001`: región cloud.
+- `DEC-008`: aprobada técnicamente (retención por tipo de dato y jurisdicción); validación legal pendiente.
+- `DEC-001`: DigitalOcean + Terraform aprobado; región y latencia pendientes.
 - Tenant dedicado: `PLT-006` (R6).
 - Ver [ADR-003](../decisions/ADR-003-multi-tenancy.md).
 

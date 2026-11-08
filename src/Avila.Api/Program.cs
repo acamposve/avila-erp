@@ -1,3 +1,4 @@
+using Avila.Api.Tenancy;
 using Avila.Application;
 using Avila.Modules.Administration;
 using Avila.Modules.Administration.Contracts;
@@ -7,11 +8,10 @@ using Avila.Modules.Inventory;
 using Avila.Modules.Inventory.Contracts;
 using Avila.Modules.Sales;
 using Avila.Modules.Sales.Contracts;
-using Avila.Platform.Tenancy;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IUnitOfWorkFactory, TenantUnitOfWorkFactory>();
+builder.Services.AddAvilaTenancy();
 builder.Services.AddScoped<IAdministrationModule, AdministrationModule>();
 builder.Services.AddScoped<IInventoryModule, InventoryModule>();
 builder.Services.AddScoped<ISalesModule, SalesModule>();
@@ -20,6 +20,12 @@ builder.Services.AddScoped<SalesFlowService>();
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();
+
+// Business endpoints must carry a tenant resolved by identity (T-006).
+// The hook is ready; no business endpoint is exposed in this slice.
+app.UseWhen(
+    context => context.Request.Path.StartsWithSegments("/api"),
+    branch => branch.UseTenantUnitOfWork());
 
 app.MapHealthChecks("/health");
 app.MapGet("/", () => Results.Ok(new

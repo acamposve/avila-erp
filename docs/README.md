@@ -93,7 +93,7 @@ Línea base documental **v1.0** (2026-11-08). Todos los documentos están en esp
 | [architecture/spike-verification-2026-11-08.md](architecture/spike-verification-2026-11-08.md) | Evidencia T-01…T-19 (19 pruebas) sobre PostgreSQL 18 | Spike verificado; producción pendiente |
 | [architecture/r1-vertical-slice.md](architecture/r1-vertical-slice.md) | Esqueleto de producción, migraciones y flujo R1 | Scaffold verificado; endpoints/auth pendientes |
 | [architecture/hardening-refinement.md](architecture/hardening-refinement.md) | Refinamiento P1/P2 por historia, ADR, prueba y dueño | T-003 verificado |
-| [architecture/r5-r3-dependency-review.md](architecture/r5-r3-dependency-review.md) | Revisión de coherencia R5→R3 y propuesta F-23 | T-004 implementado; revisión pendiente |
+| [architecture/r5-r3-dependency-review.md](architecture/r5-r3-dependency-review.md) | Revisión de coherencia R5→R3 y propuesta F-23 | T-004 verificado; F-23 pendiente |
 | [backlog/epics.md](../backlog/epics.md) | Epics por release | Aprobado como línea base |
 | [backlog/releases.md](../backlog/releases.md) | Contenido y criterios de salida por release | Aprobado como línea base |
 | [backlog/sprint-backlog.md](../backlog/sprint-backlog.md) | Sprint 0 y siguientes, historias iniciales | Vivo |

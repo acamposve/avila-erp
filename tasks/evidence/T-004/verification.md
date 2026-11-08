@@ -1,7 +1,7 @@
 # T-004 — Verification
 
 **Task:** [T-004 — Revisar coherencia de la dependencia R5→R3](../../T-004-r5-dependency.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #7 merged 2026-11-08 (`ab71fa5`).
 **Date:** 2026-11-08
 
 ## 1. Acceptance criteria
@@ -71,4 +71,4 @@ Option B — removing `NOM-008` and accounting criteria from R5 — would be a s
 
 ## 7. Conclusion
 
-T-004 meets its acceptance criteria: it identifies the contradiction, cites the current decision, and produces a one-line correction proposal without changing scope. `AUD-P1-09` remains open until the correction is approved, applied and verified by T-13.
+T-004 meets its acceptance criteria: it identifies the contradiction, cites the current decision, and produces a one-line correction proposal without changing scope. It is **verified**. `AUD-P1-09` remains open until the correction is approved, applied and verified by T-13.
