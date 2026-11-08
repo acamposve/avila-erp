@@ -43,7 +43,7 @@ Tasks whose purpose is a decision, review or gate may substitute a decision reco
 | F-01 | **At validation time, no task had a committed execution log.** | No `tasks/evidence/`, `logs/` or per-task log file existed. T-001 now has one; 1/37. Root `test-output*.log` files are ignored and not task-specific. |
 | F-02 | **At validation time, no task had a task-specific output document in code.** | `tasks/T-*.md` are inputs, not evidence. T-001 now has `verification.md` and `code-map.md`; 1/37. |
 | F-03 | **The application has no structured logging/observability.** | Zero matches for `ILogger`, `Serilog`, `OpenTelemetry`, `ActivitySource` or `Meter` in `src/`. |
-| F-04 | **Only 11 tasks have partial code; 6 had docs/decision material; 20 have not started; 1 (T-001) is now implemented.** | See matrix. |
+| F-04 | **At baseline: 11 tasks had partial code, 6 had docs/decision material (including T-001), and 20 had not started. T-001 has since moved to implemented; 5 remain docs-only.** | See matrix. |
 | F-05 | **The task plan was not committed at validation time.** | `tasks/` and `docs/project-execution-plan.md` were untracked; this change adds them to Git. `docs/README.md` was modified. |
 | F-06 | **The original task definitions did not require a log artifact or code document.** | The new [`tasks/evidence/README.md`](../tasks/evidence/README.md) now requires `execution-log.md`, `verification.md` and `code-map.md`; T-001 is the first package. |
 | F-07 | **Tests are not mapped to task IDs.** | 21 tests pass, but no test class or `dotnet test` filter references `T-0xx`. |
