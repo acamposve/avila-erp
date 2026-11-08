@@ -2,6 +2,7 @@ using Avila.Modules.Administration;
 using Avila.Modules.Billing;
 using Avila.Modules.Inventory;
 using Avila.Modules.Sales;
+using Avila.Platform.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Testcontainers.PostgreSql;
@@ -27,7 +28,7 @@ public sealed class ProductionFixture : IAsyncLifetime
         {
             await connection.OpenAsync();
             await using var schemas = new NpgsqlCommand(
-                "CREATE SCHEMA IF NOT EXISTS admin; CREATE SCHEMA IF NOT EXISTS inventory; CREATE SCHEMA IF NOT EXISTS sales; CREATE SCHEMA IF NOT EXISTS billing;",
+                "CREATE SCHEMA IF NOT EXISTS admin; CREATE SCHEMA IF NOT EXISTS inventory; CREATE SCHEMA IF NOT EXISTS sales; CREATE SCHEMA IF NOT EXISTS billing; CREATE SCHEMA IF NOT EXISTS platform;",
                 connection);
             await schemas.ExecuteNonQueryAsync();
         }
@@ -52,6 +53,11 @@ public sealed class ProductionFixture : IAsyncLifetime
             await billing.Database.MigrateAsync();
         }
 
+        await using (var platform = new PlatformDbContext(Options<PlatformDbContext>(AdminConnectionString, "platform")))
+        {
+            await platform.Database.MigrateAsync();
+        }
+
         await using (var connection = new NpgsqlConnection(AdminConnectionString))
         {
             await connection.OpenAsync();
@@ -59,8 +65,19 @@ public sealed class ProductionFixture : IAsyncLifetime
                 """
                 CREATE ROLE avila_app LOGIN PASSWORD 'avila_app_pw' NOSUPERUSER NOBYPASSRLS;
                 GRANT CONNECT ON DATABASE avila TO avila_app;
-                GRANT USAGE ON SCHEMA admin, inventory, sales, billing TO avila_app;
-                GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA admin, inventory, sales, billing TO avila_app;
+                GRANT USAGE ON SCHEMA admin, inventory, sales, billing, platform TO avila_app;
+                GRANT SELECT, INSERT, UPDATE, DELETE ON
+                    admin.companies,
+                    admin.parties,
+                    inventory.items,
+                    sales.quotes,
+                    sales.quote_lines,
+                    sales.orders,
+                    sales.order_lines,
+                    billing.invoice_drafts,
+                    billing.invoice_draft_lines,
+                    platform.tenant_settings
+                TO avila_app;
                 """,
                 connection);
             await command.ExecuteNonQueryAsync();

@@ -1,0 +1,10 @@
+Captured: 2026-11-08T15:13:00.6004899-03:00
+Branch: feature/t-005-tenancy-uow
+Base commit: ab71fa5aeeba1e5e8817227687e938bf8c4b9f20
+Base subject: Merge pull request #7 from acamposve/docs/t-004-r5-dependency
+Production tests: 19
+Spike tests: 19
+Total: 38
+Platform migration: 20261108180733_Initial
+PR #7: merged at ab71fa5
+No shared environment changes

@@ -7,9 +7,11 @@
 - **Rama:** `docs/t-004-r5-dependency`
 - **Commit base:** `93bd224` (`Merge pull request #6`)
 - **Commit de evidencia:** `4d335c7`
-- **PR:** [#7](https://github.com/acamposve/avila-erp/pull/7)
+- **PR:** [#7](https://github.com/acamposve/avila-erp/pull/7) — fusionado
+- **Aprobación:** @acamposve, 2026-11-08
+- **Merge commit:** `ab71fa5`
 - **Entorno:** local Windows; documentación, sin cambios de entorno
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -28,7 +30,7 @@
 - La decisión `D-04` está aprobada; la opción coherente es **añadir R3**, no retirar `NOM-008`.
 - Se registró `F-23` en [documentation-review.md](../../../docs/documentation-review.md) como **pendiente de aprobación**.
 - No se modificó el roadmap ni el alcance.
-- T-004 queda `implemented`; la corrección de la tabla y `T-13` siguen pendientes.
+- T-004 queda **`verified`**: aprobado y fusionado en PR #7 (`ab71fa5`).
 
 ## Bloqueos registrados
 
@@ -37,7 +39,7 @@
 | Aprobación de la corrección de `roadmap.md §2` | @acamposve | Pendiente |
 | `T-13` verificación documental | @acamposve | Pendiente |
 | R5 depende de R3 y G3 | @acamposve | Explícito y bloqueado |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 

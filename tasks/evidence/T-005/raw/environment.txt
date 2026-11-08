@@ -1,0 +1,8 @@
+Captured: 2026-11-08T15:12:44.2580018-03:00
+Branch: feature/t-005-tenancy-uow
+Base commit: ab71fa5aeeba1e5e8817227687e938bf8c4b9f20
+OS: Microsoft Windows 10.0.26300
+dotnet: 10.0.403
+docker: Docker version 29.9.2, build a82e528
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 19 production
