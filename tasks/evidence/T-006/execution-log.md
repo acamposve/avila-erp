@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feature/t-006-identity`
 - **Commit base:** `0a5c4db` (`Merge pull request #8`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `1c113c2`
+- **PR:** [#9](https://github.com/acamposve/avila-erp/pull/9)
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
