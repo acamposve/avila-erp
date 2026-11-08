@@ -33,6 +33,8 @@ Una historia entra a un sprint cuando:
 
 **Salida:** pipeline verde, base multi-tenant demostrable, sin funcionalidad de negocio.
 
+> **Refinamiento de hardening (T-003):** el mapa P1/P2 → historia → ADR → prueba → dueño está en [hardening-refinement.md](../docs/architecture/hardening-refinement.md). No crea IDs nuevos; refina las historias existentes y separa spike de producción.
+
 ## 3. R1 — Sprints 1 a 4
 
 ### Sprint 1 — Tenancy y organización

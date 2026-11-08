@@ -1,7 +1,7 @@
 # T-002 — Verification
 
 **Task:** [T-002 — Preparar decisiones bloqueantes de R1](../../T-002-decisions.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #5 merged 2026-11-08 (`ab30745`).
 **Date:** 2026-11-08
 
 ## 1. Acceptance criteria
@@ -65,4 +65,4 @@ Ownership is resolved. Capacity is not, so no sprint dates or delivery commitmen
 
 ## 8. Conclusion
 
-T-002 meets its acceptance criteria: every R1 decision has an owner, options, impact and status, and the remaining gaps are explicit. It is ready for human review. `DEC-001` region and `DEC-008` legal validation remain the substantive R1 blockers.
+T-002 meets its acceptance criteria: every R1 decision has an owner, options, impact and status, and the remaining gaps are explicit. It is **verified**. `DEC-001` region and `DEC-008` legal validation remain the substantive R1 blockers.

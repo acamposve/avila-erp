@@ -1,0 +1,1 @@
+{"mergeCommit":{"oid":"ab30745736926ae23712ca3d3a0775df41c16336"},"mergedAt":"2026-11-08T17:01:51Z","number":5,"state":"MERGED","url":"https://github.com/acamposve/avila-erp/pull/5"}

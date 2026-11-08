@@ -1,8 +1,9 @@
 # Plan de hardening arquitectónico — ÁVILA ERP
 
 **Versión:** 1.0 · **Fecha:** 2026-11-08
-**Estado:** Decisiones aprobadas técnicamente el 2026-11-08; implementación y verificación pendientes. No hay código de producto. `D-02`, `D-03` y `D-14` siguen sujetas a validación contable antes de R3.
+**Estado:** Decisiones aprobadas técnicamente el 2026-11-08; implementación de producción parcial (scaffold R1) y ningún P1 cerrado. `D-02`, `D-03` y `D-14` siguen sujetas a validación contable antes de R3.
 **Fuente:** [Auditoría independiente](independent-architecture-audit.md)
+**Refinamiento por historia:** [hardening-refinement.md](hardening-refinement.md)
 **Alcance:** cierre de los 9 hallazgos P1 y de los P2 con impacto directo en transacciones, tenancy y contabilidad.
 
 ---
