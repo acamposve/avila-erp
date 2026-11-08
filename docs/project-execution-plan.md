@@ -23,7 +23,7 @@ Por tanto, el primer trabajo es contrastar el estado del código y las pruebas a
 
 | Fase | Resultado | Condición para avanzar |
 |---|---|---|
-| 0. Preparar y cerrar bloqueos | Línea base técnica reconciliada, responsables y decisiones bloqueantes identificados | Decisiones de R1 resueltas; trabajo preparado según Ready |
+| 0. Preparar y cerrar bloqueos | Línea base técnica reconciliada, responsables y decisiones bloqueantes identificados | Decisiones de R1 resueltas o con pendiente explícita; trabajo preparado según Ready |
 | 1. R1 — ÁVILA Core | Plataforma multi-tenant segura, operable y auditable | G1: criterios de salida de R1 cumplidos y aislamiento verificado |
 | 2. R2 — ÁVILA Comercial | Ciclo comercial y fiscal operable para un piloto | G2: piloto y validación fiscal externa documentados |
 | 3. R3 — ÁVILA Finance | Contabilidad, tesorería y fiscalidad completa | G3: conciliación y cierre mensual validados |
