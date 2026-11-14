@@ -1,0 +1,10 @@
+Captured: 2026-11-14T17:12:39.8406880-03:00
+Branch: feature/t-009-numbering-idempotency
+Base commit: e0302c7dec11875da73d0b8490e6e2ab325c4c8c
+Base subject: Merge pull request #11 from acamposve/feature/t-008-authorization-audit
+Platform migration: 20261114200618_AddDocumentNumberingAndIdempotency
+Spike tests: 19
+Production tests: 42
+Total: 61
+PR #11: merged at e0302c7
+No shared environment changes

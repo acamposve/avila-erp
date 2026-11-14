@@ -39,7 +39,7 @@
 | Refinamiento | Historia existente | Hallazgos | ADR | Pruebas | Depende de | Criterio de cierre | Dueño | Evidencia actual | Producción |
 |---|---|---|---|---|---|---|---|---|---|
 | UoW, tenant, RLS y `platform` | `US-PLT-002` / T-005 | P1-03, P1-05, P1-06, P2-10, P2-11 | ADR-007 | T-04, T-07, T-07b, T-08, T-09, T-09b, T-16 | T-002, T-003, DEC-003; módulos de producción | Una conexión/transacción por solicitud; `set_config(..., true)`; RLS forzada en negocio y `platform`; sin GUC residual; rollback cruzado; backfill bajo RLS; contratos versionados | @acamposve | Spike T-04/T-07/T-08/T-09/T-09b + 19 pruebas de producción | UoW, middleware, RLS 4 esquemas + `platform.tenant_settings`, roles y backfill; inventario `platform` completo pendiente |
-| Numeración e idempotencia | `US-ADM-006` / T-009 | P1-07, P2-13 | ADR-006, ADR-008 | T-10, T-11, T-11b, T-18 | UoW/T-005; autorización; `D-09` | 10.000 emisiones únicas y sin huecos; ámbitos empresa/sucursal aislados; rollback no consume; misma clave = un efecto; cuerpo distinto = 409 | @acamposve | Spike T-10/T-11/T-11b/T-18; producción con números GUID | No: los números de cotización/pedido son marcadores |
+| Numeración e idempotencia | `US-ADM-006` / T-009 | P1-07, P2-13 | ADR-006, ADR-008 | T-10, T-11, T-11b, T-18 | UoW/T-005; autorización; `D-09` | 10.000 emisiones únicas y sin huecos; ámbitos empresa/sucursal aislados; rollback no consume; misma clave = un efecto; cuerpo distinto = 409 | @acamposve | Spike T-10/T-11/T-11b/T-18 + 42 pruebas de producción | Cotización/pedido numerados; idempotencia en sales-flow; numeración fiscal pendiente |
 | Stock, kardex y transferencias | `US-INV-004`, `US-INV-005` / T-014, T-015 | P1-01 | ADR-008 | T-01, T-02 | `US-INV-001`, `US-INV-003`; migraciones RLS | Dos ventas de 8 sobre 10: una falla; saldo 2; un movimiento; transferencias sin deadlock y total conservado; kardex = saldo | @acamposve | Spike T-01/T-02; producción solo ítems | No: no hay stock, kardex ni costos de producción |
 | Pagos y aplicaciones | `US-TES-002`, `US-TES-003` / T-020 | P1-02 | ADR-008 | T-03 | `US-FAC-001`; CxC; caja | Dos cobros de 60 sobre 100: uno confirma, saldo 40; suma de aplicaciones ≤ saldo en 100 repeticiones; trigger/constraint | @acamposve | Spike T-03 una vez | No: no hay tesorería de producción |
 | Crédito y reserva de pedido | `US-VEN-002` / T-017 | P1-01, P2-12 | ADR-008 | T-01, T-17 | Stock/T-015; cliente; configuración de crédito | Pedidos concurrentes no exceden stock ni límite; fallo determinista; reserva y liberación trazables | @acamposve | Sin evidencia de crédito | No: pedido de producción no reserva stock ni valida crédito |
@@ -64,7 +64,7 @@
 | P1-04 Posting | `US-FAC-001` | T-05, T-06, T-15 | T-05/T-06/T-15 passed | No | **Abierto** |
 | P1-05 RLS/pool | `US-PLT-002` | T-07, T-07b, T-08 | T-07/T-08 passed; T-07b N/A | Production pool/RLS tests | **Abierto** |
 | P1-06 `platform` | `US-PLT-002` | T-09, T-09b | T-09/T-09b passed | `platform.tenant_settings` production; inventory pending | **Abierto** |
-| P1-07 Numeración | `US-ADM-006` | T-10, T-11, T-11b | T-10/T-11/T-11b passed | Marcadores GUID | **Abierto** |
+| P1-07 Numeración | `US-ADM-006` | T-10, T-11, T-11b | T-10/T-11/T-11b passed | Production sequences + 10k test | **Abierto** |
 | P1-08 Cutover | `US-CON-004` (propuesta) | T-12 | T-12 simplificado | No | **Abierto** |
 | P1-09 R5→R3 | T-004 | T-13 documental | Roadmap/releases corregidos | T-13 pendiente | **Abierto** |
 
@@ -83,7 +83,7 @@
 | P2-10 Contratos API/eventos | `US-PLT-002`, T-015 | Pruebas de contrato | Spike T-15; sin contrato de producción | **Abierto** |
 | P2-11 Backfill RLS | `US-INT-001` | T-16 | No ejecutada | **Abierto** |
 | P2-12 Crédito | `US-VEN-002` | T-17 | No ejecutada | **Abierto** |
-| P2-13 Idempotencia | `US-ADM-006` | T-18 | Spike T-18 | **Abierto** |
+| P2-13 Idempotencia | `US-ADM-006` | T-18 | Spike T-18 | Production sales-flow idempotency | **Abierto** |
 | P2-14 Cierre | `US-CON-003` | T-19 | Spike T-19 | **Abierto** |
 
 ---

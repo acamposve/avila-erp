@@ -57,7 +57,7 @@ flowchart LR
 | `AUD-P1-04` Posting síncrono vs. outbox | Evento de dominio en proceso antes del commit; outbox solo post-commit; `posting_key` único | [ADR-009 §2.2–2.6](../decisions/ADR-009-accounting-and-cutover.md#22-confirmación-operativa-vs-contabilización) | Spike T-05/T-06/T-15 passed; production pending | T-05, T-06, T-15 |
 | `AUD-P1-05` RLS/pooling/lecturas | Transacción por solicitud, `set_config(..., true)`, sin `SET` de sesión, Npgsql pooling; PgBouncer solo con prueba | [ADR-007 §2.3–2.4](../decisions/ADR-007-transaction-and-tenant-context.md#23-contexto-de-tenant-en-postgresql) | Production T-07/T-08 passed; T-07b N/A (`D-07`); closure review pending | T-07, T-07b, T-08 |
 | `AUD-P1-06` RLS de `platform` | Clasificación tenant/global/infra; políticas y roles; introspección del esquema | [ADR-007 §2.5](../decisions/ADR-007-transaction-and-tenant-context.md#25-rls-en-tablas-de-negocio-y-platform) | Production `platform.tenant_settings` RLS; full inventory pending | T-09, T-09b |
-| `AUD-P1-07` `branch_id` en numeración | `scope_type`/`scope_id` no nulo, unicidad por ámbito; alternativa sucursal obligatoria | [ADR-008 §2.6](../decisions/ADR-008-concurrency-by-aggregate.md#26-numeración-documental) | Spike T-10/T-11/T-11b passed at 10k; migration pending | T-10, T-11, T-11b |
+| `AUD-P1-07` `branch_id` en numeración | `scope_type`/`scope_id` no nulo, unicidad por ámbito; alternativa sucursal obligatoria | [ADR-008 §2.6](../decisions/ADR-008-concurrency-by-aggregate.md#26-numeración-documental) | Production sequences + 10k test; fiscal numbering/migration pending | T-10, T-11, T-11b |
 | `AUD-P1-08` Cutover R2→R3 | Apertura híbrida, partidas abiertas vinculadas, conciliación, activación | [ADR-009 §2.7](../decisions/ADR-009-accounting-and-cutover.md#27-apertura-contable-al-activar-r3) | Spike T-12 passed; production pending | T-12 |
 | `AUD-P1-09` R5→R3 | Declarar dependencia R3 o retirar `NOM-008` de R5 | Plan §7 `D-04` | Revisión T-004 verificada; corrección de tabla y T-13 pendientes | T-13 (revisión documental) |
 
@@ -288,7 +288,7 @@ Ver [ADR-009 §2.7](../decisions/ADR-009-accounting-and-cutover.md#27-apertura-c
 | `P1-04` Posting | T-05, T-06 y T-15 pasan; un asiento por factura; outbox no postea | Test + consulta de posting_key | **T-05/T-06/T-15 passed; production pending** |
 | `P1-05` RLS/pool | T-07, T-07b y T-08 pasan; sin GUC residual | Test + `current_setting` | **T-07/T-08 production passed; T-07b N/A** |
 | `P1-06` `platform` | T-09 y T-09b pasan; introspección cubre `platform`; 0 tablas tenant sin política | Test + script de introspección | **T-09/T-09b production; full inventory pending** |
-| `P1-07` Numeración | T-10 y T-11 pasan; sin `NULL` ambiguo; sin duplicados | Test + migración | **T-10/T-11/T-11b passed at 10k; migration pending** |
+| `P1-07` Numeración | T-10 y T-11 pasan; sin `NULL` ambiguo; sin duplicados | Test + migración | **T-10/T-11/T-11b production 10k; fiscal numbering pending** |
 | `P1-08` Cutover | T-12 pasa; apertura conciliada; sin duplicados; activación | Test + reporte de conciliación | **T-12 passed; production pending** |
 | `P1-09` R5 | `D-04` aprobada y roadmap/releases actualizados; T-13 documental | Documento + revisión | **Revisión T-004 entregada; tabla R5 y T-13 pendientes** |
 
