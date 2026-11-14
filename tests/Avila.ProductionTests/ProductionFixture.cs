@@ -81,6 +81,7 @@ public sealed class ProductionFixture : IAsyncLifetime
                 GRANT USAGE ON SCHEMA identity TO avila_identity;
                 GRANT USAGE ON SCHEMA platform TO avila_platform;
                 GRANT SELECT, INSERT, UPDATE ON platform.tenants TO avila_platform;
+                GRANT SELECT, INSERT, UPDATE ON platform.tenant_lifecycle TO avila_platform;
                 GRANT SELECT, INSERT, UPDATE, DELETE ON
                     admin.companies,
                     admin.branches,
@@ -102,6 +103,9 @@ public sealed class ProductionFixture : IAsyncLifetime
                 GRANT SELECT, INSERT ON platform.setting_versions TO avila_app;
                 GRANT SELECT, INSERT, UPDATE ON platform.approval_rules TO avila_app;
                 GRANT SELECT, INSERT, UPDATE ON platform.approval_requests TO avila_app;
+                GRANT SELECT ON platform.tenant_lifecycle TO avila_app;
+                GRANT SELECT, INSERT, UPDATE ON platform.feature_flags TO avila_app;
+                GRANT SELECT, INSERT, UPDATE ON platform.usage_counters TO avila_app;
                 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA identity TO avila_identity;
                 """,
                 connection);

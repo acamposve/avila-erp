@@ -1,0 +1,10 @@
+Captured: 2026-11-14T17:43:05.5993872-03:00
+Branch: feature/t-011-platform-lifecycle
+Base commit: 2f6353c7912f12e067607d97cedfeb3f20ad6df8
+Base subject: Merge pull request #13 from acamposve/feature/t-010-configuration-approvals
+Platform migration: 20261114203657_AddTenantLifecycleLimitsFlags
+Spike tests: 19
+Production tests: 50
+Total: 69
+PR #13: merged at 2f6353c
+No shared environment changes

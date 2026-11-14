@@ -1,7 +1,7 @@
 # T-010 — Verification
 
 **Task:** [T-010 — Parámetros versionados y aprobaciones](../../T-010-configuration.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #13 merged 2026-11-14 (`2f6353c`).
 **Date:** 2026-11-14
 
 ## 1. Acceptance criteria
@@ -69,4 +69,4 @@ Production suite: **47/47**. Full suite: **66/66**.
 
 ## 7. Conclusion
 
-T-010 meets its acceptance criteria at the service/database level: effective-dated immutable parameters, organization preferences, type/amount approval rules, segregation of duties, audit, and rejection without approval are tested. It is ready for human review; HTTP, notifications and module integration remain open.
+T-010 meets its acceptance criteria at the service/database level: effective-dated immutable parameters, organization preferences, type/amount approval rules, segregation of duties, audit, and rejection without approval are tested. It is **verified**. HTTP, notifications and module integration remain open.

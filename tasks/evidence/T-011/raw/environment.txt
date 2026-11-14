@@ -1,0 +1,8 @@
+Captured: 2026-11-14T17:42:26.9423947-03:00
+Branch: feature/t-011-platform-lifecycle
+Base commit: 2f6353c7912f12e067607d97cedfeb3f20ad6df8
+OS: Microsoft Windows 10.0.26300
+dotnet: 11.0.100
+docker: Docker version 29.9.3, build 5457199
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 50 production

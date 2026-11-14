@@ -268,6 +268,39 @@ namespace Avila.Platform.Migrations
                     b.ToTable("document_sequences", "platform");
                 });
 
+            modelBuilder.Entity("Avila.Platform.Persistence.FeatureFlag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enabled");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("key");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "Key")
+                        .IsUnique();
+
+                    b.ToTable("feature_flags", "platform");
+                });
+
             modelBuilder.Entity("Avila.Platform.Persistence.IdempotencyKeyRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -429,6 +462,43 @@ namespace Avila.Platform.Migrations
                     b.ToTable("support_access_grants", "platform");
                 });
 
+            modelBuilder.Entity("Avila.Platform.Persistence.TenantLifecycle", b =>
+                {
+                    b.Property<Guid>("TenantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.Property<string>("PlanCode")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("plan_code");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("character varying(24)")
+                        .HasColumnName("status");
+
+                    b.Property<DateTimeOffset?>("SuspendedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("suspended_at");
+
+                    b.Property<string>("SuspensionReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("suspension_reason");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("TenantId");
+
+                    b.ToTable("tenant_lifecycle", "platform");
+                });
+
             modelBuilder.Entity("Avila.Platform.Persistence.TenantRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -493,6 +563,43 @@ namespace Avila.Platform.Migrations
                         .IsUnique();
 
                     b.ToTable("tenant_settings", "platform");
+                });
+
+            modelBuilder.Entity("Avila.Platform.Persistence.UsageCounter", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<long>("LimitValue")
+                        .HasColumnType("bigint")
+                        .HasColumnName("limit_value");
+
+                    b.Property<string>("Resource")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("resource");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<long>("Used")
+                        .HasColumnType("bigint")
+                        .HasColumnName("used");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "Resource")
+                        .IsUnique();
+
+                    b.ToTable("usage_counters", "platform");
                 });
 #pragma warning restore 612, 618
         }

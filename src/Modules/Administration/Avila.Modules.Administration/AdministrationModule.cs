@@ -129,4 +129,45 @@ public sealed class AdministrationModule : IAdministrationModule
             party.IsCustomer,
             party.IsSupplier);
     }
+
+    public async Task<TenantExportDto> ExportAsync(
+        IUnitOfWork unitOfWork,
+        CancellationToken cancellationToken = default)
+    {
+        await using var context = new AdministrationDbContext(
+            unitOfWork.OptionsFor<AdministrationDbContext>("admin"));
+        unitOfWork.Enlist(context);
+
+        var companies = await context.Companies
+            .OrderBy(x => x.Name)
+            .Select(x => new CompanyExportDto(
+                x.Id,
+                x.Name,
+                x.TaxId,
+                x.FiscalAddress,
+                x.FiscalProfileComplete))
+            .ToListAsync(cancellationToken);
+
+        var branches = await context.Branches
+            .OrderBy(x => x.Code)
+            .Select(x => new BranchExportDto(
+                x.Id,
+                x.CompanyId,
+                x.Code,
+                x.Name,
+                x.IsActive))
+            .ToListAsync(cancellationToken);
+
+        var parties = await context.Parties
+            .OrderBy(x => x.Name)
+            .Select(x => new PartyExportDto(
+                x.Id,
+                x.Name,
+                x.TaxId,
+                x.IsCustomer,
+                x.IsSupplier))
+            .ToListAsync(cancellationToken);
+
+        return new TenantExportDto(unitOfWork.TenantId, companies, branches, parties);
+    }
 }
