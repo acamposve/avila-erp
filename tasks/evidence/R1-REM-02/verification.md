@@ -13,7 +13,7 @@
 | `avila_identity` isolated identity export grants | `identity.users` SELECT true; `admin.companies` false | **Pass** |
 | `avila_platform` minimal | `platform.tenants` UPDATE true; `admin.companies` false | **Pass** |
 | Testcontainers uses exact script | Fixture reads `AppContext.BaseDirectory/ops/postgres/roles.sql`; test asserts file exists | **Pass** |
-| No secrets in script | Script has no password; test-only credentials applied after | **Pass** |
+| No secrets in script | Script has no password; test credentials are generated per run and applied after bootstrap | **Pass** |
 | No RLS bypass | All three `rolsuper=false`, `rolbypassrls=false` | **Pass** |
 | Existing behavior preserved | Full suite 73/73 | **Pass** |
 

@@ -12,11 +12,20 @@ namespace Avila.ProductionTests;
 
 public sealed class ProductionFixture : IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder("postgres:18-alpine")
-        .WithDatabase("avila")
-        .WithUsername("postgres")
-        .WithPassword("postgres")
-        .Build();
+    private readonly string _adminPassword = Guid.NewGuid().ToString("N");
+    private readonly string _appPassword = Guid.NewGuid().ToString("N");
+    private readonly string _identityPassword = Guid.NewGuid().ToString("N");
+    private readonly string _platformPassword = Guid.NewGuid().ToString("N");
+    private readonly PostgreSqlContainer _container;
+
+    public ProductionFixture()
+    {
+        _container = new PostgreSqlBuilder("postgres:18-alpine")
+            .WithDatabase("avila")
+            .WithUsername("postgres")
+            .WithPassword(_adminPassword)
+            .Build();
+    }
 
     public string AdminConnectionString => _container.GetConnectionString();
     public string AppConnectionString { get; private set; } = string.Empty;
@@ -81,12 +90,13 @@ public sealed class ProductionFixture : IAsyncLifetime
             await using var roles = new NpgsqlCommand(rolesSql, connection);
             await roles.ExecuteNonQueryAsync();
 
-            // Test-only disposable credentials; the production roles.sql is password-free.
+            // Test-only disposable credentials; generated hex, no user input.
+            // The production roles.sql is password-free.
             await using var credentials = new NpgsqlCommand(
-                """
-                ALTER ROLE avila_app LOGIN PASSWORD 'avila_app_pw';
-                ALTER ROLE avila_identity LOGIN PASSWORD 'avila_identity_pw';
-                ALTER ROLE avila_platform LOGIN PASSWORD 'avila_platform_pw';
+                $"""
+                ALTER ROLE avila_app LOGIN PASSWORD '{_appPassword}';
+                ALTER ROLE avila_identity LOGIN PASSWORD '{_identityPassword}';
+                ALTER ROLE avila_platform LOGIN PASSWORD '{_platformPassword}';
                 """,
                 connection);
             await credentials.ExecuteNonQueryAsync();
@@ -95,7 +105,7 @@ public sealed class ProductionFixture : IAsyncLifetime
         var builder = new NpgsqlConnectionStringBuilder(AdminConnectionString)
         {
             Username = "avila_app",
-            Password = "avila_app_pw",
+            Password = _appPassword,
             MaxPoolSize = 5
         };
         AppConnectionString = builder.ConnectionString;
@@ -103,7 +113,7 @@ public sealed class ProductionFixture : IAsyncLifetime
         var identityBuilder = new NpgsqlConnectionStringBuilder(AdminConnectionString)
         {
             Username = "avila_identity",
-            Password = "avila_identity_pw",
+            Password = _identityPassword,
             MaxPoolSize = 5
         };
         IdentityConnectionString = identityBuilder.ConnectionString;
@@ -111,7 +121,7 @@ public sealed class ProductionFixture : IAsyncLifetime
         var platformBuilder = new NpgsqlConnectionStringBuilder(AdminConnectionString)
         {
             Username = "avila_platform",
-            Password = "avila_platform_pw",
+            Password = _platformPassword,
             MaxPoolSize = 5
         };
         PlatformAdminConnectionString = platformBuilder.ConnectionString;

@@ -27,7 +27,7 @@
 - `avila_identity` solo accede a `identity`; grants suficientes para la futura exportación de identidad.
 - `avila_platform` solo accede a `tenants` y `tenant_lifecycle`.
 - Auditoría: app puede SELECT/INSERT, no UPDATE/DELETE.
-- Testcontainers ejecuta exactamente `ops/postgres/roles.sql`; solo las credenciales desechables se asignan después.
+- Testcontainers ejecuta exactamente `ops/postgres/roles.sql`; solo las credenciales desechables se asignan después. Las credenciales de test son aleatorias por ejecución y no están en el repositorio.
 - El script es idempotente.
 - T-012 permanece cerrado; no se abre G1.
 
