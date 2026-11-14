@@ -16,7 +16,9 @@ public sealed record SalesFlowRequest(
     decimal UnitPrice,
     decimal TaxRate,
     decimal Quantity,
-    string Currency = "VES");
+    string Currency = "VES",
+    string? CompanyFiscalAddress = null,
+    bool CompleteFiscalProfile = false);
 
 public sealed record SalesFlowResult(
     Guid CompanyId,
@@ -69,7 +71,11 @@ public sealed class SalesFlowService
 
         var company = await _administration.CreateCompanyAsync(
             unitOfWork,
-            new CreateCompanyCommand(request.CompanyName, request.CompanyTaxId),
+            new CreateCompanyCommand(
+                request.CompanyName,
+                request.CompanyTaxId,
+                request.CompanyFiscalAddress,
+                request.CompleteFiscalProfile),
             cancellationToken);
 
         var party = await _administration.CreatePartyAsync(
@@ -115,7 +121,8 @@ public sealed class SalesFlowService
                         line.UnitPrice,
                         line.TaxRate))
                     .ToArray(),
-                order.Currency),
+                order.Currency,
+                company.FiscalProfileComplete),
             cancellationToken);
 
         await unitOfWork.CommitAsync(cancellationToken);

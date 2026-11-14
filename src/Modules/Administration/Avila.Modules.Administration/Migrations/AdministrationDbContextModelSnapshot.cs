@@ -22,6 +22,54 @@ namespace Avila.Modules.Administration.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Avila.Modules.Administration.Branch", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("address");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("code");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("company_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "CompanyId", "Code")
+                        .IsUnique();
+
+                    b.ToTable("branches", "admin");
+                });
+
             modelBuilder.Entity("Avila.Modules.Administration.Company", b =>
                 {
                     b.Property<Guid>("Id")
@@ -32,6 +80,15 @@ namespace Avila.Modules.Administration.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
+
+                    b.Property<string>("FiscalAddress")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("fiscal_address");
+
+                    b.Property<bool>("FiscalProfileComplete")
+                        .HasColumnType("boolean")
+                        .HasColumnName("fiscal_profile_complete");
 
                     b.Property<string>("Name")
                         .IsRequired()

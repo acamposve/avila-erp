@@ -14,7 +14,8 @@ public sealed record CreateInvoiceDraftCommand(
     Guid OrderId,
     Guid PartyId,
     IReadOnlyList<InvoiceDraftLineInput> Lines,
-    string Currency);
+    string Currency,
+    bool CompanyFiscalProfileComplete = false);
 
 public sealed record InvoiceDraftDto(
     Guid Id,

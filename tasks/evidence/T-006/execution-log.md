@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-006-identity`
 - **Commit base:** `0a5c4db` (`Merge pull request #8`)
 - **Commit de evidencia:** `1c113c2`
-- **PR:** [#9](https://github.com/acamposve/avila-erp/pull/9)
+- **PR:** [#9](https://github.com/acamposve/avila-erp/pull/9) — fusionado
+- **Aprobación:** @acamposve, 2026-11-14
+- **Merge commit:** `19e9db8`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -33,7 +35,7 @@
 - Sesión opaca: 256 bits; solo se persiste SHA-256; expiración 8 h.
 - Secreto TOTP cifrado con AES-GCM; clave fuera del repositorio.
 - Identidad aislada en `identity`; solo `avila_identity` tiene acceso; `avila_app` no.
-- T-006 queda `implemented`; no se declara ningún P1 cerrado.
+- T-006 queda **`verified`**: aprobado y fusionado en PR #9 (`19e9db8`).
 
 ## Bloqueos registrados
 
@@ -46,7 +48,7 @@
 | MFA obligatorio para owner/admin | T-006/T-008 | Pendiente de política y flujo de enrolamiento |
 | Gestión de la clave `Identity:MfaSecretKey` | Operaciones | Pendiente; no está en el repositorio |
 | Roles de producción | Operaciones | Solo Testcontainers |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 
