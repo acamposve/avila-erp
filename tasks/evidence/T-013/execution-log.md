@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `docs/t-013-r1-gate`
 - **Commit base:** `cae8bbd` (`Merge pull request #15`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `dc39217`
+- **PR:** [#16](https://github.com/acamposve/avila-erp/pull/16)
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
 - **Estado:** `implemented` — evidencia consolidada; **G1 permanece cerrado**
 - **Resultado del gate:** **NO-GO**
