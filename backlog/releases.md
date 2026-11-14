@@ -40,6 +40,8 @@ El contenido puede ajustarse; lo que no se ajusta sin decisión es la **calidad 
 - [ ] CI/CD con pruebas, migraciones y escaneo de seguridad.
 - [ ] ADR fundacionales aprobados.
 
+> **Estado 2026-11-14:** **G1 cerrado — NO-GO.** Matriz T-013: 3 PASS, 8 PARTIAL, 1 FAIL (exportación completa). La aprobación de un PR de tarea no abre G1 ni autoriza despliegue. Ver [matriz R1](../tasks/evidence/T-013/r1-gate-matrix.md).
+
 **No vendible de forma independiente.**
 
 ## 3. R2 — ÁVILA Comercial

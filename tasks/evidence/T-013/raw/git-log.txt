@@ -1,0 +1,20 @@
+cae8bbd (HEAD -> docs/t-013-r1-gate, origin/main, main) Merge pull request #15 from acamposve/feature/t-012-operations
+40a50b1 (origin/feature/t-012-operations, feature/t-012-operations) docs(t-012): record evidence commit and PR
+0a8e6ad feat(t-012): add observability, health checks and restore rehearsal
+4042d9c Merge pull request #14 from acamposve/feature/t-011-platform-lifecycle
+0ed66f5 (origin/feature/t-011-platform-lifecycle, feature/t-011-platform-lifecycle) docs(t-011): record evidence commit and PR
+efc1419 feat(t-011): add tenant lifecycle, limits, flags and export
+2f6353c Merge pull request #13 from acamposve/feature/t-010-configuration-approvals
+75dcd6a (origin/feature/t-010-configuration-approvals, feature/t-010-configuration-approvals) docs(t-010): record evidence commit and PR
+3a45710 feat(t-010): add versioned settings and approval workflows
+14ee40b Merge pull request #12 from acamposve/feature/t-009-numbering-idempotency
+24122e4 (origin/feature/t-009-numbering-idempotency, feature/t-009-numbering-idempotency) docs(t-009): record evidence commit and PR
+f6f1891 feat(t-009): add transactional numbering and idempotency
+e0302c7 Merge pull request #11 from acamposve/feature/t-008-authorization-audit
+64ab56c (origin/feature/t-008-authorization-audit, feature/t-008-authorization-audit) docs(t-008): record evidence commit and PR
+a56431f feat(t-008): add authorization, append-only audit and support access
+8262783 Merge pull request #10 from acamposve/feature/t-007-provisioning
+365479a (origin/feature/t-007-provisioning, feature/t-007-provisioning) docs(t-007): record evidence commit and PR
+2ff82b2 feat(t-007): provision organizations, branches and fiscal profile
+19e9db8 Merge pull request #9 from acamposve/feature/t-006-identity
+f47b5b5 (origin/feature/t-006-identity, feature/t-006-identity) docs(t-006): record evidence commit and PR

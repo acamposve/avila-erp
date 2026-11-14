@@ -1,7 +1,7 @@
 # T-012 — Verification
 
 **Task:** [T-012 — Operación, CI y recuperación](../../T-012-operations.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #15 merged 2026-11-14 (`cae8bbd`).
 **Date:** 2026-11-14
 
 ## 1. Acceptance criteria
@@ -58,4 +58,4 @@ Production suite: **53/53**. Full suite: **72/72**.
 
 ## 6. Conclusion
 
-T-012 meets the R1 operations scope at the local/documentation level: health, metrics, correlation logging, CI baseline, runbook, and a reproducible disposable restore rehearsal are in place. Alerts, tracing, security scanning and authorized production restore remain open; it is ready for human review.
+T-012 meets the R1 operations scope at the local/documentation level: health, metrics, correlation logging, CI baseline, runbook, and a reproducible disposable restore rehearsal are in place. Alerts, tracing, security scanning and authorized production restore remain open; it is **verified** as an R1 task, not as a production operations sign-off.
