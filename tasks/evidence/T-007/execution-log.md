@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-007-provisioning`
 - **Commit base:** `19e9db8` (`Merge pull request #9`)
 - **Commit de evidencia:** `2ff82b2`
-- **PR:** [#10](https://github.com/acamposve/avila-erp/pull/10)
+- **PR:** [#10](https://github.com/acamposve/avila-erp/pull/10) — fusionado
+- **Aprobación:** @acamposve, 2026-11-14
+- **Merge commit:** `8262783`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -28,7 +30,7 @@
 - El administrador acepta la invitación y recibe rol `owner`.
 - Una empresa con perfil fiscal incompleto bloquea el borrador de factura con `FISCAL_PROFILE_INCOMPLETE` y revierte el flujo completo.
 - `avila_platform` crea `platform.tenants`; `avila_app` no tiene acceso global.
-- T-007 queda `implemented`; no se declara ningún P1 cerrado.
+- T-007 queda **`verified`**: aprobado y fusionado en PR #10 (`8262783`).
 
 ## Bloqueos registrados
 
@@ -40,7 +42,7 @@
 | Actualización de perfil fiscal y sucursal | T-007+ | Solo alta; no update/soft-delete |
 | Preferencias versionadas | T-010 | Solo `locale` inicial; no versionado |
 | `avila_platform` en producción | Operaciones | Solo Testcontainers |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 

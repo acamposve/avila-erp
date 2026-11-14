@@ -58,6 +58,8 @@ Riesgos específicos del dominio:
 - **Verificación:** en el endpoint y en el caso de uso; nunca solo en la UI.
 - **Cambios de rol:** auditados, con notificación y revalidación de sesiones.
 
+> **Implementación T-008 (2026-11-14):** RBAC por plantillas (`owner`, `admin`, `member`) con denegación por defecto y scopes explícitos en `platform.access_scopes` para empresa/sucursal/almacén. El acceso de soporte usa `platform.support_access_grants` con ticket, justificación, expiración y solo lectura por defecto. `platform.audit_events` es append-only: trigger y grants impiden UPDATE/DELETE.
+
 ## 5. Protección de datos
 
 ### Clasificación
@@ -179,6 +181,8 @@ Canal privado de reporte: definido en `CONTRIBUTING.md` (responsable de segurida
 - Base legal de tratamiento de datos personales: **PENDIENTE DE VALIDACIÓN LEGAL**.
 - Asignación del responsable de seguridad: `PENDIENTE`.
 - Recuperación de contraseña, notificación de bloqueo y rate limiting HTTP: pendientes.
+- Catálogo definitivo de permisos y administración de roles personalizados: pendiente.
+- Auditoría de intentos denegados en transacción separada: pendiente.
 
 ## 14. Documentos relacionados
 

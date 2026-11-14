@@ -1,7 +1,7 @@
 # T-007 — Verification
 
 **Task:** [T-007 — Aprovisionamiento y maestros administrativos](../../T-007-provisioning.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #10 merged 2026-11-14 (`8262783`).
 **Date:** 2026-11-14
 
 ## 1. Acceptance criteria
@@ -73,4 +73,4 @@ The platform, tenant and identity stores use separate roles. This is a **staged 
 
 ## 8. Conclusion
 
-T-007 meets its acceptance criteria: two organizations are provisioned with company, branch, preference and admin invitation; branch RLS isolates them; an incomplete fiscal profile blocks invoice draft creation. It is ready for human review. The staged atomicity and HTTP authorization gaps must remain visible before production.
+T-007 meets its acceptance criteria: two organizations are provisioned with company, branch, preference and admin invitation; branch RLS isolates them; an incomplete fiscal profile blocks invoice draft creation. It is **verified**. The staged atomicity and HTTP authorization gaps must remain visible before production.
