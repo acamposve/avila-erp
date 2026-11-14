@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feature/t-010-configuration-approvals`
 - **Commit base:** `14ee40b` (`Merge pull request #12`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `3a45710`
+- **PR:** [#13](https://github.com/acamposve/avila-erp/pull/13)
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
