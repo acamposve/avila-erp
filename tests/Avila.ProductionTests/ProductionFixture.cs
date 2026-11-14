@@ -12,11 +12,20 @@ namespace Avila.ProductionTests;
 
 public sealed class ProductionFixture : IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder("postgres:18-alpine")
-        .WithDatabase("avila")
-        .WithUsername("postgres")
-        .WithPassword("postgres")
-        .Build();
+    private readonly string _adminPassword = Guid.NewGuid().ToString("N");
+    private readonly string _appPassword = Guid.NewGuid().ToString("N");
+    private readonly string _identityPassword = Guid.NewGuid().ToString("N");
+    private readonly string _platformPassword = Guid.NewGuid().ToString("N");
+    private readonly PostgreSqlContainer _container;
+
+    public ProductionFixture()
+    {
+        _container = new PostgreSqlBuilder("postgres:18-alpine")
+            .WithDatabase("avila")
+            .WithUsername("postgres")
+            .WithPassword(_adminPassword)
+            .Build();
+    }
 
     public string AdminConnectionString => _container.GetConnectionString();
     public string AppConnectionString { get; private set; } = string.Empty;
@@ -24,6 +33,12 @@ public sealed class ProductionFixture : IAsyncLifetime
     public string PlatformAdminConnectionString { get; private set; } = string.Empty;
     public string IdentityMfaKey { get; } = Convert.ToBase64String(
         System.Security.Cryptography.RandomNumberGenerator.GetBytes(32));
+
+    public static string RolesSqlPath => Path.Combine(
+        AppContext.BaseDirectory,
+        "ops",
+        "postgres",
+        "roles.sql");
 
     public async Task InitializeAsync()
     {
@@ -71,51 +86,26 @@ public sealed class ProductionFixture : IAsyncLifetime
         await using (var connection = new NpgsqlConnection(AdminConnectionString))
         {
             await connection.OpenAsync();
-            await using var command = new NpgsqlCommand(
-                """
-                CREATE ROLE avila_app LOGIN PASSWORD 'avila_app_pw' NOSUPERUSER NOBYPASSRLS;
-                CREATE ROLE avila_identity LOGIN PASSWORD 'avila_identity_pw' NOSUPERUSER NOBYPASSRLS;
-                CREATE ROLE avila_platform LOGIN PASSWORD 'avila_platform_pw' NOSUPERUSER NOBYPASSRLS;
-                GRANT CONNECT ON DATABASE avila TO avila_app, avila_identity, avila_platform;
-                GRANT USAGE ON SCHEMA admin, inventory, sales, billing, platform TO avila_app;
-                GRANT USAGE ON SCHEMA identity TO avila_identity;
-                GRANT USAGE ON SCHEMA platform TO avila_platform;
-                GRANT SELECT, INSERT, UPDATE ON platform.tenants TO avila_platform;
-                GRANT SELECT, INSERT, UPDATE ON platform.tenant_lifecycle TO avila_platform;
-                GRANT SELECT, INSERT, UPDATE, DELETE ON
-                    admin.companies,
-                    admin.branches,
-                    admin.parties,
-                    inventory.items,
-                    sales.quotes,
-                    sales.quote_lines,
-                    sales.orders,
-                    sales.order_lines,
-                    billing.invoice_drafts,
-                    billing.invoice_draft_lines,
-                    platform.tenant_settings
-                TO avila_app;
-                GRANT SELECT, INSERT ON platform.audit_events TO avila_app;
-                GRANT SELECT, INSERT ON platform.access_scopes TO avila_app;
-                GRANT SELECT, INSERT, UPDATE ON platform.support_access_grants TO avila_app;
-                GRANT SELECT, INSERT, UPDATE ON platform.document_sequences TO avila_app;
-                GRANT SELECT, INSERT, UPDATE ON platform.idempotency_keys TO avila_app;
-                GRANT SELECT, INSERT ON platform.setting_versions TO avila_app;
-                GRANT SELECT, INSERT, UPDATE ON platform.approval_rules TO avila_app;
-                GRANT SELECT, INSERT, UPDATE ON platform.approval_requests TO avila_app;
-                GRANT SELECT ON platform.tenant_lifecycle TO avila_app;
-                GRANT SELECT, INSERT, UPDATE ON platform.feature_flags TO avila_app;
-                GRANT SELECT, INSERT, UPDATE ON platform.usage_counters TO avila_app;
-                GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA identity TO avila_identity;
+            var rolesSql = await File.ReadAllTextAsync(RolesSqlPath);
+            await using var roles = new NpgsqlCommand(rolesSql, connection);
+            await roles.ExecuteNonQueryAsync();
+
+            // Test-only disposable credentials; generated hex, no user input.
+            // The production roles.sql is password-free.
+            await using var credentials = new NpgsqlCommand(
+                $"""
+                ALTER ROLE avila_app LOGIN PASSWORD '{_appPassword}';
+                ALTER ROLE avila_identity LOGIN PASSWORD '{_identityPassword}';
+                ALTER ROLE avila_platform LOGIN PASSWORD '{_platformPassword}';
                 """,
                 connection);
-            await command.ExecuteNonQueryAsync();
+            await credentials.ExecuteNonQueryAsync();
         }
 
         var builder = new NpgsqlConnectionStringBuilder(AdminConnectionString)
         {
             Username = "avila_app",
-            Password = "avila_app_pw",
+            Password = _appPassword,
             MaxPoolSize = 5
         };
         AppConnectionString = builder.ConnectionString;
@@ -123,7 +113,7 @@ public sealed class ProductionFixture : IAsyncLifetime
         var identityBuilder = new NpgsqlConnectionStringBuilder(AdminConnectionString)
         {
             Username = "avila_identity",
-            Password = "avila_identity_pw",
+            Password = _identityPassword,
             MaxPoolSize = 5
         };
         IdentityConnectionString = identityBuilder.ConnectionString;
@@ -131,7 +121,7 @@ public sealed class ProductionFixture : IAsyncLifetime
         var platformBuilder = new NpgsqlConnectionStringBuilder(AdminConnectionString)
         {
             Username = "avila_platform",
-            Password = "avila_platform_pw",
+            Password = _platformPassword,
             MaxPoolSize = 5
         };
         PlatformAdminConnectionString = platformBuilder.ConnectionString;

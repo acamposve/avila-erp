@@ -1,0 +1,6 @@
+Captured: 2026-11-14T18:20:29.4005318-03:00
+Branch: feat/r1-rem-02-postgres-roles
+Base commit: cae8bbd19ac2263cbdcdda66e2c5ae5eb664edb7
+Tests: 19 spike + 54 production
+Testcontainers: postgres:18-alpine
+Bootstrap: ops/postgres/roles.sql (same file in test fixture)
