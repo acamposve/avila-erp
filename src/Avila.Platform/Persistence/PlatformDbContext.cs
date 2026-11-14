@@ -56,6 +56,32 @@ public sealed class SupportAccessGrant
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
+public sealed class DocumentSequence
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string ScopeType { get; set; } = string.Empty;
+    public Guid ScopeId { get; set; }
+    public string DocumentType { get; set; } = string.Empty;
+    public string Prefix { get; set; } = string.Empty;
+    public long NextValue { get; set; } = 1;
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
+public sealed class IdempotencyKeyRecord
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string Key { get; set; } = string.Empty;
+    public string Operation { get; set; } = string.Empty;
+    public string RequestHash { get; set; } = string.Empty;
+    public string Status { get; set; } = "in_progress";
+    public string? ResponseJson { get; set; }
+    public int? StatusCode { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset? CompletedAt { get; set; }
+}
+
 /// <summary>
 /// Platform persistence. Tenant settings are tenant-scoped and forced RLS;
 /// the tenants table is global and must not be granted to the application role.
@@ -72,6 +98,8 @@ public sealed class PlatformDbContext : DbContext
     public DbSet<AccessScope> AccessScopes => Set<AccessScope>();
     public DbSet<AuditEvent> AuditEvents => Set<AuditEvent>();
     public DbSet<SupportAccessGrant> SupportAccessGrants => Set<SupportAccessGrant>();
+    public DbSet<DocumentSequence> DocumentSequences => Set<DocumentSequence>();
+    public DbSet<IdempotencyKeyRecord> IdempotencyKeys => Set<IdempotencyKeyRecord>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -142,6 +170,39 @@ public sealed class PlatformDbContext : DbContext
             entity.Property(x => x.RevokedAt).HasColumnName("revoked_at");
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
             entity.HasIndex(x => new { x.TenantId, x.SupportUserId, x.ExpiresAt });
+        });
+
+        modelBuilder.Entity<DocumentSequence>(entity =>
+        {
+            entity.ToTable("document_sequences", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.ScopeType).HasColumnName("scope_type").HasMaxLength(16);
+            entity.Property(x => x.ScopeId).HasColumnName("scope_id");
+            entity.Property(x => x.DocumentType).HasColumnName("document_type").HasMaxLength(32);
+            entity.Property(x => x.Prefix).HasColumnName("prefix").HasMaxLength(16);
+            entity.Property(x => x.NextValue).HasColumnName("next_value");
+            entity.Property(x => x.UpdatedAt).HasColumnName("updated_at");
+            entity.HasIndex(x => new { x.TenantId, x.ScopeType, x.ScopeId, x.DocumentType })
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<IdempotencyKeyRecord>(entity =>
+        {
+            entity.ToTable("idempotency_keys", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.Key).HasColumnName("key").HasMaxLength(200);
+            entity.Property(x => x.Operation).HasColumnName("operation").HasMaxLength(120);
+            entity.Property(x => x.RequestHash).HasColumnName("request_hash").HasMaxLength(128);
+            entity.Property(x => x.Status).HasColumnName("status").HasMaxLength(24);
+            entity.Property(x => x.ResponseJson).HasColumnName("response_json").HasColumnType("jsonb");
+            entity.Property(x => x.StatusCode).HasColumnName("status_code");
+            entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+            entity.Property(x => x.CompletedAt).HasColumnName("completed_at");
+            entity.HasIndex(x => new { x.TenantId, x.Operation, x.Key }).IsUnique();
         });
     }
 }

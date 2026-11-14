@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-008-authorization-audit`
 - **Commit base:** `8262783` (`Merge pull request #10`)
 - **Commit de evidencia:** `a56431f`
-- **PR:** [#11](https://github.com/acamposve/avila-erp/pull/11)
+- **PR:** [#11](https://github.com/acamposve/avila-erp/pull/11) — fusionado
+- **Aprobación:** @acamposve, 2026-11-14
+- **Merge commit:** `e0302c7`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -29,7 +31,7 @@
 - Auditoría con actor, tenant, antes/después, correlación y timestamp.
 - `platform.audit_events` es append-only: trigger y grants bloquean UPDATE/DELETE.
 - Acceso de soporte con ticket, justificación, expiración y solo lectura por defecto; otorgamiento/revocación auditados.
-- T-008 queda `implemented`; no se declara ningún P1 cerrado.
+- T-008 queda **`verified`**: aprobado y fusionado en PR #11 (`e0302c7`).
 
 ## Bloqueos registrados
 
@@ -41,7 +43,7 @@
 | Exportación/consulta de auditoría para auditor | T-008+ | Solo tabla y consulta ORM |
 | Operador de plataforma real para soporte | T-006/T-011 | `SupportUserId` sin rol de plataforma dedicado |
 | Roles/grants de producción | Operaciones | Solo Testcontainers |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 

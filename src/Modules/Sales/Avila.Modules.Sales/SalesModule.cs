@@ -1,4 +1,5 @@
 using Avila.Modules.Sales.Contracts;
+using Avila.Platform.Numbering;
 using Avila.Platform.Tenancy;
 using Avila.SharedKernel;
 using Microsoft.EntityFrameworkCore;
@@ -22,13 +23,20 @@ public sealed class SalesModule : ISalesModule
         unitOfWork.Enlist(context);
 
         var quoteId = Guid.NewGuid();
+        var quoteNumber = await DocumentNumberService.ReserveAsync(
+            unitOfWork,
+            DocumentScope.Company(command.CompanyId),
+            "quote",
+            "Q",
+            cancellationToken);
+
         var quote = new Quote
         {
             Id = quoteId,
             TenantId = unitOfWork.TenantId,
             CompanyId = command.CompanyId,
             PartyId = command.PartyId,
-            Number = $"Q-{quoteId:N}",
+            Number = quoteNumber,
             Status = "draft",
             Currency = command.Currency
         };
@@ -84,6 +92,13 @@ public sealed class SalesModule : ISalesModule
             ?? throw new DomainException($"Quote {command.QuoteId} was not found.");
 
         var orderId = Guid.NewGuid();
+        var orderNumber = await DocumentNumberService.ReserveAsync(
+            unitOfWork,
+            DocumentScope.Company(quote.CompanyId),
+            "order",
+            "O",
+            cancellationToken);
+
         var order = new Order
         {
             Id = orderId,
@@ -91,7 +106,7 @@ public sealed class SalesModule : ISalesModule
             CompanyId = quote.CompanyId,
             PartyId = quote.PartyId,
             QuoteId = quote.Id,
-            Number = $"O-{orderId:N}",
+            Number = orderNumber,
             Status = "confirmed",
             Subtotal = quote.Subtotal,
             TaxTotal = quote.TaxTotal,

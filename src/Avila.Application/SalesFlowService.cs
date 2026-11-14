@@ -2,6 +2,7 @@ using Avila.Modules.Administration.Contracts;
 using Avila.Modules.Billing.Contracts;
 using Avila.Modules.Inventory.Contracts;
 using Avila.Modules.Sales.Contracts;
+using Avila.Platform.Idempotency;
 using Avila.Platform.Tenancy;
 
 namespace Avila.Application;
@@ -18,7 +19,8 @@ public sealed record SalesFlowRequest(
     decimal Quantity,
     string Currency = "VES",
     string? CompanyFiscalAddress = null,
-    bool CompleteFiscalProfile = false);
+    bool CompleteFiscalProfile = false,
+    string? IdempotencyKey = null);
 
 public sealed record SalesFlowResult(
     Guid CompanyId,
@@ -68,6 +70,25 @@ public sealed class SalesFlowService
             connectionString,
             tenantId,
             cancellationToken);
+
+        IdempotencyLease? lease = null;
+        if (!string.IsNullOrWhiteSpace(request.IdempotencyKey))
+        {
+            var hash = IdempotencyService.HashRequest(request with { IdempotencyKey = null });
+            lease = await IdempotencyService.BeginAsync(
+                unitOfWork,
+                request.IdempotencyKey,
+                "sales-flow",
+                hash,
+                cancellationToken);
+
+            if (lease.IsReplay)
+            {
+                var replayed = IdempotencyService.DeserializeReplay<SalesFlowResult>(lease);
+                await unitOfWork.CommitAsync(cancellationToken);
+                return replayed;
+            }
+        }
 
         var company = await _administration.CreateCompanyAsync(
             unitOfWork,
@@ -125,9 +146,7 @@ public sealed class SalesFlowService
                 company.FiscalProfileComplete),
             cancellationToken);
 
-        await unitOfWork.CommitAsync(cancellationToken);
-
-        return new SalesFlowResult(
+        var result = new SalesFlowResult(
             company.Id,
             party.Id,
             item.Id,
@@ -138,5 +157,13 @@ public sealed class SalesFlowService
             order.TaxTotal,
             order.Total,
             order.Currency);
+
+        if (lease is not null)
+        {
+            await IdempotencyService.CompleteAsync(unitOfWork, lease, result, 201, cancellationToken);
+        }
+
+        await unitOfWork.CommitAsync(cancellationToken);
+        return result;
     }
 }

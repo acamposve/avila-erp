@@ -1,7 +1,7 @@
 # T-008 — Verification
 
 **Task:** [T-008 — Permisos, auditoría y soporte](../../T-008-authorization-audit.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #11 merged 2026-11-14 (`e0302c7`).
 **Date:** 2026-11-14
 
 ## 1. Acceptance criteria
@@ -80,4 +80,4 @@ A member needs an explicit `AccessScope` row (`company|branch|warehouse`) for sc
 
 ## 8. Conclusion
 
-T-008 meets its acceptance criteria at the service/database level: deny-by-default RBAC with scopes, tenant isolation, append-only audit with before/after/correlation, and time-boxed read-only support access are implemented and tested. It is ready for human review; HTTP enforcement and denied-attempt audit remain open.
+T-008 meets its acceptance criteria at the service/database level: deny-by-default RBAC with scopes, tenant isolation, append-only audit with before/after/correlation, and time-boxed read-only support access are implemented and tested. It is **verified**. HTTP enforcement and denied-attempt audit remain open.

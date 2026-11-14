@@ -1,0 +1,8 @@
+Captured: 2026-11-14T17:12:23.0735069-03:00
+Branch: feature/t-009-numbering-idempotency
+Base commit: e0302c7dec11875da73d0b8490e6e2ab325c4c8c
+OS: Microsoft Windows 10.0.26300
+dotnet: 11.0.100
+docker: Docker version 29.9.3, build 5457199
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 42 production
