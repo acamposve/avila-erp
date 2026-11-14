@@ -1,0 +1,5 @@
+Captured: 2026-11-14T18:51:56.3677833-03:00
+Branch: feat/r1-rem-05-export-registry
+Base commit: 005bd7066940196eeadf570df7e3c0974a2c3fe3
+Tests: 19 spike + 60 production (base main 54 + REM-05 6)
+Combined expectation after REM-03/04/05: 67 production / 86 total
