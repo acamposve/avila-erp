@@ -360,6 +360,43 @@ namespace Avila.Platform.Migrations
                     b.ToTable("idempotency_keys", "platform");
                 });
 
+            modelBuilder.Entity("Avila.Platform.Persistence.RlsPolicyRegistry", b =>
+                {
+                    b.Property<string>("TableSchema")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("table_schema");
+
+                    b.Property<string>("TableName")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
+                        .HasColumnName("table_name");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("IsRequired")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_required");
+
+                    b.Property<string>("PolicyName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
+                        .HasColumnName("policy_name");
+
+                    b.Property<string>("TenantColumn")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("tenant_column");
+
+                    b.HasKey("TableSchema", "TableName");
+
+                    b.ToTable("rls_policy_registry", "platform");
+                });
+
             modelBuilder.Entity("Avila.Platform.Persistence.SettingVersion", b =>
                 {
                     b.Property<Guid>("Id")

@@ -150,6 +150,16 @@ public sealed class UsageCounter
     public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
+public sealed class RlsPolicyRegistry
+{
+    public string TableSchema { get; set; } = string.Empty;
+    public string TableName { get; set; } = string.Empty;
+    public string TenantColumn { get; set; } = "tenant_id";
+    public string PolicyName { get; set; } = "tenant_isolation";
+    public bool IsRequired { get; set; } = true;
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
 /// <summary>
 /// Platform persistence. Tenant settings are tenant-scoped and forced RLS;
 /// the tenants table is global and must not be granted to the application role.
@@ -174,6 +184,7 @@ public sealed class PlatformDbContext : DbContext
     public DbSet<TenantLifecycle> TenantLifecycles => Set<TenantLifecycle>();
     public DbSet<FeatureFlag> FeatureFlags => Set<FeatureFlag>();
     public DbSet<UsageCounter> UsageCounters => Set<UsageCounter>();
+    public DbSet<RlsPolicyRegistry> RlsPolicyRegistry => Set<RlsPolicyRegistry>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -362,6 +373,18 @@ public sealed class PlatformDbContext : DbContext
             entity.Property(x => x.LimitValue).HasColumnName("limit_value");
             entity.Property(x => x.UpdatedAt).HasColumnName("updated_at");
             entity.HasIndex(x => new { x.TenantId, x.Resource }).IsUnique();
+        });
+
+        modelBuilder.Entity<RlsPolicyRegistry>(entity =>
+        {
+            entity.ToTable("rls_policy_registry", "platform");
+            entity.HasKey(x => new { x.TableSchema, x.TableName });
+            entity.Property(x => x.TableSchema).HasColumnName("table_schema").HasMaxLength(64);
+            entity.Property(x => x.TableName).HasColumnName("table_name").HasMaxLength(128);
+            entity.Property(x => x.TenantColumn).HasColumnName("tenant_column").HasMaxLength(64);
+            entity.Property(x => x.PolicyName).HasColumnName("policy_name").HasMaxLength(128);
+            entity.Property(x => x.IsRequired).HasColumnName("is_required");
+            entity.Property(x => x.CreatedAt).HasColumnName("created_at");
         });
     }
 }

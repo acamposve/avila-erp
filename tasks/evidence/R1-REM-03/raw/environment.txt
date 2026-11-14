@@ -1,0 +1,6 @@
+Captured: 2026-11-14T18:44:45.2916761-03:00
+Branch: feat/r1-rem-03-rls-audit
+Base commit: 005bd7066940196eeadf570df7e3c0974a2c3fe3
+Tests: 19 spike + 57 production
+Migration: 20261114214054_AddRlsPolicyRegistry
+PostgreSQL: postgres:18-alpine Testcontainers
