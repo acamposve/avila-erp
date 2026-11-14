@@ -1,0 +1,5 @@
+Captured: 2026-11-14T18:48:51.3589274-03:00
+Branch: feat/r1-rem-04-tenant-jobs
+Base commit: 005bd7066940196eeadf570df7e3c0974a2c3fe3
+Tests: 19 spike + 58 production (base main 54 + REM-04 4)
+PostgreSQL: postgres:18-alpine Testcontainers
