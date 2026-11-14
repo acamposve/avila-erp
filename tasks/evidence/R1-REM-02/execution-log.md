@@ -7,8 +7,8 @@
 - **Rama:** `feat/r1-rem-02-postgres-roles`
 - **Worktree:** `C:\proyectos\avila-erp-rem02`
 - **Commit base:** `cae8bbd`
-- **Commit de evidencia:** pendiente al redactar; ver PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `cd5f3f6`
+- **PR:** [#18](https://github.com/acamposve/avila-erp/pull/18)
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
 ## Comandos ejecutados
