@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `docs/r1-rem-01-adr-bundle`
 - **Commit base:** `cae8bbd`
-- **Commit de evidencia:** pendiente al redactar; ver PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `58438b7`
+- **PR:** [#17](https://github.com/acamposve/avila-erp/pull/17)
 - **Estado:** `implemented` — docs only; pendiente de revisión humana
 - **Alcance:** decisiones; no código, no migraciones, no despliegue
 
