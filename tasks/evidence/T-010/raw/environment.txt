@@ -1,0 +1,8 @@
+Captured: 2026-11-14T17:23:29.5836147-03:00
+Branch: feature/t-010-configuration-approvals
+Base commit: 14ee40bba47c673c944fa61001e7ec3243cd04ac
+OS: Microsoft Windows 10.0.26300
+dotnet: 11.0.100
+docker: Docker version 29.9.3, build 5457199
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 47 production

@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-009-numbering-idempotency`
 - **Commit base:** `e0302c7` (`Merge pull request #11`)
 - **Commit de evidencia:** `f6f1891`
-- **PR:** [#12](https://github.com/acamposve/avila-erp/pull/12)
+- **PR:** [#12](https://github.com/acamposve/avila-erp/pull/12) — fusionado
+- **Aprobación:** @acamposve, 2026-11-14
+- **Merge commit:** `14ee40b`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -29,7 +31,7 @@
 - Rollback no consume número.
 - Idempotency-Key persistida en la misma transacción; misma clave + mismo cuerpo replay; misma clave + cuerpo distinto → `IDEMPOTENCY_KEY_REUSED`.
 - Dos solicitudes concurrentes con la misma clave producen un solo efecto.
-- T-009 queda `implemented`; no se declara ningún P1 cerrado.
+- T-009 queda **`verified`**: aprobado y fusionado en PR #12 (`14ee40b`).
 
 ## Bloqueos registrados
 
@@ -40,7 +42,7 @@
 | Limpieza/retención de claves de idempotencia | Operaciones | Pendiente |
 | 10.000 simultáneos reales vs. 64 workers | @acamposve | Prueba de carga acotada; sin tuning de pool |
 | Idempotencia fuera de `sales-flow` | T-016/T-019/T-020 | Pendiente |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 

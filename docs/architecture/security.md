@@ -60,6 +60,8 @@ Riesgos específicos del dominio:
 
 > **Implementación T-008 (2026-11-14):** RBAC por plantillas (`owner`, `admin`, `member`) con denegación por defecto y scopes explícitos en `platform.access_scopes` para empresa/sucursal/almacén. El acceso de soporte usa `platform.support_access_grants` con ticket, justificación, expiración y solo lectura por defecto. `platform.audit_events` es append-only: trigger y grants impiden UPDATE/DELETE.
 
+> **Implementación T-010 (2026-11-14):** parámetros en `platform.setting_versions` con vigencia, fuente e historial inmutable; reglas de aprobación por tipo/monto en `platform.approval_rules` y solicitudes/decisiones auditadas en `platform.approval_requests`. El aprobador no puede ser el solicitante. Valores fiscales/laborales siguen sin validar.
+
 ## 5. Protección de datos
 
 ### Clasificación
