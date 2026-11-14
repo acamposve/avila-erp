@@ -1,5 +1,7 @@
+using Avila.Platform.Tenancy;
 using Avila.SharedKernel;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Avila.Platform.Persistence;
 
@@ -26,11 +28,17 @@ public sealed class PlatformTenantProvisioner
             throw new DomainException("Organization name is required.");
         }
 
+        var normalizedName = name.Trim();
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+        await using var transaction = await connection.BeginTransactionAsync(cancellationToken);
+
         var options = new DbContextOptionsBuilder<PlatformDbContext>()
-            .UseNpgsql(_connectionString)
+            .UseNpgsql(connection)
             .Options;
 
         await using var context = new PlatformDbContext(options);
+        context.Database.UseTransaction(transaction);
 
         var existing = await context.Tenants
             .SingleOrDefaultAsync(x => x.Id == tenantId, cancellationToken);
@@ -39,7 +47,6 @@ public sealed class PlatformTenantProvisioner
             return existing;
         }
 
-        var normalizedName = name.Trim();
         if (await context.Tenants.AnyAsync(x => x.Name == normalizedName, cancellationToken))
         {
             throw new DomainException("An organization with this name already exists.");
@@ -53,7 +60,16 @@ public sealed class PlatformTenantProvisioner
         };
 
         context.Tenants.Add(tenant);
+        context.TenantLifecycles.Add(new TenantLifecycle
+        {
+            TenantId = tenantId,
+            Status = "active",
+            PlanCode = "trial"
+        });
+
+        await TenantSession.SetTenantAsync(connection, transaction, tenantId, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
         return tenant;
     }
 }

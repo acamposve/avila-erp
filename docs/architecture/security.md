@@ -62,6 +62,8 @@ Riesgos específicos del dominio:
 
 > **Implementación T-010 (2026-11-14):** parámetros en `platform.setting_versions` con vigencia, fuente e historial inmutable; reglas de aprobación por tipo/monto en `platform.approval_rules` y solicitudes/decisiones auditadas en `platform.approval_requests`. El aprobador no puede ser el solicitante. Valores fiscales/laborales siguen sin validar.
 
+> **Implementación T-011 (2026-11-14):** ciclo de vida en `platform.tenant_lifecycle`, límites de uso y feature flags por tenant, guard de escritura para tenants suspendidos y exportación acotada por RLS. La suspensión permite lectura/exportación; el guard debe invocarse desde los comandos.
+
 ## 5. Protección de datos
 
 ### Clasificación

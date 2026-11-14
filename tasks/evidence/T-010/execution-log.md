@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-010-configuration-approvals`
 - **Commit base:** `14ee40b` (`Merge pull request #12`)
 - **Commit de evidencia:** `3a45710`
-- **PR:** [#13](https://github.com/acamposve/avila-erp/pull/13)
+- **PR:** [#13](https://github.com/acamposve/avila-erp/pull/13) — fusionado
+- **Aprobación:** @acamposve, 2026-11-14
+- **Merge commit:** `2f6353c`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -31,7 +33,7 @@
 - Una operación sobre el umbral sin aprobación lanza `ApprovalRequiredException`.
 - El solicitante no puede aprobar su propia solicitud; un segundo owner sí.
 - Cambios de parámetros y decisiones de aprobación quedan auditados.
-- T-010 queda `implemented`; no se declara ningún P1 cerrado.
+- T-010 queda **`verified`**: aprobado y fusionado en PR #13 (`2f6353c`).
 
 ## Bloqueos registrados
 
@@ -43,7 +45,7 @@
 | Notificación al aprobador | T-012 | No implementada |
 | Reglas de aprobación versionadas | T-010+ | Regla actual por tipo; sin historial de reglas |
 | Aprobación fuera de `EnsureApprovedAsync` en módulos | T-016/T-017 | Integración pendiente |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 

@@ -121,6 +121,35 @@ public sealed class ApprovalRequest
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
+public sealed class TenantLifecycle
+{
+    public Guid TenantId { get; set; }
+    public string Status { get; set; } = "active";
+    public string PlanCode { get; set; } = "trial";
+    public DateTimeOffset? SuspendedAt { get; set; }
+    public string? SuspensionReason { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
+public sealed class FeatureFlag
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string Key { get; set; } = string.Empty;
+    public bool Enabled { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
+public sealed class UsageCounter
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string Resource { get; set; } = string.Empty;
+    public long Used { get; set; }
+    public long LimitValue { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
 /// <summary>
 /// Platform persistence. Tenant settings are tenant-scoped and forced RLS;
 /// the tenants table is global and must not be granted to the application role.
@@ -142,6 +171,9 @@ public sealed class PlatformDbContext : DbContext
     public DbSet<SettingVersion> SettingVersions => Set<SettingVersion>();
     public DbSet<ApprovalRule> ApprovalRules => Set<ApprovalRule>();
     public DbSet<ApprovalRequest> ApprovalRequests => Set<ApprovalRequest>();
+    public DbSet<TenantLifecycle> TenantLifecycles => Set<TenantLifecycle>();
+    public DbSet<FeatureFlag> FeatureFlags => Set<FeatureFlag>();
+    public DbSet<UsageCounter> UsageCounters => Set<UsageCounter>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -293,6 +325,43 @@ public sealed class PlatformDbContext : DbContext
             entity.Property(x => x.Reason).HasColumnName("reason").HasMaxLength(1000);
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
             entity.HasIndex(x => new { x.TenantId, x.Type, x.EntityId, x.Status });
+        });
+
+        modelBuilder.Entity<TenantLifecycle>(entity =>
+        {
+            entity.ToTable("tenant_lifecycle", "platform");
+            entity.HasKey(x => x.TenantId);
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.Status).HasColumnName("status").HasMaxLength(24);
+            entity.Property(x => x.PlanCode).HasColumnName("plan_code").HasMaxLength(32);
+            entity.Property(x => x.SuspendedAt).HasColumnName("suspended_at");
+            entity.Property(x => x.SuspensionReason).HasColumnName("suspension_reason").HasMaxLength(500);
+            entity.Property(x => x.UpdatedAt).HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<FeatureFlag>(entity =>
+        {
+            entity.ToTable("feature_flags", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.Key).HasColumnName("key").HasMaxLength(120);
+            entity.Property(x => x.Enabled).HasColumnName("enabled");
+            entity.Property(x => x.UpdatedAt).HasColumnName("updated_at");
+            entity.HasIndex(x => new { x.TenantId, x.Key }).IsUnique();
+        });
+
+        modelBuilder.Entity<UsageCounter>(entity =>
+        {
+            entity.ToTable("usage_counters", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.Resource).HasColumnName("resource").HasMaxLength(120);
+            entity.Property(x => x.Used).HasColumnName("used");
+            entity.Property(x => x.LimitValue).HasColumnName("limit_value");
+            entity.Property(x => x.UpdatedAt).HasColumnName("updated_at");
+            entity.HasIndex(x => new { x.TenantId, x.Resource }).IsUnique();
         });
     }
 }
