@@ -74,20 +74,44 @@ public sealed class AuthorizationException : Exception
 /// </summary>
 public sealed class AuthorizationService
 {
+    private readonly SecurityAuditWriter? _deniedAudit;
+
+    public AuthorizationService(SecurityAuditWriter? deniedAudit = null)
+    {
+        _deniedAudit = deniedAudit;
+    }
+
     public async Task<bool> IsAllowedAsync(
         IUnitOfWork unitOfWork,
         SessionPrincipal principal,
         string permission,
         AccessScopeRef? scope = null,
+        string? correlationId = null,
         CancellationToken cancellationToken = default)
     {
         if (principal.TenantId != unitOfWork.TenantId)
         {
+            await RecordDeniedAsync(
+                unitOfWork,
+                principal,
+                permission,
+                "cross_tenant",
+                scope,
+                correlationId,
+                cancellationToken);
             return false;
         }
 
         if (!RolePermissions.Allows(principal.Role, permission))
         {
+            await RecordDeniedAsync(
+                unitOfWork,
+                principal,
+                permission,
+                "permission",
+                scope,
+                correlationId,
+                cancellationToken);
             return false;
         }
 
@@ -98,6 +122,14 @@ public sealed class AuthorizationService
 
         if (scope is null || !IsValidScopeType(scope.Type))
         {
+            await RecordDeniedAsync(
+                unitOfWork,
+                principal,
+                permission,
+                "scope",
+                scope,
+                correlationId,
+                cancellationToken);
             return false;
         }
 
@@ -105,12 +137,26 @@ public sealed class AuthorizationService
             unitOfWork.OptionsFor<PlatformDbContext>("platform"));
         unitOfWork.Enlist(context);
 
-        return await context.AccessScopes.AnyAsync(
+        var allowed = await context.AccessScopes.AnyAsync(
             x => x.TenantId == unitOfWork.TenantId
                  && x.UserId == principal.UserId
                  && x.ScopeType == scope.Type
                  && x.ScopeId == scope.Id,
             cancellationToken);
+
+        if (!allowed)
+        {
+            await RecordDeniedAsync(
+                unitOfWork,
+                principal,
+                permission,
+                "scope",
+                scope,
+                correlationId,
+                cancellationToken);
+        }
+
+        return allowed;
     }
 
     public async Task EnsureAllowedAsync(
@@ -118,12 +164,38 @@ public sealed class AuthorizationService
         SessionPrincipal principal,
         string permission,
         AccessScopeRef? scope = null,
+        string? correlationId = null,
         CancellationToken cancellationToken = default)
     {
-        if (!await IsAllowedAsync(unitOfWork, principal, permission, scope, cancellationToken))
+        if (!await IsAllowedAsync(unitOfWork, principal, permission, scope, correlationId, cancellationToken))
         {
             throw new AuthorizationException(permission);
         }
+    }
+
+    private async Task RecordDeniedAsync(
+        IUnitOfWork unitOfWork,
+        SessionPrincipal principal,
+        string permission,
+        string reason,
+        AccessScopeRef? scope,
+        string? correlationId,
+        CancellationToken cancellationToken)
+    {
+        if (_deniedAudit is null)
+        {
+            return;
+        }
+
+        await _deniedAudit.RecordDeniedAsync(
+            unitOfWork.TenantId,
+            principal.UserId,
+            principal.TenantId,
+            permission,
+            reason,
+            scope,
+            correlationId,
+            cancellationToken);
     }
 
     public async Task AssignScopeAsync(
