@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feature/t-012-operations`
 - **Commit base:** `4042d9c` (`Merge pull request #14`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `0a8e6ad`
+- **PR:** [#15](https://github.com/acamposve/avila-erp/pull/15)
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers + Docker desechable
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
