@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feat/r1-rem-05-export-registry`
 - **Commit base:** `005bd70`
-- **Commit de evidencia:** pendiente al redactar; ver PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `7d1361c`
+- **PR:** [#21](https://github.com/acamposve/avila-erp/pull/21)
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
 ## Comandos ejecutados
