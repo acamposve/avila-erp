@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feature/t-007-provisioning`
 - **Commit base:** `19e9db8` (`Merge pull request #9`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `2ff82b2`
+- **PR:** [#10](https://github.com/acamposve/avila-erp/pull/10)
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
