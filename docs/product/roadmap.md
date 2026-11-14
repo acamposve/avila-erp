@@ -39,7 +39,7 @@
 - Plataforma SaaS: planes, medición, autoservicio y consola de operador (`PLT-001`…`PLT-003`, `PLT-005`). La facturación de suscripción (`PLT-004`) entra en R2 y el tenant dedicado (`PLT-006`) en R6.
 - Ambientes, CI/CD, observabilidad, respaldo y restauración probados.
 
-**Dependencias:** ninguna externa; requiere decisiones `DEC-001` (cloud/región), `DEC-003` (identidad) y `DEC-008` (residencia/retención de datos).
+**Dependencias:** baseline `DEC-001` (DigitalOcean/`nyc3`, single-region, read-replica readiness), `DEC-003` (identidad; ADR-012) y `DEC-008` (retención; ADR-011) aprobado. Quedan gates de despliegue, no bloqueos de ingeniería.
 
 **Riesgos:** RSK-006 (aislamiento), RSK-008 (conocimiento concentrado), RSK-015 (latencia/costo cloud), RSK-018 (deuda por presión de fecha).
 
@@ -155,7 +155,7 @@
 - Integraciones: API pública, webhooks, e-commerce, BI y gestión documental (`INT-001`…`INT-003`, `INT-005`…`INT-007`). La conciliación por archivo (`INT-008`) se entrega en R3.
 - SSO, tenant dedicado y SLA (`PLT-006`, `ADM-021` si se aprueba). La consolidación contable multiempresa queda fuera de alcance.
 
-**Dependencias:** R2/R3; `DEC-001` (región), `DEC-005` (redondeo/moneda), `DEC-015` (BI), `DEC-016` (licencia).
+**Dependencias:** R2/R3; `DEC-001` (baseline `nyc3`), `DEC-005` (redondeo/moneda), `DEC-015` (BI), `DEC-016` (licencia).
 
 **Riesgos:** RSK-007 (scope creep), RSK-015, RSK-026 (integración de terceros), RSK-027 (complejidad de consolidación).
 
@@ -228,7 +228,7 @@ flowchart LR
 
 | Decisión | Bloquea | Estado |
 |---|---|---|
-| `DEC-001` Proveedor y región cloud | R1 | Pendiente |
+| `DEC-001` Proveedor y región cloud | R1 | Aprobada: DigitalOcean + Terraform, `nyc3` single-region, read-replica readiness |
 | `DEC-002` Medio de emisión fiscal | R2 | Pendiente |
 | `DEC-003` Estrategia de identidad | R1 | Pendiente |
 | `DEC-005` Redondeo y moneda | R1/R2 | Resuelta técnicamente en ADR-004; ratificación pendiente |

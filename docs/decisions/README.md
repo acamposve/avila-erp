@@ -15,6 +15,10 @@
 | [ADR-007](ADR-007-transaction-and-tenant-context.md) | Modelo transaccional y contexto de tenant | Aceptado técnicamente (2026-11-08) | UoW, pooling, RLS de negocio y `platform` |
 | [ADR-008](ADR-008-concurrency-by-aggregate.md) | Concurrencia por agregado | Aceptado técnicamente (2026-11-08) | Stock, pagos, crédito, numeración, cierre |
 | [ADR-009](ADR-009-accounting-and-cutover.md) | Contabilización y cutover R2→R3 | Aceptado técnicamente; validación contable pendiente | Posting, outbox, apertura y conciliación |
+| [ADR-010](ADR-010-monetary-precision.md) | Precisión monetaria y multimoneda | Aceptado; complementa ADR-004 | Importes, tasas, redondeo y moneda base/transaccional |
+| [ADR-011](ADR-011-immutable-audit.md) | Auditoría inmutable, consulta y retención | Aceptado | Hash chain, auditoría, exportación y retención |
+| [ADR-012](ADR-012-identity-sessions.md) | Sesiones, MFA y recuperación de identidad | Aceptado | Sesiones opacas, MFA obligatorio y step-up |
+| [ADR-013](ADR-013-topology-operations.md) | Topología, operación y telemetría | Aceptado | DigitalOcean/nyc3, read-replica readiness, OTel/Prometheus |
 
 Los ADR se aprueban por el responsable de arquitectura. Un agente de IA **no** puede aprobar ni reemplazar un ADR; solo proponerlo.
 
@@ -26,14 +30,14 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 
 | ID | Decisión | Contexto | Opciones | Recomendación | Dueño | Bloquea | Estado |
 |---|---|---|---|---|---|---|---|
-| DEC-001 | Proveedor cloud y región primaria | Latencia desde Venezuela, costo, residencia de datos | Azure Brazil South / AWS us-east-1 o sa-east-1 / DigitalOcean Droplet / proveedor local | Región cercana con soporte de PostgreSQL administrado; validar latencia y residencia | Arquitectura + Operaciones | R1 | **Aprobada (DigitalOcean + Terraform); región pendiente** |
+| DEC-001 | Proveedor cloud y región primaria | Latencia desde Venezuela, costo, residencia de datos | Azure Brazil South / AWS us-east-1 o sa-east-1 / DigitalOcean Droplet / proveedor local | Región cercana con soporte de PostgreSQL administrado; validar latencia y residencia | Arquitectura + Operaciones | R1 | **Aprobada: DigitalOcean + Terraform, `nyc3` single-region, read-replica readiness** |
 | DEC-002 | Medio de emisión fiscal | Nuevos medios digitales y fin de la obligatoriedad de máquina fiscal (ver [SRC-001](../compliance/regulatory-sources.md)) | Proveedor autorizado / imprenta digital / portal SENIAT / máquina fiscal | Integrar por adaptador con un proveedor autorizado; no construir emisión propia | Producto + Legal | R2 | **Pendiente** |
-| DEC-003 | Estrategia de identidad | Usuarios multi-organización, MFA, futuro SSO | Identidad propia / proveedor externo (Auth0, Entra) | Identidad propia con estándares abiertos y SSO futuro | Arquitectura + Seguridad | R1 | **Aprobada: identidad propia con estándares abiertos** |
+| DEC-003 | Estrategia de identidad | Usuarios multi-organización, MFA, futuro SSO | Identidad propia / proveedor externo (Auth0, Entra) | Identidad propia con estándares abiertos y SSO futuro | Arquitectura + Seguridad | R1 | **Aprobada: identidad propia; ADR-012 fija sesiones/MFA** |
 | DEC-004 | Almacenamiento documental | PDFs, adjuntos, evidencias | S3-compatible / disco de VM / base de datos | Objeto S3-compatible con URLs firmadas y cifrado | Arquitectura | R2 | **Pendiente** |
 | DEC-005 | Moneda, redondeo y redenominación | Operación multimoneda y posibles cambios de escala | Escala fija / escala por versión de moneda | Escala por versión de moneda (ADR-004); ratificación de negocio | Producto + Contabilidad | R2 | **Resuelta técnicamente**, ratificación pendiente |
 | DEC-006 | Planes, precios y empaquetado | Modelo comercial | Por usuario / por plan / híbrido | Validar con pilotos antes de publicar | Dirección + Producto | Lanzamiento R2 | **Pendiente** |
 | DEC-007 | Retenciones de IVA e ISLR | Cálculo, comprobantes y libros | Implementar por regla configurable / diferir a R3 | Regla configurable con validación de especialista; R3 para comprobantes | Fiscal + Producto | R2 parcial / R3 | **Pendiente de validación legal** |
-| DEC-008 | Retención y residencia de datos | Plazos legales y expectativas del cliente | Retención única / por tipo de dato y jurisdicción | Política por tipo de dato, revisada por legal | Legal + Seguridad | R1/R2 | **Aprobada técnicamente; validación legal pendiente** |
+| DEC-008 | Retención y residencia de datos | Plazos legales y expectativas del cliente | Retención única / por tipo de dato y jurisdicción | Política por tipo de dato, revisada por legal | Legal + Seguridad | R1/R2 | **Aprobada: configurable por tenant; 7 años fiscal/auditoría** |
 | DEC-009 | Integración bancaria | Conciliación y pagos | API bancaria / archivo / ambos | Archivo en R3; API cuando exista oferta | Producto + Operaciones | R3 | **Pendiente** |
 | DEC-010 | Emisión fiscal offline en POS | Legalidad y contingencia | Emisión diferida / contingencia física / bloquear venta | Validar con especialista antes de R4 | Legal + Producto | R4 | **Pendiente de validación legal** |
 | DEC-011 | Fórmulas laborales | Prestaciones, utilidades, vacaciones, aportes | Fórmulas internas / motor configurable | Motor configurable con parámetros versionados y validación externa | Laboral + Producto | R5 | **Pendiente de validación legal** |
@@ -51,15 +55,23 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 
 | ID | Resolución registrada | Dueño | Evidencia / pendiente |
 |---|---|---|---|
-| `DEC-001` | **DigitalOcean Droplet**, aprovisionado con **Terraform**. La región primaria queda pendiente; `nyc3` es la candidata inicial por cercanía, sujeta a prueba de latencia. No se creó infraestructura. | @acamposve | Región y prueba de latencia pendientes antes de producción |
-| `DEC-003` | **Identidad propia con estándares abiertos**: usuarios, membresías multi-organización, MFA, sesiones y futuro SSO OIDC. Sin proveedor externo en R1. | @acamposve | Implementación en T-006; no se autoaprueba código |
-| `DEC-008` | **Retención y residencia por tipo de dato y jurisdicción**. La política técnica queda aprobada; la validación legal sigue pendiente. | @acamposve | Validación legal antes de R2; no se inventan plazos |
+| `DEC-001` | **DigitalOcean Droplet**, aprovisionado con **Terraform**. En esa fecha la región primaria quedó pendiente; `nyc3` era la candidata inicial por cercanía. No se creó infraestructura. | @acamposve | Histórico; baseline vigente en 2.2 |
+| `DEC-003` | **Identidad propia con estándares abiertos**: usuarios, membresías multi-organización, MFA, sesiones y futuro SSO OIDC. Sin proveedor externo en R1. | @acamposve | Histórico; ADR-012 fija el modelo R1 |
+| `DEC-008` | **Retención y residencia por tipo de dato y jurisdicción**. En esa fecha la política técnica quedó aprobada y la validación legal pendiente. | @acamposve | Histórico; baseline vigente en 2.2 |
 
-Estas resoluciones desbloquean el diseño, pero **no** significan que R1 esté cerrado. `DEC-001` conserva la región abierta y `DEC-008` conserva la validación legal.
+Estas resoluciones se conservan como histórico. El baseline vigente es el de 2.2; la implementación y las pruebas siguen siendo requisitos de la compuerta R1.
+
+### 2.2 Resoluciones del 2026-11-14
+
+| ID | Resolución registrada | Dueño | Evidencia / pendiente |
+|---|---|---|---|
+| `DEC-001` | **DigitalOcean + Terraform**, primario en **`nyc3`**, una sola región activa; **read-replica readiness** sin réplica activa en R1. Prueba de latencia antes de producción. | @acamposve | ADR-013; prueba de latencia queda como gate de despliegue, no bloquea ingeniería |
+| `DEC-003` | Identidad propia con **sesiones opacas**, no JWT/refresh en R1; MFA obligatorio para owner/admin/plataforma; JWT/OIDC diferido a R6 o ADR posterior. | @acamposve | ADR-012; implementación REM-08/09 |
+| `DEC-008` | Retención **configurable por tenant**; **7 años por defecto** para fiscal/auditoría; legal hold y revisión legal de excepciones por jurisdicción. | @acamposve | ADR-011; implementación REM-10/13 |
 
 **Evidencia de cierre T-002:** [execution-log](../../tasks/evidence/T-002/execution-log.md) · [verification](../../tasks/evidence/T-002/verification.md) · [decision-record](../../tasks/evidence/T-002/decision-record.md).
 
-### 2.2 Responsables y capacidad R1
+### 2.3 Responsables y capacidad R1
 
 - **@acamposve** asume la propiedad de las decisiones de Arquitectura, Seguridad, Operaciones y Legal para R1, con validación externa cuando la materia lo exija.
 - **Capacidad comprometida:** no cuantificada todavía. No se fijan fechas ni sprints por suposición.
@@ -75,7 +87,7 @@ Estas resoluciones desbloquean el diseño, pero **no** significan que R1 esté c
 
 ## 4. Relación con los requisitos
 
-- `DEC-001`, `DEC-003`, `DEC-008` bloquean R1. `DEC-003` está aprobada; `DEC-001` mantiene la región pendiente; `DEC-008` mantiene la validación legal pendiente.
+- `DEC-001`, `DEC-003` y `DEC-008` tienen baseline aprobado en ADR-011/012/013. Quedan como gates de despliegue la prueba de latencia, la validación legal de excepciones y la implementación REM-08/09/10/13.
 - `DEC-002`, `DEC-004`, `DEC-005`, `DEC-006`, `DEC-019` bloquean el lanzamiento de R2.
 - `DEC-007`, `DEC-009`, `DEC-012`, `DEC-018`, `DEC-020` bloquean partes de R3.
 - `DEC-010`, `DEC-013`, `DEC-017` bloquean R4.
