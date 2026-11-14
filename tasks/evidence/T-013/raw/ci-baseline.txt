@@ -1,0 +1,6 @@
+main cae8bbd: CI success (1m7s), run 43640057760
+PR #15 head 40a50b1: CI success (1m23s), run 43639819693
+Pipeline: dotnet restore; Release build; dotnet test Avila.slnx; clean Testcontainers migrations
+Security scan: NOT PRESENT
+CD/deployment: NOT PRESENT
+Captured: 2026-11-14T18:01:40.2431359-03:00

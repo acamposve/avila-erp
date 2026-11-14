@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-012-operations`
 - **Commit base:** `4042d9c` (`Merge pull request #14`)
 - **Commit de evidencia:** `0a8e6ad`
-- **PR:** [#15](https://github.com/acamposve/avila-erp/pull/15)
+- **PR:** [#15](https://github.com/acamposve/avila-erp/pull/15) — fusionado
+- **Aprobación:** @acamposve, 2026-11-14
+- **Merge commit:** `cae8bbd`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers + Docker desechable
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -31,7 +33,7 @@
 - Exception handler devuelve ProblemDetails genérico con `traceId`.
 - Runbook, observabilidad y procedimiento de restore documentados.
 - Simulacro local reproducible con PostgreSQL desechable: PASS.
-- T-012 queda `implemented`; no se declara ningún P1 cerrado.
+- T-012 queda **`verified`**: aprobado y fusionado en PR #15 (`cae8bbd`).
 
 ## Bloqueos registrados
 
@@ -43,7 +45,7 @@
 | Backup/restore en entorno autorizado | @acamposve | **No ejecutado**; solo desechable |
 | RPO/RTO/retención | @acamposve + `DEC-008` | Provisionales, sin aprobar |
 | Migración/backfill real | Operaciones | Procedimiento documentado; no ejecutado |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 
