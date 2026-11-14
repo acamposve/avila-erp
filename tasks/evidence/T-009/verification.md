@@ -1,7 +1,7 @@
 # T-009 — Verification
 
 **Task:** [T-009 — Numeración e idempotencia transaccional](../../T-009-numbering-idempotency.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #12 merged 2026-11-14 (`14ee40b`).
 **Date:** 2026-11-14
 
 ## 1. Acceptance criteria
@@ -74,4 +74,4 @@ Production suite: **42/42**. Full suite: **61/61**.
 
 ## 7. Conclusion
 
-T-009 meets its acceptance criteria at the service/database level: transactional gapless numbering, company/branch scope isolation, rollback, 10k emissions under bounded concurrency, and idempotent replay/conflict behavior are tested. It is ready for human review; fiscal numbering and HTTP mapping remain open.
+T-009 meets its acceptance criteria at the service/database level: transactional gapless numbering, company/branch scope isolation, rollback, 10k emissions under bounded concurrency, and idempotent replay/conflict behavior are tested. It is **verified**. Fiscal numbering and HTTP mapping remain open.

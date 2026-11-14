@@ -82,6 +82,45 @@ public sealed class IdempotencyKeyRecord
     public DateTimeOffset? CompletedAt { get; set; }
 }
 
+public sealed class SettingVersion
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string Key { get; set; } = string.Empty;
+    public string Value { get; set; } = string.Empty;
+    public string Source { get; set; } = string.Empty;
+    public DateTimeOffset EffectiveFrom { get; set; }
+    public DateTimeOffset? EffectiveTo { get; set; }
+    public Guid CreatedBy { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
+public sealed class ApprovalRule
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public decimal ThresholdAmount { get; set; }
+    public string RequiredRole { get; set; } = "owner";
+    public bool IsActive { get; set; } = true;
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
+public sealed class ApprovalRequest
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public Guid EntityId { get; set; }
+    public decimal Amount { get; set; }
+    public string Status { get; set; } = "pending";
+    public Guid RequestedBy { get; set; }
+    public Guid? DecidedBy { get; set; }
+    public DateTimeOffset? DecidedAt { get; set; }
+    public string? Reason { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
 /// <summary>
 /// Platform persistence. Tenant settings are tenant-scoped and forced RLS;
 /// the tenants table is global and must not be granted to the application role.
@@ -100,6 +139,9 @@ public sealed class PlatformDbContext : DbContext
     public DbSet<SupportAccessGrant> SupportAccessGrants => Set<SupportAccessGrant>();
     public DbSet<DocumentSequence> DocumentSequences => Set<DocumentSequence>();
     public DbSet<IdempotencyKeyRecord> IdempotencyKeys => Set<IdempotencyKeyRecord>();
+    public DbSet<SettingVersion> SettingVersions => Set<SettingVersion>();
+    public DbSet<ApprovalRule> ApprovalRules => Set<ApprovalRule>();
+    public DbSet<ApprovalRequest> ApprovalRequests => Set<ApprovalRequest>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -203,6 +245,54 @@ public sealed class PlatformDbContext : DbContext
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
             entity.Property(x => x.CompletedAt).HasColumnName("completed_at");
             entity.HasIndex(x => new { x.TenantId, x.Operation, x.Key }).IsUnique();
+        });
+
+        modelBuilder.Entity<SettingVersion>(entity =>
+        {
+            entity.ToTable("setting_versions", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.Key).HasColumnName("key").HasMaxLength(120);
+            entity.Property(x => x.Value).HasColumnName("value").HasMaxLength(2000);
+            entity.Property(x => x.Source).HasColumnName("source").HasMaxLength(300);
+            entity.Property(x => x.EffectiveFrom).HasColumnName("effective_from");
+            entity.Property(x => x.EffectiveTo).HasColumnName("effective_to");
+            entity.Property(x => x.CreatedBy).HasColumnName("created_by");
+            entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+            entity.HasIndex(x => new { x.TenantId, x.Key, x.EffectiveFrom });
+        });
+
+        modelBuilder.Entity<ApprovalRule>(entity =>
+        {
+            entity.ToTable("approval_rules", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.Type).HasColumnName("type").HasMaxLength(60);
+            entity.Property(x => x.ThresholdAmount).HasColumnName("threshold_amount").HasPrecision(19, 4);
+            entity.Property(x => x.RequiredRole).HasColumnName("required_role").HasMaxLength(32);
+            entity.Property(x => x.IsActive).HasColumnName("is_active");
+            entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+            entity.HasIndex(x => new { x.TenantId, x.Type }).IsUnique();
+        });
+
+        modelBuilder.Entity<ApprovalRequest>(entity =>
+        {
+            entity.ToTable("approval_requests", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.Type).HasColumnName("type").HasMaxLength(60);
+            entity.Property(x => x.EntityId).HasColumnName("entity_id");
+            entity.Property(x => x.Amount).HasColumnName("amount").HasPrecision(19, 4);
+            entity.Property(x => x.Status).HasColumnName("status").HasMaxLength(24);
+            entity.Property(x => x.RequestedBy).HasColumnName("requested_by");
+            entity.Property(x => x.DecidedBy).HasColumnName("decided_by");
+            entity.Property(x => x.DecidedAt).HasColumnName("decided_at");
+            entity.Property(x => x.Reason).HasColumnName("reason").HasMaxLength(1000);
+            entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+            entity.HasIndex(x => new { x.TenantId, x.Type, x.EntityId, x.Status });
         });
     }
 }
