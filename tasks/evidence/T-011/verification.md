@@ -1,7 +1,7 @@
 # T-011 — Verification
 
 **Task:** [T-011 — Planes, ciclo de vida y exportación](../../T-011-platform-lifecycle.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #14 merged 2026-11-14 (`4042d9c`).
 **Date:** 2026-11-14
 
 ## 1. Acceptance criteria
@@ -67,4 +67,4 @@ Production suite: **50/50**. Full suite: **69/69**.
 
 ## 7. Conclusion
 
-T-011 meets its acceptance criteria at the service/database level: lifecycle suspension/reactivation, write blocking, read/export during suspension, tenant-scoped limits/flags, and RLS-limited export are tested. It is ready for human review; full export, module-wide guard integration and operator UI remain open.
+T-011 meets its acceptance criteria at the service/database level: lifecycle suspension/reactivation, write blocking, read/export during suspension, tenant-scoped limits/flags, and RLS-limited export are tested. It is **verified**. Full export, module-wide guard integration and operator UI remain open.

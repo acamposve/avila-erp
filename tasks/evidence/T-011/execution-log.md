@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-011-platform-lifecycle`
 - **Commit base:** `2f6353c` (`Merge pull request #13`)
 - **Commit de evidencia:** `efc1419`
-- **PR:** [#14](https://github.com/acamposve/avila-erp/pull/14)
+- **PR:** [#14](https://github.com/acamposve/avila-erp/pull/14) — fusionado
+- **Aprobación:** @acamposve, 2026-11-14
+- **Merge commit:** `4042d9c`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -30,7 +32,7 @@
 - Exportación acotada por RLS; no recibe un tenant objetivo del llamador.
 - Límites de uso por tenant; exceso lanza `LimitExceededException`.
 - Feature flags por tenant.
-- T-011 queda `implemented`; no se declara ningún P1 cerrado.
+- T-011 queda **`verified`**: aprobado y fusionado en PR #14 (`4042d9c`).
 
 ## Bloqueos registrados
 
@@ -42,7 +44,7 @@
 | Medición de uso real y planes comerciales | Producto | Límites sintéticos; precios no definidos |
 | Concurrencia de contadores de uso | T-011+ | Sin lock/atomic increment dedicado |
 | Suspensión con bloqueo a nivel de transacción | T-011+ | Guard de servicio, no `READ ONLY` automático |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 
