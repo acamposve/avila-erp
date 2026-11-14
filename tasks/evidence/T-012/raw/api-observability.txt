@@ -1,0 +1,14 @@
+/health -> 200 correlation=a016c9366f234f09b5120775224ddc67
+/health/live -> 200 correlation=dc298ef7319246ffa26851de60006e8e
+/health/ready -> 200 correlation=2f2099c535c243f484d5fac3cf26d695
+/metrics -> 200 correlation=35b07f5432d24ab4917aabde0339628b
+# TYPE avila_http_requests_total counter
+avila_http_requests_total 4
+# TYPE avila_http_errors_total counter
+avila_http_errors_total 0
+# TYPE avila_http_request_duration_ms gauge
+avila_http_request_duration_ms 6.50
+# TYPE avila_http_responses_total counter
+avila_http_responses_total{status="200"} 4
+
+/ -> 200 correlation=45268208c462496c8e21c64c8460867e

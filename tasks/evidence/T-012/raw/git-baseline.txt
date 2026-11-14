@@ -1,0 +1,9 @@
+Captured: 2026-11-14T17:51:54.3436653-03:00
+Branch: feature/t-012-operations
+Base commit: 4042d9ced7c7ca366dfac0c71721e2c5fd86f02e
+Base subject: Merge pull request #14 from acamposve/feature/t-011-platform-lifecycle
+Spike tests: 19
+Production tests: 53
+Total: 72
+PR #14: merged at 4042d9c
+No shared environment changes

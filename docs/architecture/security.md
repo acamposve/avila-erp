@@ -64,6 +64,8 @@ Riesgos específicos del dominio:
 
 > **Implementación T-011 (2026-11-14):** ciclo de vida en `platform.tenant_lifecycle`, límites de uso y feature flags por tenant, guard de escritura para tenants suspendidos y exportación acotada por RLS. La suspensión permite lectura/exportación; el guard debe invocarse desde los comandos.
 
+> **Implementación T-012 (2026-11-14):** health live/ready, métricas internas sin etiquetas de tenant, correlación `X-Correlation-ID` y logs de acceso sin query/body/PII. `/metrics` requiere restricción de red; no tiene auth. Runbook y simulacro de restore documentados.
+
 ## 5. Protección de datos
 
 ### Clasificación

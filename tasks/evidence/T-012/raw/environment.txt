@@ -1,0 +1,8 @@
+Captured: 2026-11-14T17:51:20.5695759-03:00
+Branch: feature/t-012-operations
+Base commit: 4042d9ced7c7ca366dfac0c71721e2c5fd86f02e
+OS: Microsoft Windows 10.0.26300
+dotnet: 11.0.100
+docker: Docker version 29.9.3, build 5457199
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 53 production

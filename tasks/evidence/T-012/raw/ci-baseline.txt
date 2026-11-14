@@ -1,0 +1,4 @@
+main 4042d9c: CI success (1m3s), run 43639249124
+PR #14 head 0ed66f5: CI success (1m13s), run 43639044261
+Base for T-012: main 4042d9c
+Pipeline: dotnet restore; Release build; dotnet test Avila.slnx; clean Testcontainers migrations
