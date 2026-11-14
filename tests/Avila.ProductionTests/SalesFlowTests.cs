@@ -37,7 +37,9 @@ public sealed class SalesFlowTests
                 UnitPrice: 10m,
                 TaxRate: 0.16m,
                 Quantity: 2m,
-                Currency: "VES"));
+                Currency: "VES",
+                CompanyFiscalAddress: "Av. Principal, Caracas",
+                CompleteFiscalProfile: true));
 
         Assert.NotEqual(Guid.Empty, result.CompanyId);
         Assert.NotEqual(Guid.Empty, result.PartyId);
@@ -104,7 +106,9 @@ public sealed class SalesFlowTests
             UnitPrice: 10m,
             TaxRate: 0.16m,
             Quantity: 1m,
-            Currency: "VES");
+            Currency: "VES",
+            CompanyFiscalAddress: "Av. Principal, Caracas",
+            CompleteFiscalProfile: true);
 
     private async Task<int> CountAsync(string table, Guid tenantId)
     {

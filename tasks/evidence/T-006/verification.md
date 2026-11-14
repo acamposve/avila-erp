@@ -1,7 +1,7 @@
 # T-006 — Verification
 
 **Task:** [T-006 — Identidad, membresías y seguridad de sesión](../../T-006-identity.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #9 merged 2026-11-14 (`19e9db8`).
 **Date:** 2026-11-08
 
 ## 1. Acceptance criteria
@@ -88,4 +88,4 @@ Identity tables are intentionally **not tenant-RLS**: login must resolve members
 
 ## 8. Conclusion
 
-T-006 meets its acceptance criteria at the service/middleware level: invitation, multi-org selection and switch, token/tenant rejection, MFA, lockout, expiration and revocation are tested. It is **not verified** until human review and the security gaps in §5 are accepted or resolved. The identity-stack ADR remains required before production.
+T-006 meets its acceptance criteria at the service/middleware level: invitation, multi-org selection and switch, token/tenant rejection, MFA, lockout, expiration and revocation are tested. It is **verified**. The security gaps in §5 remain explicitly accepted as follow-up; the identity-stack ADR is still required before production.

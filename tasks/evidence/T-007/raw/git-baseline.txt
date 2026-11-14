@@ -1,0 +1,10 @@
+Captured: 2026-11-14T16:37:01.1490443-03:00
+Branch: feature/t-007-provisioning
+Base commit: 19e9db8ea5c009caa7bf66f2ec93c3cfd82e9399
+Base subject: Merge pull request #9 from acamposve/feature/t-006-identity
+Administration migration: 20261114193205_AddBranchesAndFiscalProfile
+Spike tests: 19
+Production tests: 30
+Total: 49
+PR #9: merged at 19e9db8
+No shared environment changes

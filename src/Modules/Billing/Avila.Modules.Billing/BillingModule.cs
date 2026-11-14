@@ -11,6 +11,11 @@ public sealed class BillingModule : IBillingModule
         CreateInvoiceDraftCommand command,
         CancellationToken cancellationToken = default)
     {
+        if (!command.CompanyFiscalProfileComplete)
+        {
+            throw new DomainException("FISCAL_PROFILE_INCOMPLETE: company fiscal profile must be complete before issuing an invoice.");
+        }
+
         if (command.Lines.Count == 0)
         {
             throw new DomainException("An invoice draft requires at least one line.");

@@ -117,12 +117,16 @@ Membresía: `Invitada → Activa → Suspendida → Revocada`.
 - Es dependido por todos los módulos de negocio para maestros y configuración.
 - No depende de módulos de negocio.
 
+**Implementación T-007 (2026-11-14):** alta de organización/empresa/sucursal, `fiscal_address`/`fiscal_profile_complete`, preferencia inicial `locale=es-VE` e invitación de administrador `owner`. `admin.branches` tiene RLS forzada; `avila_platform` crea el tenant global y `avila_app` no accede a `platform.tenants`. El aprovisionamiento es por etapas (platform → tenant → identity), no una transacción distribuida; la compensación, idempotencia y endpoint HTTP quedan pendientes.
+
 ## 11. Pendientes
 
-- `DEC-003` identidad/MFA/SSO.
+- `DEC-003` identidad/MFA/SSO: aprobada; el ADR del stack de sesiones sigue pendiente.
 - `DEC-008` retención y exportación.
 - Catálogo definitivo de permisos (se congela al iniciar R1).
 - Política de contraseñas validada por seguridad.
+- Aprovisionamiento atómico/idempotente y endpoint autorizado.
+- Actualización de sucursal/perfil fiscal y entrega de invitaciones.
 
 ## 12. Referencias
 

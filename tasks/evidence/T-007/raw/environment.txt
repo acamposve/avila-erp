@@ -1,0 +1,8 @@
+Captured: 2026-11-14T16:35:05.3240286-03:00
+Branch: feature/t-007-provisioning
+Base commit: 19e9db8ea5c009caa7bf66f2ec93c3cfd82e9399
+OS: Microsoft Windows 10.0.26300
+dotnet: 11.0.100
+docker: Docker version 29.9.3, build 5457199
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 30 production
