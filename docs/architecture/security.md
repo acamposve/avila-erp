@@ -16,7 +16,7 @@
 
 | Amenaza | Escenario | Control |
 |---|---|---|
-| **S**poofing | Robo de token o credenciales | TLS, tokens cortos, refresh rotativo, MFA, detección de sesión anómala |
+| **S**poofing | Robo de token o credenciales | TLS, sesiones opacas revocables, MFA, step-up, detección de sesión anómala |
 | **T**ampering | Modificación de factura o asiento | Inmutabilidad, permisos, auditoría, hashes de integridad |
 | **R**epudiation | Usuario niega una operación | Auditoría con actor, fecha, IP, user-agent y correlación |
 | **I**nformation disclosure | Fuga entre tenants o PII en logs | RLS, validación de contexto, enmascarado, cifrado |
@@ -38,14 +38,14 @@ Riesgos específicos del dominio:
 ## 3. Autenticación
 
 - **Contraseñas:** hasher de ASP.NET Core Identity (PBKDF2-HMAC) con iteraciones revisadas; política de longitud mínima 12, sin requisitos de composición arbitrarios, verificación contra listas de contraseñas comprometidas cuando sea viable. Argon2id se evalúa en `DEC-003`.
-- **MFA:** TOTP obligatorio para administradores, operadores de plataforma y acceso a producción; opcional para el resto.
-- **Sesiones:** access token JWT de ≤ 15 min; refresh token rotativo, revocable y ligado a dispositivo; detección de reutilización.
+- **MFA:** TOTP obligatorio para `owner`, `admin`, operadores de plataforma y acceso a producción; opcional para el resto.
+- **Sesiones:** sesión opaca de 256 bits, solo hash SHA-256 en reposo, expiración absoluta de 8 h e inactividad de 30 min; revocación inmediata y step-up para operaciones sensibles. **No hay JWT/refresh en R1**; se difieren a R6 o a un ADR posterior.
 - **Bloqueo:** backoff progresivo y bloqueo temporal tras intentos fallidos; notificación al usuario.
-- **Recuperación:** enlace de un solo uso con expiración corta; nunca revela si el correo existe.
-- **Invitaciones:** token firmado, expiración, un solo uso, aceptación con verificación de correo.
+- **Recuperación:** enlace de un solo uso con expiración corta; nunca revela si el correo existe; entrega por `IEmailSender`.
+- **Invitaciones:** token de un solo uso, expiración, aceptación con verificación de correo.
 - **SSO (R6):** OIDC/SAML por organización, con mapeo de roles y aprovisionamiento SCIM.
 
-> **Implementación T-006 (2026-11-08):** la primera rebanada usa **sesiones opacas del lado del servidor**: token aleatorio de 256 bits, solo se persiste SHA-256, expiración de 8 h y revocación inmediata; el secreto TOTP se cifra con AES-GCM usando una clave fuera del repositorio. JWT de acceso corto + refresh rotativo sigue siendo el objetivo para la API pública y requiere un ADR antes de sustituir este mecanismo. No se implementó recuperación de contraseña ni notificación de bloqueo.
+> **ADR-012 (2026-11-14):** fija las sesiones opacas y el MFA obligatorio. La implementación T-006 cubre token/hash, expiración, revocación, TOTP y lockout; recuperación, verificación de correo, MFA obligatorio y step-up quedan en REM-08/09.
 
 ## 4. Autorización
 
@@ -82,7 +82,7 @@ Riesgos específicos del dominio:
 - Cifrado en tránsito (TLS 1.2+, HSTS) y en reposo (AES-256).
 - Campos restringidos cifrados a nivel de aplicación cuando el riesgo lo exija (documento de identidad, cuenta bancaria, datos de nómina).
 - Enmascarado en UI y logs (`****1234`).
-- Retención y borrado según `DEC-008`.
+- Retención y borrado según `DEC-008`: baseline 7 años para fiscal/auditoría, configurable por tenant y jurisdicción; legal hold (ADR-011).
 - Exportación autorizada y auditada.
 - Sin datos reales en ambientes de desarrollo o pruebas.
 
@@ -110,7 +110,7 @@ Riesgos específicos del dominio:
 
 ## 7. Seguridad de API e integraciones
 
-- Autenticación de usuarios con JWT; integraciones con **OAuth2 client credentials** o API keys con scopes y rotación.
+- Autenticación de usuarios con sesión opaca Bearer en R1; integraciones con **OAuth2 client credentials** o API keys con scopes y rotación.
 - Cada credencial tiene tenant, scopes, cuota y expiración.
 - Idempotencia obligatoria en comandos que crean documentos o pagos.
 - Webhooks firmados con HMAC-SHA256, timestamp y tolerancia; reintentos con idempotencia.
@@ -123,13 +123,13 @@ Riesgos específicos del dominio:
 - Almacén de secretos del proveedor cloud; inyección en runtime.
 - Sin secretos en repositorio, imágenes, logs, tests ni documentación.
 - Rotación periódica y ante incidente.
-- Claves de firma de tokens con `kid` y rotación gradual.
+- Hash de sesión con rotación/revocación; no hay clave de firma JWT en R1.
 - Cifrado de campos con claves versionadas y separadas por ambiente.
 - Acceso a secretos auditado y limitado.
 
 ## 9. Auditoría
 
-Se registra en `platform.audit_log` (append-only):
+Se registra en `platform.audit_events` (append-only, nombre canónico según ADR-011):
 
 - Autenticación: login, logout, MFA, fallos, bloqueo.
 - Autorización: cambios de rol, permisos, membresías.
@@ -137,9 +137,9 @@ Se registra en `platform.audit_log` (append-only):
 - Soporte: acceso, lectura, escritura, motivo y ticket.
 - Configuración: parámetros fiscales/laborales, feature flags, planes.
 
-Campos mínimos: `audit_id`, `tenant_id`, `actor_id`, `actor_type`, `action`, `entity_type`, `entity_id`, `before`, `after` (enmascarado), `ip`, `user_agent`, `correlation_id`, `occurred_at`, `reason`.
+Campos mínimos: `audit_id`, `tenant_id`, `actor_id`, `actor_type`, `action`, `entity_type`, `entity_id`, `before`, `after` (enmascarado), `ip`, `user_agent`, `correlation_id`, `occurred_at`, `reason`, `previous_hash`, `event_hash`.
 
-La auditoría no se modifica ni se borra por usuarios; su retención se define con legal.
+La auditoría no se modifica ni se borra por usuarios; cada evento se encadena por hash. Retención por defecto: **7 años** para fiscal/auditoría, configurable por tenant, con legal hold (ADR-011). Consulta/exportación requieren `administration.audit.read` y se auditan.
 
 ## 10. Ciclo de vida seguro
 
@@ -182,13 +182,15 @@ Canal privado de reporte: definido en `CONTRIBUTING.md` (responsable de segurida
 
 ## 13. Pendientes
 
-- `DEC-003`: aprobada (identidad propia); el ADR del stack HTTP/JWT frente a sesiones opacas sigue pendiente.
-- `DEC-008`: retención y residencia.
+- `DEC-003`: aprobada; ADR-012 fija sesiones opacas y MFA. La implementación REM-08/09 debe cerrar recuperación, step-up y MFA obligatorio.
+- `DEC-008`: baseline aprobado (7 años fiscal/auditoría, configurable); validación legal de excepciones por jurisdicción.
 - Base legal de tratamiento de datos personales: **PENDIENTE DE VALIDACIÓN LEGAL**.
 - Asignación del responsable de seguridad: `PENDIENTE`.
-- Recuperación de contraseña, notificación de bloqueo y rate limiting HTTP: pendientes.
+- Recuperación de contraseña, notificación de bloqueo y rate limiting HTTP: pendientes (REM-09).
 - Catálogo definitivo de permisos y administración de roles personalizados: pendiente.
-- Auditoría de intentos denegados en transacción separada: pendiente.
+- Auditoría de intentos denegados en transacción separada: pendiente (REM-03).
+- Consulta/exportación de auditoría y hash chain: ADR-011; implementación REM-10.
+- CI con SAST/dependencias/SBOM: ADR-013 y REM-11.
 
 ## 14. Documentos relacionados
 

@@ -1,0 +1,5 @@
+Captured: 2026-11-14T18:19:11.7283080-03:00
+Branch: docs/r1-rem-01-adr-bundle
+Base commit: cae8bbd19ac2263cbdcdda66e2c5ae5eb664edb7
+Scope: ADR docs only; no code
+Tests: unchanged; baseline 72/72 on main

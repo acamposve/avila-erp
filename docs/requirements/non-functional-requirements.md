@@ -136,7 +136,7 @@ Medido en servidor, con CO-1, sin caché artificial, con base de datos represent
 |---|---|---|---|---|
 | NFR-CMP-001 | Toda regla fiscal o laboral tiene fuente, fecha, jurisdicción y estado | 100 % de reglas | Revisión de [regulatory-sources.md](../compliance/regulatory-sources.md) | R2+ |
 | NFR-CMP-002 | Documentos fiscales y asientos conservan inmutabilidad y trazabilidad | 0 modificaciones posteriores | Pruebas negativas + auditoría | R2 |
-| NFR-CMP-003 | Retención y eliminación de datos conforme a la validación legal | Política aprobada y aplicada | Revisión de política (`DEC-008`) | R2 |
+| NFR-CMP-003 | Retención y eliminación de datos conforme a la validación legal | Política aprobada y aplicada | Revisión de política (`DEC-008`, ADR-011; baseline 7 años fiscal/auditoría) | R2 |
 | NFR-CMP-004 | Exportación completa de datos del tenant en formato abierto | 100 % de entidades exportables | Prueba de exportación y restauración | R1 |
 | NFR-CMP-005 | Registro de consentimiento y tratamiento de datos personales | 100 % de tratamientos inventariados | Revisión de privacidad | R2 |
 | NFR-CMP-006 | Cambios normativos aplicables sin despliegue de código cuando corresponda | ≥ 80 % de parámetros actualizables por configuración | Prueba de cambio de parámetro | R2 |

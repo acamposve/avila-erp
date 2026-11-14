@@ -283,7 +283,7 @@ flowchart LR
 | Pasarelas / medios de pago locales | Externa | Cobros y conciliación | `DEC-009` pendiente |
 | Especialista fiscal | Externa | Validación de reglas y formatos | Pendiente de contratación |
 | Especialista laboral | Externa | Validación de nómina | Pendiente de contratación |
-| Infraestructura cloud y región | Externa | Latencia, residencia y costo | `DEC-001` pendiente |
+| Infraestructura cloud y región | Externa | Latencia, residencia y costo | `DEC-001` resuelta: DigitalOcean `nyc3` single-region con read-replica readiness; latencia es gate de despliegue |
 | Módulos internos | Interna | Ver [flujo de dependencias](../product/functional-scope.md#6-dependencias-entre-módulos) | Definido |
 
 ## 9. Restricciones
