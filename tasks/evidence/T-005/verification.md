@@ -1,7 +1,7 @@
 # T-005 — Verification
 
 **Task:** [T-005 — Contexto tenant, UoW y RLS](../../T-005-tenancy-uow.md)
-**Status:** `implemented` — awaiting human review. Not `verified`.
+**Status:** `verified` — approved by @acamposve; PR #8 merged 2026-11-08 (`0a5c4db`).
 **Date:** 2026-11-08
 
 ## 1. Acceptance criteria
@@ -84,4 +84,4 @@ No P1 is marked closed by this task.
 
 ## 8. Conclusion
 
-T-005 meets its acceptance criteria for production tenancy, RLS, least privilege, per-tenant backfill, rollback and module boundaries. It is ready for human review. T-006 remains blocked until this task is verified and the identity-stack ADR is approved.
+T-005 meets its acceptance criteria for production tenancy, RLS, least privilege, per-tenant backfill, rollback and module boundaries. It is **verified**. T-006 is next; the identity-stack ADR must ratify the opaque session/token details before production.

@@ -2,6 +2,7 @@ using Avila.Modules.Administration;
 using Avila.Modules.Billing;
 using Avila.Modules.Inventory;
 using Avila.Modules.Sales;
+using Avila.Platform.Identity;
 using Avila.Platform.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -19,6 +20,9 @@ public sealed class ProductionFixture : IAsyncLifetime
 
     public string AdminConnectionString => _container.GetConnectionString();
     public string AppConnectionString { get; private set; } = string.Empty;
+    public string IdentityConnectionString { get; private set; } = string.Empty;
+    public string IdentityMfaKey { get; } = Convert.ToBase64String(
+        System.Security.Cryptography.RandomNumberGenerator.GetBytes(32));
 
     public async Task InitializeAsync()
     {
@@ -28,7 +32,7 @@ public sealed class ProductionFixture : IAsyncLifetime
         {
             await connection.OpenAsync();
             await using var schemas = new NpgsqlCommand(
-                "CREATE SCHEMA IF NOT EXISTS admin; CREATE SCHEMA IF NOT EXISTS inventory; CREATE SCHEMA IF NOT EXISTS sales; CREATE SCHEMA IF NOT EXISTS billing; CREATE SCHEMA IF NOT EXISTS platform;",
+                "CREATE SCHEMA IF NOT EXISTS admin; CREATE SCHEMA IF NOT EXISTS inventory; CREATE SCHEMA IF NOT EXISTS sales; CREATE SCHEMA IF NOT EXISTS billing; CREATE SCHEMA IF NOT EXISTS platform; CREATE SCHEMA IF NOT EXISTS identity;",
                 connection);
             await schemas.ExecuteNonQueryAsync();
         }
@@ -58,14 +62,21 @@ public sealed class ProductionFixture : IAsyncLifetime
             await platform.Database.MigrateAsync();
         }
 
+        await using (var identity = new IdentityDbContext(Options<IdentityDbContext>(AdminConnectionString, "identity")))
+        {
+            await identity.Database.MigrateAsync();
+        }
+
         await using (var connection = new NpgsqlConnection(AdminConnectionString))
         {
             await connection.OpenAsync();
             await using var command = new NpgsqlCommand(
                 """
                 CREATE ROLE avila_app LOGIN PASSWORD 'avila_app_pw' NOSUPERUSER NOBYPASSRLS;
-                GRANT CONNECT ON DATABASE avila TO avila_app;
+                CREATE ROLE avila_identity LOGIN PASSWORD 'avila_identity_pw' NOSUPERUSER NOBYPASSRLS;
+                GRANT CONNECT ON DATABASE avila TO avila_app, avila_identity;
                 GRANT USAGE ON SCHEMA admin, inventory, sales, billing, platform TO avila_app;
+                GRANT USAGE ON SCHEMA identity TO avila_identity;
                 GRANT SELECT, INSERT, UPDATE, DELETE ON
                     admin.companies,
                     admin.parties,
@@ -78,6 +89,7 @@ public sealed class ProductionFixture : IAsyncLifetime
                     billing.invoice_draft_lines,
                     platform.tenant_settings
                 TO avila_app;
+                GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA identity TO avila_identity;
                 """,
                 connection);
             await command.ExecuteNonQueryAsync();
@@ -90,6 +102,14 @@ public sealed class ProductionFixture : IAsyncLifetime
             MaxPoolSize = 5
         };
         AppConnectionString = builder.ConnectionString;
+
+        var identityBuilder = new NpgsqlConnectionStringBuilder(AdminConnectionString)
+        {
+            Username = "avila_identity",
+            Password = "avila_identity_pw",
+            MaxPoolSize = 5
+        };
+        IdentityConnectionString = identityBuilder.ConnectionString;
     }
 
     public async Task DisposeAsync()

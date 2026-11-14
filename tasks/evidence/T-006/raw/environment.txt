@@ -1,0 +1,8 @@
+Captured: 2026-11-08T15:25:32.7197906-03:00
+Branch: feature/t-006-identity
+Base commit: 0a5c4db7480b48c546ce434a9afbebf19745455b
+OS: Microsoft Windows 10.0.26300
+dotnet: 10.0.403
+docker: Docker version 29.9.2, build a82e528
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 27 production

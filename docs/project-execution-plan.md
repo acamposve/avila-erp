@@ -45,7 +45,7 @@ El orden refleja dependencias, no fechas ni una obligación de trabajar en paral
 
 **Responsables y capacidad (2026-11-08):** @acamposve asume la propiedad de las decisiones de Arquitectura, Seguridad, Operaciones y Legal para R1. La capacidad comprometida aún no está cuantificada; no se fijan fechas ni sprints por suposición. `DEC-001` mantiene la región pendiente y `DEC-008` la validación legal.
 
-**Estado Fase 0 (2026-11-08):** T-001…T-004 verificados. T-005 en implementación.
+**Estado Fase 0 (2026-11-08):** T-001…T-005 verificados; T-006 implementado y pendiente de revisión.
 
 **Salida:** backlog listo, bloqueos explícitos con dueño y una línea base de estado contrastada con el repositorio. No se inicia trabajo dependiente de decisiones abiertas como si estas estuvieran aprobadas.
 

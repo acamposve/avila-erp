@@ -7,9 +7,11 @@
 - **Rama:** `feature/t-005-tenancy-uow`
 - **Commit base:** `ab71fa5` (`Merge pull request #7`)
 - **Commit de evidencia:** `a4ad945`
-- **PR:** [#8](https://github.com/acamposve/avila-erp/pull/8)
+- **PR:** [#8](https://github.com/acamposve/avila-erp/pull/8) — fusionado
+- **Aprobación:** @acamposve, 2026-11-08
+- **Merge commit:** `0a5c4db`
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
-- **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
+- **Estado:** `verified` — aprobado y fusionado
 
 ## Comandos ejecutados
 
@@ -29,7 +31,7 @@
 - `avila_app` no es superusuario y no tiene `BYPASSRLS`.
 - El backfill corre por tenant, con una UoW/transacción por tenant.
 - Las pruebas de límites de módulo no encuentran referencias directas entre implementaciones.
-- T-005 queda `implemented`; no se declara cerrado ningún P1.
+- T-005 queda **`verified`**: aprobado y fusionado en PR #8 (`0a5c4db`).
 
 ## Bloqueos registrados
 
@@ -40,7 +42,7 @@
 | PgBouncer (`T-07b`) | @acamposve / Operaciones | No adoptado por `D-07`; N/A |
 | Roles de producción (`avila_app`, `avila_migrator`) | @acamposve / Operaciones | Solo provisionados en Testcontainers |
 | Cobertura `platform` más allá de `tenant_settings` | T-006/T-008/T-010 | Pendiente |
-| Aprobación de este PR | @acamposve | Pendiente |
+| Aprobación de este PR | @acamposve | **Fusionado** |
 
 ## Nota de alcance
 

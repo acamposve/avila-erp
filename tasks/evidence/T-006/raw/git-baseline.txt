@@ -1,0 +1,10 @@
+Captured: 2026-11-08T15:26:01.0745061-03:00
+Branch: feature/t-006-identity
+Base commit: 0a5c4db7480b48c546ce434a9afbebf19745455b
+Base subject: Merge pull request #8 from acamposve/feature/t-005-tenancy-uow
+Identity migration: 20261108182317_InitialIdentity
+Spike tests: 19
+Production tests: 27
+Total: 46
+PR #8: merged at 0a5c4db
+No shared environment changes

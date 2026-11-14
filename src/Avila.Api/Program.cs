@@ -1,3 +1,4 @@
+using Avila.Api.Identity;
 using Avila.Api.Tenancy;
 using Avila.Application;
 using Avila.Modules.Administration;
@@ -12,6 +13,7 @@ using Avila.Modules.Sales.Contracts;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAvilaTenancy();
+builder.Services.AddAvilaIdentity();
 builder.Services.AddScoped<IAdministrationModule, AdministrationModule>();
 builder.Services.AddScoped<IInventoryModule, InventoryModule>();
 builder.Services.AddScoped<ISalesModule, SalesModule>();
@@ -21,13 +23,19 @@ builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-// Business endpoints must carry a tenant resolved by identity (T-006).
-// The hook is ready; no business endpoint is exposed in this slice.
+// Business endpoints require a session token and a validated tenant.
+// Authentication endpoints (to be added) live under /api/v1/auth and are excluded.
 app.UseWhen(
-    context => context.Request.Path.StartsWithSegments("/api"),
-    branch => branch.UseTenantUnitOfWork());
+    context => context.Request.Path.StartsWithSegments("/api")
+               && !context.Request.Path.StartsWithSegments("/api/v1/auth"),
+    branch =>
+    {
+        branch.UseAvilaSessionAuthentication();
+        branch.UseTenantUnitOfWork();
+    });
 
 app.MapHealthChecks("/health");
+app.MapIdentityEndpoints();
 app.MapGet("/", () => Results.Ok(new
 {
     product = "ÁVILA ERP",
