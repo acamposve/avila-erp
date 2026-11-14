@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feature/t-011-platform-lifecycle`
 - **Commit base:** `2f6353c` (`Merge pull request #13`)
-- **Commit de evidencia:** pendiente al redactar; ver el PR de la rama
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `efc1419`
+- **PR:** [#14](https://github.com/acamposve/avila-erp/pull/14)
 - **Entorno:** local Windows + PostgreSQL 18 Testcontainers
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
