@@ -1,0 +1,10 @@
+Captured: 2026-11-14T16:53:29.8596986-03:00
+Branch: feature/t-008-authorization-audit
+Base commit: 8262783aa3b2870b04679411533b512aa5dddd03
+Base subject: Merge pull request #10 from acamposve/feature/t-007-provisioning
+Platform migration: 20261114195019_AddAuthorizationAuditSupport
+Spike tests: 19
+Production tests: 35
+Total: 54
+PR #10: merged at 8262783
+No shared environment changes

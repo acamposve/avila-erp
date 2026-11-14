@@ -1,0 +1,8 @@
+Captured: 2026-11-14T16:52:51.8508550-03:00
+Branch: feature/t-008-authorization-audit
+Base commit: 8262783aa3b2870b04679411533b512aa5dddd03
+OS: Microsoft Windows 10.0.26300
+dotnet: 11.0.100
+docker: Docker version 29.9.3, build 5457199
+PostgreSQL: postgres:18-alpine via Testcontainers
+Tests: 19 spike + 35 production
