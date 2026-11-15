@@ -16,6 +16,9 @@ using Avila.Platform.Authorization;
 using Avila.Platform.Exporting;
 using Avila.Platform.Tenancy;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +48,19 @@ builder.Services.AddSingleton(provider =>
 });
 builder.Services.AddSingleton<MetricsRegistry>();
 builder.Services.AddSingleton<AuthRateLimiter>();
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService("avila-api"))
+    .WithTracing(tracing => tracing
+        .AddAspNetCoreInstrumentation(options =>
+        {
+            options.Filter = context =>
+                !context.Request.Path.StartsWithSegments("/health")
+                && !context.Request.Path.StartsWithSegments("/metrics");
+        })
+        .AddOtlpExporter())
+    .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddOtlpExporter());
 builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>("database", tags: ["ready"]);
 
@@ -92,8 +108,7 @@ app.MapHealthChecks("/health/ready", new HealthCheckOptions
 {
     Predicate = registration => registration.Tags.Contains("ready")
 });
-app.MapGet("/metrics", (MetricsRegistry metrics) =>
-    Results.Text(metrics.Render(), "text/plain; version=0.0.4"));
+app.MapGet("/metrics", MetricsEndpoint.HandleAsync);
 app.MapIdentityEndpoints();
 app.MapAuditEndpoints();
 app.MapGet("/api/v1/tenant/export", TenantExportEndpoint.HandleAsync);
