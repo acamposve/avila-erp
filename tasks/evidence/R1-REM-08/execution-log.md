@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feat/r1-rem-08-mfa-session`
 - **Commit base:** `9e490ba`
-- **Commit de evidencia:** pendiente al redactar; ver PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `05e62c9`
+- **PR:** [#24](https://github.com/acamposve/avila-erp/pull/24)
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
 ## Comandos ejecutados
