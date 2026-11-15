@@ -12,3 +12,7 @@
 
 ## Flujo obligatorio
 Crear una rama nueva `docs/t-013-r1-gate` desde `main`. Al terminar y validar, hacer commit Conventional Commits, push y crear un PR con evidencia; solicitar aprobación a **@acamposve**. No aprobar ni fusionar el propio PR.
+
+## Re-evaluación final
+
+La matriz histórica de T-013 (3 PASS / 8 PARTIAL / 1 FAIL, G1 NO-GO) queda conservada como evidencia de 2026-11-14. La re-evaluación **R1-REM-14** sobre `main` `2591a4e` da **12/12 PASS** a nivel código/ensayo y mantiene **G1 CERRADO** hasta la firma explícita de @acamposve. Ver [matriz final](../tasks/evidence/R1-REM-14/r1-gate-matrix.md) y [solicitud de firma](../tasks/evidence/R1-REM-14/release-signoff-request.md).

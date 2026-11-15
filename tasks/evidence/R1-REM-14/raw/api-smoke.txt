@@ -1,0 +1,4 @@
+/health -> 200 ct=text/plain
+/health/live -> 200 ct=text/plain
+/health/ready -> 200 ct=text/plain
+/metrics -> 200 ct=text/plain; version=0.0.4

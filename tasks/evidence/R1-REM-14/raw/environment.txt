@@ -1,0 +1,6 @@
+Captured: 2026-11-15T08:16:23.8631315-03:00
+Branch: main
+Base commit: 2591a4e09976e2b18f5706adb1aba2a2cb928a6a
+Main merge commit: 2591a4e
+Tests: 19 spike + 95 production
+PostgreSQL: postgres:18-alpine Testcontainers
