@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Avila.Platform.Identity;
 using Avila.Platform.Tenancy;
@@ -10,7 +11,7 @@ namespace Avila.Platform.Exporting;
 /// Safe identity export. It must run on the dedicated avila_identity connection;
 /// it filters by tenant membership and never projects credentials or tokens.
 /// </summary>
-public sealed class IdentityExportContributor : ITenantExportContributor
+public sealed class IdentityExportContributor : ITenantExportContributor, ITenantExportStreamContributor
 {
     private readonly string _identityConnectionString;
 
@@ -103,6 +104,82 @@ public sealed class IdentityExportContributor : ITenantExportContributor
         }
 
         return new TenantExportSection(ModuleKey, SchemaVersion, records);
+    }
+
+    public async IAsyncEnumerable<TenantExportRecord> StreamAsync(
+        IUnitOfWork unitOfWork,
+        TenantExportContext context,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(_identityConnectionString))
+        {
+            throw new InvalidOperationException("ConnectionStrings:Identity is required for identity export.");
+        }
+
+        var options = new DbContextOptionsBuilder<IdentityDbContext>()
+            .UseNpgsql(_identityConnectionString)
+            .Options;
+        await using var db = new IdentityDbContext(options);
+        await EnsureIdentityRoleAsync(db, cancellationToken);
+
+        var membershipRows = db.Memberships
+            .AsNoTracking()
+            .Where(x => x.TenantId == context.TenantId)
+            .Join(
+                db.Users.AsNoTracking(),
+                membership => membership.UserId,
+                user => user.Id,
+                (membership, user) => new { membership, user })
+            .OrderBy(x => x.membership.Id)
+            .AsAsyncEnumerable()
+            .WithCancellation(cancellationToken);
+
+        await foreach (var row in membershipRows)
+        {
+            var membership = row.membership;
+            var user = row.user;
+            yield return new TenantExportRecord(
+                "membership",
+                membership.Id.ToString("D"),
+                JsonSerializer.SerializeToElement(new
+                {
+                    user_id = membership.UserId,
+                    role = membership.Role,
+                    status = membership.Status,
+                    created_at = membership.CreatedAt,
+                    user = new
+                    {
+                        id = user.Id,
+                        email = user.Email,
+                        display_name = user.DisplayName,
+                        mfa_enabled = user.MfaEnabled,
+                        created_at = user.CreatedAt
+                    }
+                }));
+        }
+
+        var invitations = db.Invitations
+            .AsNoTracking()
+            .Where(x => x.TenantId == context.TenantId)
+            .OrderBy(x => x.CreatedAt)
+            .ThenBy(x => x.Id)
+            .AsAsyncEnumerable()
+            .WithCancellation(cancellationToken);
+
+        await foreach (var invitation in invitations)
+        {
+            yield return new TenantExportRecord(
+                "invitation",
+                invitation.Id.ToString("D"),
+                JsonSerializer.SerializeToElement(new
+                {
+                    email = invitation.Email,
+                    role = invitation.Role,
+                    expires_at = invitation.ExpiresAt,
+                    accepted_at = invitation.AcceptedAt,
+                    created_at = invitation.CreatedAt
+                }));
+        }
     }
 
     private static async Task EnsureIdentityRoleAsync(
