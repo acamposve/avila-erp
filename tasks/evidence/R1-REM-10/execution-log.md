@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feat/r1-rem-10-audit-integrity`
 - **Commit base:** `107d135` (REM-09)
-- **Commit de evidencia:** pendiente al redactar; ver PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `a6ccf4b`
+- **PR:** [#26](https://github.com/acamposve/avila-erp/pull/26) — apilado sobre #25
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
 ## Comandos ejecutados
