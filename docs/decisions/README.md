@@ -50,6 +50,7 @@ Una decisión abierta bloquea el trabajo que depende de ella. Mientras no se res
 | DEC-018 | Recosteo retroactivo de inventario | Compras o correcciones que afectan costos ya vendidos | Sin recosteo / recosteo por período / FIFO | Sin recosteo en R2/R3; evaluar proceso explícito y auditado | Contabilidad + Producto | R3+ | **Pendiente** |
 | DEC-019 | Base y momento de liquidación de comisiones | Comisión al facturar o al cobrar | Al facturar / al cobrar / mixto | Validar con ventas; por defecto al cobrar para reducir riesgo | Producto + Comercial | R2 | **Pendiente** |
 | DEC-020 | Política de anulación de comprobantes fiscales | Anulación administrativa vs nota de crédito | Solo nota de crédito / anulación validada | Solo reversión documentada hasta validación legal | Legal + Fiscal | R2/R3 | **Pendiente de validación legal** |
+| DEC-021 | Excepciones de alcance R1 | Cierre de G1 sin iniciar R2 | Aceptar excepciones nombradas / cerrar brechas | Aceptar sólo las excepciones aprobadas por @acamposve; expiran en Production Readiness Gate | @acamposve | G1/R2 | **Aprobada 2026-11-15; ver decisión** |
 
 ### 2.1 Resoluciones del 2026-11-08
 
@@ -69,7 +70,15 @@ Estas resoluciones se conservan como histórico. El baseline vigente es el de 2.
 | `DEC-003` | Identidad propia con **sesiones opacas**, no JWT/refresh en R1; MFA obligatorio para owner/admin/plataforma; JWT/OIDC diferido a R6 o ADR posterior. | @acamposve | ADR-012; implementación REM-08/09 |
 | `DEC-008` | Retención **configurable por tenant**; **7 años por defecto** para fiscal/auditoría; legal hold y revisión legal de excepciones por jurisdicción. | @acamposve | ADR-011; implementación REM-10/13 |
 
+
+### 2.4 Resoluciones del 2026-11-15
+
+| ID | Resolución registrada | Dueño | Evidencia / pendiente |
+|---|---|---|---|
+| `DEC-021` | **Excepciones R1 aprobadas:** AC-ADM-03 literal de ajuste de stock diferido al gate de Inventory (R2); US-PLT-003/004, auto-onboarding notification y brechas pre-cloud (OTLP/Alertmanager/Terraform/PITR/WORM) aceptadas con expiración en **Production Readiness Gate**. | @acamposve | [DEC-021](DEC-021-r1-scope-exceptions.md); no autoriza R2 ni despliegue |
+
 **Evidencia de cierre T-002:** [execution-log](../../tasks/evidence/T-002/execution-log.md) · [verification](../../tasks/evidence/T-002/verification.md) · [decision-record](../../tasks/evidence/T-002/decision-record.md).
+
 
 ### 2.3 Responsables y capacidad R1
 

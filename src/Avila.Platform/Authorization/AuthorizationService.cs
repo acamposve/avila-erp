@@ -8,6 +8,9 @@ namespace Avila.Platform.Authorization;
 public static class Permissions
 {
     public const string AdministrationCompanyRead = "administration.company.read";
+    public const string AdministrationCompanyManage = "administration.company.manage";
+    public const string AdministrationBranchManage = "administration.branch.manage";
+    public const string AdministrationPartyManage = "administration.party.manage";
     public const string AdministrationUserManage = "administration.user.manage";
     public const string AdministrationSettingsManage = "administration.settings.manage";
     public const string AdministrationApprovalManage = "administration.approval.manage";
@@ -27,8 +30,7 @@ public static class RolePermissions
             ["member"] =
             [
                 Permissions.AdministrationCompanyRead,
-                Permissions.SalesQuoteCreate,
-                Permissions.SalesQuoteRead,
+                Permissions.SalesQuoteCreate,                Permissions.SalesQuoteRead,
                 Permissions.InventoryStockRead
             ],
             ["admin"] = [.. AllTenantPermissions()],
@@ -41,6 +43,9 @@ public static class RolePermissions
     private static IEnumerable<string> AllTenantPermissions() =>
     [
         Permissions.AdministrationCompanyRead,
+        Permissions.AdministrationCompanyManage,
+        Permissions.AdministrationBranchManage,
+        Permissions.AdministrationPartyManage,
         Permissions.AdministrationUserManage,
         Permissions.AdministrationSettingsManage,
         Permissions.AdministrationApprovalManage,

@@ -10,6 +10,7 @@ public sealed class Company
     public string TaxId { get; set; } = string.Empty;
     public string? FiscalAddress { get; set; }
     public bool FiscalProfileComplete { get; set; }
+    public int Version { get; set; } = 1;
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
@@ -22,6 +23,7 @@ public sealed class Branch
     public string Name { get; set; } = string.Empty;
     public string? Address { get; set; }
     public bool IsActive { get; set; } = true;
+    public int Version { get; set; } = 1;
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
@@ -59,6 +61,7 @@ public sealed class AdministrationDbContext : DbContext
             entity.Property(x => x.TaxId).HasColumnName("tax_id").HasMaxLength(40);
             entity.Property(x => x.FiscalAddress).HasColumnName("fiscal_address").HasMaxLength(500);
             entity.Property(x => x.FiscalProfileComplete).HasColumnName("fiscal_profile_complete");
+            entity.Property(x => x.Version).HasColumnName("version").IsConcurrencyToken();
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
             entity.HasIndex(x => new { x.TenantId, x.TaxId }).IsUnique();
         });
@@ -74,6 +77,7 @@ public sealed class AdministrationDbContext : DbContext
             entity.Property(x => x.Name).HasColumnName("name").HasMaxLength(200);
             entity.Property(x => x.Address).HasColumnName("address").HasMaxLength(500);
             entity.Property(x => x.IsActive).HasColumnName("is_active");
+            entity.Property(x => x.Version).HasColumnName("version").IsConcurrencyToken();
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
             entity.HasIndex(x => new { x.TenantId, x.CompanyId, x.Code }).IsUnique();
         });
