@@ -1,0 +1,6 @@
+Captured: 2026-11-15T08:41:16-03:00
+Branch: feat/r1-adm-write-surface
+Base commit: 4508426
+Tests: 19 spike + 96 production = 115
+Migration: AddAdministrationVersion
+Build: 0 warnings / 0 errors

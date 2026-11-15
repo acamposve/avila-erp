@@ -1,4 +1,5 @@
 using Avila.Platform.Authorization;
+using Avila.Platform.Lifecycle;
 using Avila.Platform.Persistence;
 using Avila.Platform.Tenancy;
 
@@ -16,6 +17,7 @@ public static class TenancyServiceCollectionExtensions
             return new SecurityAuditWriter(new TenantUnitOfWorkFactory(), connectionString);
         });
         services.AddScoped<AuthorizationService>();
+        services.AddScoped<TenantAccessGuard>();
         services.AddScoped<ITenantContext, TenantContext>();
         services.AddScoped<TenantSettingsBackfill>();
         return services;

@@ -14,13 +14,30 @@ public sealed record CompanyDto(
     string Name,
     string TaxId,
     string? FiscalAddress,
-    bool FiscalProfileComplete);
+    bool FiscalProfileComplete,
+    int Version = 1);
+
+public sealed record UpdateCompanyCommand(
+    Guid Id,
+    string Name,
+    string TaxId,
+    string? FiscalAddress,
+    bool FiscalProfileComplete,
+    int Version);
 
 public sealed record CreateBranchCommand(
     Guid CompanyId,
     string Code,
     string Name,
     string? Address = null);
+
+public sealed record UpdateBranchCommand(
+    Guid Id,
+    string Code,
+    string Name,
+    string? Address,
+    bool IsActive,
+    int Version);
 
 public sealed record BranchDto(
     Guid Id,
@@ -29,7 +46,8 @@ public sealed record BranchDto(
     string Code,
     string Name,
     string? Address,
-    bool IsActive);
+    bool IsActive,
+    int Version = 1);
 
 public sealed record CompanyExportDto(
     Guid Id,
@@ -59,9 +77,29 @@ public interface IAdministrationModule
         CreateCompanyCommand command,
         CancellationToken cancellationToken = default);
 
+    Task<CompanyDto> UpdateCompanyAsync(
+        IUnitOfWork unitOfWork,
+        UpdateCompanyCommand command,
+        CancellationToken cancellationToken = default);
+
+    Task<CompanyDto?> GetCompanyAsync(
+        IUnitOfWork unitOfWork,
+        Guid id,
+        CancellationToken cancellationToken = default);
+
     Task<BranchDto> CreateBranchAsync(
         IUnitOfWork unitOfWork,
         CreateBranchCommand command,
+        CancellationToken cancellationToken = default);
+
+    Task<BranchDto> UpdateBranchAsync(
+        IUnitOfWork unitOfWork,
+        UpdateBranchCommand command,
+        CancellationToken cancellationToken = default);
+
+    Task<BranchDto?> GetBranchAsync(
+        IUnitOfWork unitOfWork,
+        Guid id,
         CancellationToken cancellationToken = default);
 
     Task<PartyDto> CreatePartyAsync(

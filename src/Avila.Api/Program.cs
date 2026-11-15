@@ -1,3 +1,4 @@
+using Avila.Api.Administration;
 using Avila.Api.Audit;
 using Avila.Api.Exporting;
 using Avila.Api.Identity;
@@ -94,6 +95,7 @@ app.UseWhen(
     {
         branch.UseAvilaSessionAuthentication();
         branch.UseTenantUnitOfWork();
+        branch.UseTenantWriteGuard();
     });
 
 app.MapHealthChecks("/health", new HealthCheckOptions
@@ -111,6 +113,7 @@ app.MapHealthChecks("/health/ready", new HealthCheckOptions
 app.MapGet("/metrics", MetricsEndpoint.HandleAsync);
 app.MapIdentityEndpoints();
 app.MapAuditEndpoints();
+app.MapAdministrationEndpoints();
 app.MapGet("/api/v1/tenant/export", TenantExportEndpoint.HandleAsync);
 app.MapGet("/", () => Results.Ok(new
 {
