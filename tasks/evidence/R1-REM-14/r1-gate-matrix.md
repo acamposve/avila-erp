@@ -18,7 +18,7 @@
 | FAIL | 0 | — |
 | **Total** | **12** | **Gate criteria complete; release sign-off pending** |
 
-Full suite: **114/114** (19 spike + 95 production). Main CI: **PASS** (1m12s); CodeQL: **PASS** (2m18s). Link check: **0 broken / 198 files**.
+Full suite: **114/114** (19 spike + 95 production). Main CI: **PASS** (1m12s); CodeQL: **PASS** (2m18s). Link check: **0 broken / 205 files**.
 
 ## 2. R1 exit criteria
 

@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `docs/r1-rem-14-gate`
 - **Commit base:** `2591a4e`
-- **Commit de evidencia:** pendiente al redactar; ver PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `edf3626`
+- **PR:** [#30](https://github.com/acamposve/avila-erp/pull/30)
 - **Estado:** gate criteria **12/12 PASS**; release **conditional**; **G1 CLOSED**
 
 ## Comandos ejecutados
@@ -17,7 +17,7 @@
 | 1 | `dotnet test Avila.slnx` | **114/114 PASS** (19 spike + 95 producción) | [`raw/test-output.txt`](raw/test-output.txt) |
 | 2 | `git log` main | `2591a4e`, PRs #27/#28/#29 merged | [`raw/git-log.txt`](raw/git-log.txt) |
 | 3 | API smoke | health/live/ready/metrics 200 | [`raw/api-smoke.txt`](raw/api-smoke.txt) |
-| 4 | Link check | 198 archivos, 0 roto | [`raw/link-check.txt`](raw/link-check.txt) |
+| 4 | Link check | 205 archivos, 0 roto | [`raw/link-check.txt`](raw/link-check.txt) |
 | 5 | CI main / CodeQL | success 1m12s / 2m18s | [`raw/ci.txt`](raw/ci.txt) |
 
 ## Resultado
