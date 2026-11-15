@@ -1,0 +1,5 @@
+Captured: 2026-11-15T07:59:45.2814935-03:00
+Branch: feat/r1-rem-13-restore-drill
+Base commit: 6a13bdcfc99fec8ae4010571ed020bdf6e2c72a8
+Tests: 19 spike + 91 production
+Rehearsal: pg_dump/pg_restore full schema, two tenants

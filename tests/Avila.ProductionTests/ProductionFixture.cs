@@ -28,6 +28,7 @@ public sealed class ProductionFixture : IAsyncLifetime
     }
 
     public string AdminConnectionString => _container.GetConnectionString();
+    public PostgreSqlContainer Container => _container;
     public string AppConnectionString { get; private set; } = string.Empty;
     public string IdentityConnectionString { get; private set; } = string.Empty;
     public string PlatformAdminConnectionString { get; private set; } = string.Empty;
