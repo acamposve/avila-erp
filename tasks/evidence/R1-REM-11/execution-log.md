@@ -6,8 +6,8 @@
 - **Responsable/aprobador:** @acamposve
 - **Rama:** `feat/r1-rem-11-ci-security`
 - **Commit base:** `6a13bdc`
-- **Commit de evidencia:** pendiente al redactar; ver PR
-- **PR:** pendiente al redactar; se registra al abrir el PR
+- **Commit de evidencia:** `5831d44`
+- **PR:** [#28](https://github.com/acamposve/avila-erp/pull/28)
 - **Estado:** `implemented` — pendiente de revisión humana; **no** `verified`
 
 ## Comandos ejecutados
