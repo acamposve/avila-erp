@@ -1,0 +1,6 @@
+Captured: 2026-11-15T06:55:38.1028123-03:00
+Branch: feat/r1-rem-06-export-contributors
+Base commit: ba1e2e2176bbf0daf4ba338ab6e9df2ecb18a4e7
+Tests: 19 spike + 70 production
+PostgreSQL: postgres:18-alpine Testcontainers
+Identity role: avila_identity
