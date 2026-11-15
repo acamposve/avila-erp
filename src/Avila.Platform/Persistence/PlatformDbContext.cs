@@ -98,6 +98,18 @@ public sealed class SettingVersion
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
+public sealed class OutboxEvent
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string EventType { get; set; } = string.Empty;
+    public string PayloadJson { get; set; } = "{}";
+    public string CorrelationId { get; set; } = string.Empty;
+    public DateTimeOffset OccurredAt { get; set; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset? ProcessedAt { get; set; }
+    public int Attempts { get; set; }
+}
+
 public sealed class FiscalRuleVersion
 {
     public Guid Id { get; set; }
@@ -210,6 +222,7 @@ public sealed class PlatformDbContext : DbContext
     public DbSet<IdempotencyKeyRecord> IdempotencyKeys => Set<IdempotencyKeyRecord>();
     public DbSet<SettingVersion> SettingVersions => Set<SettingVersion>();
     public DbSet<FiscalRuleVersion> FiscalRuleVersions => Set<FiscalRuleVersion>();
+    public DbSet<OutboxEvent> OutboxEvents => Set<OutboxEvent>();
     public DbSet<FiscalDocumentSnapshot> FiscalDocumentSnapshots => Set<FiscalDocumentSnapshot>();
     public DbSet<ApprovalRule> ApprovalRules => Set<ApprovalRule>();
     public DbSet<ApprovalRequest> ApprovalRequests => Set<ApprovalRequest>();
@@ -339,6 +352,21 @@ public sealed class PlatformDbContext : DbContext
             entity.Property(x => x.CreatedBy).HasColumnName("created_by");
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
             entity.HasIndex(x => new { x.TenantId, x.Key, x.EffectiveFrom });
+        });
+
+        modelBuilder.Entity<OutboxEvent>(entity =>
+        {
+            entity.ToTable("outbox_events", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.EventType).HasColumnName("event_type").HasMaxLength(120);
+            entity.Property(x => x.PayloadJson).HasColumnName("payload_json").HasColumnType("jsonb");
+            entity.Property(x => x.CorrelationId).HasColumnName("correlation_id").HasMaxLength(120);
+            entity.Property(x => x.OccurredAt).HasColumnName("occurred_at");
+            entity.Property(x => x.ProcessedAt).HasColumnName("processed_at");
+            entity.Property(x => x.Attempts).HasColumnName("attempts");
+            entity.HasIndex(x => new { x.TenantId, x.ProcessedAt, x.OccurredAt });
         });
 
         modelBuilder.Entity<FiscalRuleVersion>(entity =>
