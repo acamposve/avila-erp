@@ -1,0 +1,7 @@
+Captured: 2026-11-15T07:51:05.4899176-03:00
+Branch: feat/r1-rem-11-ci-security
+Base commit: 6a13bdcfc99fec8ae4010571ed020bdf6e2c72a8
+Dependency audit: no vulnerable packages
+SBOM: CycloneDX 6.3.1, 75 packages
+CodeQL: workflow added
+Secret scan: gitleaks workflow added
