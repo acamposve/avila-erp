@@ -1,0 +1,6 @@
+Captured: 2026-11-15T07:38:54.9458922-03:00
+Branch: feat/r1-rem-10-audit-integrity
+Base commit: 107d135563c6072f0533efc10e3d6ae5170678ef
+Tests: 19 spike + 90 production
+Testcontainers: postgres:18-alpine
+Audit migration: 20261115103211_AddAuditHashChain

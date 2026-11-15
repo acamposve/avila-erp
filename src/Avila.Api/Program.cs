@@ -1,3 +1,4 @@
+using Avila.Api.Audit;
 using Avila.Api.Exporting;
 using Avila.Api.Identity;
 using Avila.Api.Observability;
@@ -11,6 +12,7 @@ using Avila.Modules.Inventory;
 using Avila.Modules.Inventory.Contracts;
 using Avila.Modules.Sales;
 using Avila.Modules.Sales.Contracts;
+using Avila.Platform.Authorization;
 using Avila.Platform.Exporting;
 using Avila.Platform.Tenancy;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -32,6 +34,8 @@ builder.Services.AddSingleton<ITenantExportContributor>(provider =>
     return new IdentityExportContributor(configuration.GetConnectionString("Identity") ?? string.Empty);
 });
 builder.Services.AddScoped<TenantExportRegistry>();
+builder.Services.AddScoped<AuditQueryService>();
+builder.Services.AddScoped<AuditIntegrityService>();
 builder.Services.AddSingleton(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();
@@ -91,6 +95,7 @@ app.MapHealthChecks("/health/ready", new HealthCheckOptions
 app.MapGet("/metrics", (MetricsRegistry metrics) =>
     Results.Text(metrics.Render(), "text/plain; version=0.0.4"));
 app.MapIdentityEndpoints();
+app.MapAuditEndpoints();
 app.MapGet("/api/v1/tenant/export", TenantExportEndpoint.HandleAsync);
 app.MapGet("/", () => Results.Ok(new
 {

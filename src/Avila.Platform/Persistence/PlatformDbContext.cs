@@ -41,6 +41,9 @@ public sealed class AuditEvent
     public string? AfterJson { get; set; }
     public string CorrelationId { get; set; } = string.Empty;
     public DateTimeOffset OccurredAt { get; set; } = DateTimeOffset.UtcNow;
+    public string? PreviousHash { get; set; }
+    public string? EventHash { get; set; }
+    public int HashVersion { get; set; } = 1;
 }
 
 public sealed class SupportAccessGrant
@@ -238,6 +241,9 @@ public sealed class PlatformDbContext : DbContext
             entity.Property(x => x.AfterJson).HasColumnName("after_json").HasColumnType("jsonb");
             entity.Property(x => x.CorrelationId).HasColumnName("correlation_id").HasMaxLength(120);
             entity.Property(x => x.OccurredAt).HasColumnName("occurred_at");
+            entity.Property(x => x.PreviousHash).HasColumnName("previous_hash").HasMaxLength(64);
+            entity.Property(x => x.EventHash).HasColumnName("event_hash").HasMaxLength(64);
+            entity.Property(x => x.HashVersion).HasColumnName("hash_version").HasDefaultValue(1);
             entity.HasIndex(x => new { x.TenantId, x.OccurredAt });
         });
 
