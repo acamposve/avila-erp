@@ -40,7 +40,7 @@ El contenido puede ajustarse; lo que no se ajusta sin decisión es la **calidad 
 - [ ] CI/CD con pruebas, migraciones y escaneo de seguridad.
 - [ ] ADR fundacionales aprobados.
 
-> **Estado 2026-11-15 (R1-REM-14):** criterios de salida R1 **12/12 PASS** a nivel código/ensayo; **G1 sigue CERRADO** hasta decisión explícita de @acamposve. Rollup de historias: 14 PASS / 3 PARTIAL; AC: 7 PASS / 8 PARTIAL. La release es **condicional** por brechas de producto y operación pre-cloud. Ver [matriz R1-REM-14](../tasks/evidence/R1-REM-14/r1-gate-matrix.md) y [solicitud de firma](../tasks/evidence/R1-REM-14/release-signoff-request.md).
+> **Estado 2026-11-15 (R1-CLOSURE):** PR A #31 merged; PR B #32 en revisión; criterios R1 **12/12 PASS** a nivel código/ensayo; historias **15 PASS + 2 deferrals**; AC **13 PASS + 2 deferrals**. **G1 sigue CERRADO** hasta firma explícita de @acamposve. Excepciones DEC-021 expiran en Production Readiness Gate. Ver [G1 sign-off](../tasks/evidence/R1-CLOSURE-B/g1-signoff-package.md).
 
 **No vendible de forma independiente.**
 
