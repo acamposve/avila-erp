@@ -7,6 +7,8 @@
 - **Preparado por:** agente de IA
 - **Responsable/aprobador:** @acamposve
 - **Estado:** `implemented` — pendiente de revisión; **G1 CLOSED**, R2 frozen
+- **Commit de evidencia:** `f77fcdb`
+- **PR:** [#31](https://github.com/acamposve/avila-erp/pull/31)
 
 ## Comandos ejecutados
 
