@@ -10,6 +10,7 @@ using Avila.Modules.Inventory;
 using Avila.Modules.Inventory.Contracts;
 using Avila.Modules.Sales;
 using Avila.Modules.Sales.Contracts;
+using Avila.Platform.Exporting;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,14 @@ builder.Services.AddScoped<IInventoryModule, InventoryModule>();
 builder.Services.AddScoped<ISalesModule, SalesModule>();
 builder.Services.AddScoped<IBillingModule, BillingModule>();
 builder.Services.AddScoped<SalesFlowService>();
+builder.Services.AddScoped<ITenantExportContributor, AdministrationExportContributor>();
+builder.Services.AddScoped<ITenantExportContributor, AuditExportContributor>();
+builder.Services.AddSingleton<ITenantExportContributor>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    return new IdentityExportContributor(configuration.GetConnectionString("Identity") ?? string.Empty);
+});
+builder.Services.AddScoped<TenantExportRegistry>();
 builder.Services.AddSingleton<MetricsRegistry>();
 builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>("database", tags: ["ready"]);
