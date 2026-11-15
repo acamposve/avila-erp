@@ -64,6 +64,8 @@ GRANT SELECT, INSERT, UPDATE ON platform.support_access_grants TO avila_app;
 GRANT SELECT, INSERT, UPDATE ON platform.document_sequences TO avila_app;
 GRANT SELECT, INSERT, UPDATE ON platform.idempotency_keys TO avila_app;
 GRANT SELECT, INSERT ON platform.setting_versions TO avila_app;
+GRANT SELECT, INSERT ON platform.fiscal_rule_versions TO avila_app;
+GRANT SELECT, INSERT ON platform.fiscal_document_snapshots TO avila_app;
 GRANT SELECT, INSERT, UPDATE ON platform.approval_rules TO avila_app;
 GRANT SELECT, INSERT, UPDATE ON platform.approval_requests TO avila_app;
 GRANT SELECT ON platform.tenant_lifecycle TO avila_app;

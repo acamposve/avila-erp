@@ -89,9 +89,19 @@ public sealed class TenantJobRunner : ITenantJobRunner
                 tenantId,
                 cancellationToken);
 
-            await _accessGuard.EnsureWritesAllowedAsync(unitOfWork, cancellationToken);
-            await job.ExecuteAsync(unitOfWork, cancellationToken);
-            await unitOfWork.CommitAsync(cancellationToken);
+            using var activity = JobTelemetry.Start(job.GetType().Name);
+            try
+            {
+                await _accessGuard.EnsureWritesAllowedAsync(unitOfWork, cancellationToken);
+                await job.ExecuteAsync(unitOfWork, cancellationToken);
+                await unitOfWork.CommitAsync(cancellationToken);
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Ok);
+            }
+            catch
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error);
+                throw;
+            }
         }
         finally
         {

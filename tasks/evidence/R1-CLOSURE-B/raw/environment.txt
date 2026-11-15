@@ -1,0 +1,5 @@
+Captured: 2026-11-15T08:54:26.4403970-03:00
+Branch: feat/r1-fiscal-trace-closure
+Base commit: 22519235da427f704046596734af612a833f9126
+Tests: 19 spike + 98 production = 117
+Migration: AddFiscalVersionFoundation

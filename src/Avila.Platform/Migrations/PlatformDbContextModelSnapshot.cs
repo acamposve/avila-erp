@@ -317,6 +317,118 @@ namespace Avila.Platform.Migrations
                     b.ToTable("feature_flags", "platform");
                 });
 
+            modelBuilder.Entity("Avila.Platform.Persistence.FiscalDocumentSnapshot", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CapturedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("captured_at");
+
+                    b.Property<Guid>("CapturedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("captured_by");
+
+                    b.Property<Guid>("DocumentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("document_id");
+
+                    b.Property<string>("DocumentType")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)")
+                        .HasColumnName("document_type");
+
+                    b.Property<Guid>("FiscalRuleVersionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("fiscal_rule_version_id");
+
+                    b.Property<string>("RuleKey")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("rule_key");
+
+                    b.Property<int>("RuleVersion")
+                        .HasColumnType("integer")
+                        .HasColumnName("rule_version");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FiscalRuleVersionId");
+
+                    b.HasIndex("TenantId", "DocumentType", "DocumentId", "RuleKey")
+                        .IsUnique();
+
+                    b.ToTable("fiscal_document_snapshots", "platform");
+                });
+
+            modelBuilder.Entity("Avila.Platform.Persistence.FiscalRuleVersion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset>("EffectiveFrom")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("effective_from");
+
+                    b.Property<DateTimeOffset?>("EffectiveTo")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("effective_to");
+
+                    b.Property<string>("RuleKey")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)")
+                        .HasColumnName("rule_key");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("source");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.Property<string>("ValueJson")
+                        .IsRequired()
+                        .HasMaxLength(8000)
+                        .HasColumnType("character varying(8000)")
+                        .HasColumnName("value_json");
+
+                    b.Property<int>("VersionNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("version_number");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "RuleKey", "EffectiveFrom");
+
+                    b.HasIndex("TenantId", "RuleKey", "VersionNumber")
+                        .IsUnique();
+
+                    b.ToTable("fiscal_rule_versions", "platform");
+                });
+
             modelBuilder.Entity("Avila.Platform.Persistence.IdempotencyKeyRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -653,6 +765,15 @@ namespace Avila.Platform.Migrations
                         .IsUnique();
 
                     b.ToTable("usage_counters", "platform");
+                });
+
+            modelBuilder.Entity("Avila.Platform.Persistence.FiscalDocumentSnapshot", b =>
+                {
+                    b.HasOne("Avila.Platform.Persistence.FiscalRuleVersion", null)
+                        .WithMany()
+                        .HasForeignKey("FiscalRuleVersionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
