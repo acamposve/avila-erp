@@ -40,7 +40,7 @@ El contenido puede ajustarse; lo que no se ajusta sin decisión es la **calidad 
 - [ ] CI/CD con pruebas, migraciones y escaneo de seguridad.
 - [ ] ADR fundacionales aprobados.
 
-> **Estado 2026-11-15 (R1-CLOSURE):** PR A #31 merged; PR B #32 en revisión; criterios R1 **12/12 PASS** a nivel código/ensayo; historias **15 PASS + 2 deferrals**; AC **13 PASS + 2 deferrals**. **G1 sigue CERRADO** hasta firma explícita de @acamposve. Excepciones DEC-021 expiran en Production Readiness Gate. Ver [G1 sign-off](../tasks/evidence/R1-CLOSURE-B/g1-signoff-package.md).
+> **Estado 2026-11-15 (G1 OPEN):** @acamposve firmó la release R1: **12/12 gate criteria**, historias 15 PASS + 2 deferrals, AC 13 PASS + 2 deferrals. **G1 ABIERTO**; R2 desbloqueado. Excepciones DEC-021 expiran en Production Readiness Gate. Plan R2: [r2-execution-plan](../docs/architecture/r2-execution-plan.md). No se autoriza despliegue por esta firma.
 
 **No vendible de forma independiente.**
 
