@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Text.Json;
 using Avila.Api.Exporting;
 using Avila.Modules.Administration;
@@ -45,6 +45,25 @@ public sealed class ExportEndpointTests
         Assert.Contains("tenant.export.completed", actions);
         Assert.DoesNotContain("tenant.export.failed", actions);
 
+        await unitOfWork.RollbackAsync();
+    }
+
+    [Fact]
+    public async Task Export_requires_recent_step_up()
+    {
+        var tenant = Guid.NewGuid();
+        await CreateCompanyAsync(tenant, "Step Up Co");
+        var (context, unitOfWork) = await CreateContextAsync(
+            tenant,
+            "owner",
+            stream: true,
+            steppedUp: false);
+        await using var unit = unitOfWork;
+
+        await TenantExportEndpoint.HandleAsync(context, Registry(), Audit());
+
+        Assert.Equal(StatusCodes.Status403Forbidden, context.Response.StatusCode);
+        Assert.Contains("STEP_UP_REQUIRED", await ReadBodyAsync(context));
         await unitOfWork.RollbackAsync();
     }
 
@@ -124,7 +143,8 @@ public sealed class ExportEndpointTests
     private async Task<(DefaultHttpContext Context, IUnitOfWork UnitOfWork)> CreateContextAsync(
         Guid tenant,
         string role,
-        bool stream)
+        bool stream,
+        bool steppedUp = true)
     {
         var unitOfWork = await new TenantUnitOfWorkFactory()
             .BeginAsync(_fixture.AppConnectionString, tenant);
@@ -134,10 +154,22 @@ public sealed class ExportEndpointTests
             Guid.NewGuid(),
             tenant,
             "actor@example.test",
-            role);
+            role,
+            SteppedUpAt: steppedUp ? DateTimeOffset.UtcNow : null);
         context.Items[typeof(IUnitOfWork)] = unitOfWork;
         context.Response.Body = new MemoryStream();
         return (context, unitOfWork);
+    }
+
+    private static async Task<string> ReadBodyAsync(DefaultHttpContext context)
+    {
+        context.Response.Body.Position = 0;
+        using var reader = new StreamReader(
+            context.Response.Body,
+            Encoding.UTF8,
+            detectEncodingFromByteOrderMarks: false,
+            leaveOpen: true);
+        return await reader.ReadToEndAsync();
     }
 
     private static List<string> ReadLines(DefaultHttpContext context)

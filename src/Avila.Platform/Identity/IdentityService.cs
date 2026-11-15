@@ -7,6 +7,7 @@ public enum LoginStatus
 {
     Authenticated,
     MfaRequired,
+    MfaEnrollmentRequired,
     TenantSelectionRequired,
     InvalidCredentials,
     LockedOut,
@@ -23,13 +24,19 @@ public sealed record LoginResult(
     Guid? UserId = null,
     Guid? TenantId = null,
     Guid? MfaChallengeId = null,
-    IReadOnlyList<MembershipInfo>? Memberships = null);
+    IReadOnlyList<MembershipInfo>? Memberships = null,
+    IReadOnlyList<string>? RecoveryCodes = null);
 
 public sealed record InvitationTicket(Guid InvitationId, string Token, DateTimeOffset ExpiresAt);
 
 public sealed record AcceptedMembership(Guid UserId, Guid TenantId, string Role);
 
-public sealed record SessionPrincipal(Guid UserId, Guid TenantId, string Email, string Role);
+public sealed record SessionPrincipal(
+    Guid UserId,
+    Guid TenantId,
+    string Email,
+    string Role,
+    DateTimeOffset? SteppedUpAt = null);
 
 public sealed record MfaEnrollment(string Secret, string OtpAuthUri);
 
@@ -41,9 +48,11 @@ public sealed class IdentityService
 {
     private static readonly TimeSpan InvitationLifetime = TimeSpan.FromDays(7);
     private static readonly TimeSpan SessionLifetime = TimeSpan.FromHours(8);
+    private static readonly TimeSpan IdleLifetime = TimeSpan.FromMinutes(30);
     private static readonly TimeSpan MfaLifetime = TimeSpan.FromMinutes(5);
     private static readonly TimeSpan LockoutLifetime = TimeSpan.FromMinutes(15);
     private const int MaxFailedAttempts = 5;
+    private const int RecoveryCodeCount = 10;
     private static readonly HashSet<string> Roles = new(StringComparer.Ordinal)
     {
         "owner", "admin", "member"
@@ -228,21 +237,33 @@ public sealed class IdentityService
 
         if (user.MfaEnabled)
         {
-            var challenge = new MfaChallenge
-            {
-                Id = Guid.NewGuid(),
-                UserId = user.Id,
-                TenantId = selectedTenant,
-                ExpiresAt = now.Add(MfaLifetime)
-            };
-            context.MfaChallenges.Add(challenge);
-            await context.SaveChangesAsync(cancellationToken);
+            var challenge = await CreateMfaChallengeAsync(
+                context,
+                user.Id,
+                selectedTenant,
+                cancellationToken);
 
             return new LoginResult(
                 LoginStatus.MfaRequired,
                 UserId: user.Id,
                 TenantId: selectedTenant,
                 MfaChallengeId: challenge.Id);
+        }
+
+        if (selectedMembership.Role is "owner" or "admin")
+        {
+            var challenge = await CreateMfaChallengeAsync(
+                context,
+                user.Id,
+                selectedTenant,
+                cancellationToken);
+
+            return new LoginResult(
+                LoginStatus.MfaEnrollmentRequired,
+                UserId: user.Id,
+                TenantId: selectedTenant,
+                MfaChallengeId: challenge.Id,
+                Memberships: memberships);
         }
 
         var token = await CreateSessionAsync(context, user, selectedTenant, cancellationToken);
@@ -306,20 +327,185 @@ public sealed class IdentityService
         var user = await context.Users
             .SingleOrDefaultAsync(x => x.Id == challenge.UserId, cancellationToken);
 
-        if (user?.MfaSecret is null || !Totp.Verify(UnprotectMfa(user.MfaSecret), code, now))
+        var totpValid = user?.MfaSecret is not null
+                        && Totp.Verify(UnprotectMfa(user.MfaSecret), code, now);
+        var recoveryValid = !totpValid
+                            && await TryConsumeRecoveryCodeAsync(
+                                context,
+                                challenge.UserId,
+                                code,
+                                now,
+                                cancellationToken);
+
+        if (!totpValid && !recoveryValid)
         {
             return new LoginResult(LoginStatus.InvalidCredentials);
         }
 
         challenge.ConsumedAt = now;
-        var token = await CreateSessionAsync(context, user, challenge.TenantId, cancellationToken);
+        var token = await CreateSessionAsync(
+            context,
+            user!,
+            challenge.TenantId,
+            cancellationToken,
+            steppedUpAt: now);
+
+        return new LoginResult(
+            LoginStatus.Authenticated,
+            Token: token.Token,
+            ExpiresAt: token.ExpiresAt,
+            UserId: user!.Id,
+            TenantId: challenge.TenantId);
+    }
+
+    public async Task<MfaEnrollment> BeginMfaEnrollmentAsync(
+        Guid challengeId,
+        CancellationToken cancellationToken = default)
+    {
+        await using var context = CreateContext();
+        var now = DateTimeOffset.UtcNow;
+        var challenge = await context.MfaChallenges
+            .SingleOrDefaultAsync(x => x.Id == challengeId, cancellationToken);
+
+        if (challenge is null || challenge.ConsumedAt.HasValue || challenge.ExpiresAt <= now)
+        {
+            throw new IdentityException("MFA_CHALLENGE_INVALID", "MFA challenge is invalid or expired.");
+        }
+
+        var user = await context.Users
+            .SingleAsync(x => x.Id == challenge.UserId, cancellationToken);
+        var secret = Totp.NewSecret();
+        user.MfaSecret = SecretProtector.Protect(secret, _mfaKey);
+        user.MfaEnabled = false;
+        await context.SaveChangesAsync(cancellationToken);
+
+        return new MfaEnrollment(secret, Totp.OtpAuthUri("ÁVILA ERP", user.Email, secret));
+    }
+
+    public async Task<LoginResult> CompleteMfaEnrollmentAsync(
+        Guid challengeId,
+        string code,
+        CancellationToken cancellationToken = default)
+    {
+        await using var context = CreateContext();
+        var now = DateTimeOffset.UtcNow;
+        var challenge = await context.MfaChallenges
+            .SingleOrDefaultAsync(x => x.Id == challengeId, cancellationToken);
+
+        if (challenge is null || challenge.ConsumedAt.HasValue || challenge.ExpiresAt <= now)
+        {
+            return new LoginResult(LoginStatus.InvalidCredentials);
+        }
+
+        var user = await context.Users
+            .SingleAsync(x => x.Id == challenge.UserId, cancellationToken);
+
+        if (user.MfaSecret is null || !Totp.Verify(UnprotectMfa(user.MfaSecret), code, now))
+        {
+            return new LoginResult(LoginStatus.InvalidCredentials);
+        }
+
+        user.MfaEnabled = true;
+        challenge.ConsumedAt = now;
+        var recoveryCodes = await GenerateRecoveryCodesAsync(context, user.Id, cancellationToken);
+        var token = await CreateSessionAsync(
+            context,
+            user,
+            challenge.TenantId,
+            cancellationToken,
+            steppedUpAt: now);
 
         return new LoginResult(
             LoginStatus.Authenticated,
             Token: token.Token,
             ExpiresAt: token.ExpiresAt,
             UserId: user.Id,
-            TenantId: challenge.TenantId);
+            TenantId: challenge.TenantId,
+            RecoveryCodes: recoveryCodes);
+    }
+
+    public async Task<bool> StepUpAsync(
+        string token,
+        string code,
+        CancellationToken cancellationToken = default)
+    {
+        var hash = SessionTokens.Hash(token);
+        var now = DateTimeOffset.UtcNow;
+        await using var context = CreateContext();
+        var session = await context.Sessions
+            .SingleOrDefaultAsync(x => x.TokenHash == hash, cancellationToken);
+
+        if (session is null || session.RevokedAt.HasValue || session.ExpiresAt <= now)
+        {
+            return false;
+        }
+
+        var user = await context.Users
+            .SingleOrDefaultAsync(x => x.Id == session.UserId, cancellationToken);
+        if (user?.MfaSecret is null)
+        {
+            return false;
+        }
+
+        var valid = Totp.Verify(UnprotectMfa(user.MfaSecret), code, now)
+                    || await TryConsumeRecoveryCodeAsync(
+                        context,
+                        user.Id,
+                        code,
+                        now,
+                        cancellationToken);
+        if (!valid)
+        {
+            return false;
+        }
+
+        session.SteppedUpAt = now;
+        await context.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
+    public async Task RevokeAllSessionsAsync(
+        Guid userId,
+        Guid? tenantId = null,
+        CancellationToken cancellationToken = default)
+    {
+        await using var context = CreateContext();
+        var now = DateTimeOffset.UtcNow;
+        var sessions = await context.Sessions
+            .Where(x => x.UserId == userId
+                        && x.RevokedAt == null
+                        && (!tenantId.HasValue || x.ActiveTenantId == tenantId.Value))
+            .ToListAsync(cancellationToken);
+
+        foreach (var session in sessions)
+        {
+            session.RevokedAt = now;
+        }
+
+        await context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task ChangeRoleAsync(
+        Guid userId,
+        Guid tenantId,
+        string role,
+        CancellationToken cancellationToken = default)
+    {
+        ValidateRole(role);
+        await using var context = CreateContext();
+        var membership = await context.Memberships
+            .SingleOrDefaultAsync(
+                x => x.UserId == userId && x.TenantId == tenantId,
+                cancellationToken);
+
+        if (membership is null)
+        {
+            throw new IdentityException("MEMBERSHIP_NOT_FOUND", "Membership does not exist.");
+        }
+
+        membership.Role = role;
+        await context.SaveChangesAsync(cancellationToken);
+        await RevokeAllSessionsAsync(userId, tenantId, cancellationToken);
     }
 
     public async Task<SessionPrincipal?> AuthenticateAsync(
@@ -335,6 +521,13 @@ public sealed class IdentityService
 
         if (session is null || session.RevokedAt.HasValue || session.ExpiresAt <= now)
         {
+            return null;
+        }
+
+        if (session.LastSeenAt.Add(IdleLifetime) <= now)
+        {
+            session.RevokedAt = now;
+            await context.SaveChangesAsync(cancellationToken);
             return null;
         }
 
@@ -356,7 +549,12 @@ public sealed class IdentityService
         session.LastSeenAt = now;
         await context.SaveChangesAsync(cancellationToken);
 
-        return new SessionPrincipal(user.Id, membership.TenantId, user.Email, membership.Role);
+        return new SessionPrincipal(
+            user.Id,
+            membership.TenantId,
+            user.Email,
+            membership.Role,
+            session.SteppedUpAt);
     }
 
     public async Task<string> SwitchTenantAsync(
@@ -461,20 +659,93 @@ public sealed class IdentityService
         IdentityDbContext context,
         IdentityUser user,
         Guid tenantId,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        DateTimeOffset? steppedUpAt = null)
     {
         var token = SessionTokens.New();
-        var expiresAt = DateTimeOffset.UtcNow.Add(SessionLifetime);
+        var now = DateTimeOffset.UtcNow;
+        var expiresAt = now.Add(SessionLifetime);
         context.Sessions.Add(new Session
         {
             Id = Guid.NewGuid(),
             UserId = user.Id,
             ActiveTenantId = tenantId,
             TokenHash = SessionTokens.Hash(token),
-            ExpiresAt = expiresAt
+            ExpiresAt = expiresAt,
+            LastSeenAt = now,
+            SteppedUpAt = steppedUpAt
         });
         await context.SaveChangesAsync(cancellationToken);
         return (token, expiresAt);
+    }
+
+    private static async Task<MfaChallenge> CreateMfaChallengeAsync(
+        IdentityDbContext context,
+        Guid userId,
+        Guid tenantId,
+        CancellationToken cancellationToken)
+    {
+        var challenge = new MfaChallenge
+        {
+            Id = Guid.NewGuid(),
+            UserId = userId,
+            TenantId = tenantId,
+            ExpiresAt = DateTimeOffset.UtcNow.Add(MfaLifetime)
+        };
+        context.MfaChallenges.Add(challenge);
+        await context.SaveChangesAsync(cancellationToken);
+        return challenge;
+    }
+
+    private static async Task<IReadOnlyList<string>> GenerateRecoveryCodesAsync(
+        IdentityDbContext context,
+        Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var previous = await context.MfaRecoveryCodes
+            .Where(x => x.UserId == userId && x.UsedAt == null)
+            .ToListAsync(cancellationToken);
+        context.MfaRecoveryCodes.RemoveRange(previous);
+
+        var codes = new List<string>(RecoveryCodeCount);
+        for (var index = 0; index < RecoveryCodeCount; index++)
+        {
+            var code = Convert.ToHexString(RandomNumberGenerator.GetBytes(8)).ToLowerInvariant();
+            codes.Add(code);
+            context.MfaRecoveryCodes.Add(new MfaRecoveryCode
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                CodeHash = SessionTokens.Hash(code),
+                CreatedAt = DateTimeOffset.UtcNow
+            });
+        }
+
+        await context.SaveChangesAsync(cancellationToken);
+        return codes;
+    }
+
+    private static async Task<bool> TryConsumeRecoveryCodeAsync(
+        IdentityDbContext context,
+        Guid userId,
+        string code,
+        DateTimeOffset now,
+        CancellationToken cancellationToken)
+    {
+        var hash = SessionTokens.Hash(code.Trim());
+        var recovery = await context.MfaRecoveryCodes
+            .SingleOrDefaultAsync(
+                x => x.UserId == userId && x.CodeHash == hash && x.UsedAt == null,
+                cancellationToken);
+
+        if (recovery is null)
+        {
+            return false;
+        }
+
+        recovery.UsedAt = now;
+        await context.SaveChangesAsync(cancellationToken);
+        return true;
     }
 
     private string UnprotectMfa(string protectedSecret)

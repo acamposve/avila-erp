@@ -30,11 +30,17 @@ public sealed class IdentityTests
         Assert.Equal(tenant, accepted.TenantId);
         Assert.Equal("owner", accepted.Role);
 
+        var secret = await EnrollPrivilegedAsync(service, email, Password, tenant);
         var login = await service.LoginAsync(email, Password, tenant);
-        Assert.Equal(LoginStatus.Authenticated, login.Status);
-        Assert.NotNull(login.Token);
+        Assert.Equal(LoginStatus.MfaRequired, login.Status);
+        Assert.NotNull(login.MfaChallengeId);
+        var verified = await service.VerifyMfaAsync(
+            login.MfaChallengeId!.Value,
+            Totp.Code(secret));
+        Assert.Equal(LoginStatus.Authenticated, verified.Status);
+        Assert.NotNull(verified.Token);
 
-        var principal = await service.AuthenticateAsync(login.Token!);
+        var principal = await service.AuthenticateAsync(verified.Token!);
         Assert.NotNull(principal);
         Assert.Equal(tenant, principal.TenantId);
         Assert.Equal(email, principal.Email);
@@ -60,16 +66,22 @@ public sealed class IdentityTests
         Assert.NotNull(selection.Memberships);
         Assert.Equal(2, selection.Memberships!.Count);
 
+        var secret = await EnrollPrivilegedAsync(service, email, Password, tenantA);
         var loginA = await service.LoginAsync(email, Password, tenantA);
-        Assert.Equal(LoginStatus.Authenticated, loginA.Status);
-        Assert.NotNull(loginA.Token);
+        Assert.Equal(LoginStatus.MfaRequired, loginA.Status);
+        Assert.NotNull(loginA.MfaChallengeId);
+        var verifiedA = await service.VerifyMfaAsync(
+            loginA.MfaChallengeId!.Value,
+            Totp.Code(secret));
+        Assert.Equal(LoginStatus.Authenticated, verifiedA.Status);
+        Assert.NotNull(verifiedA.Token);
 
-        var tokenB = await service.SwitchTenantAsync(loginA.Token!, tenantB);
+        var tokenB = await service.SwitchTenantAsync(verifiedA.Token!, tenantB);
         var principalB = await service.AuthenticateAsync(tokenB);
         Assert.NotNull(principalB);
         Assert.Equal(tenantB, principalB.TenantId);
 
-        Assert.Null(await service.AuthenticateAsync(loginA.Token!));
+        Assert.Null(await service.AuthenticateAsync(verifiedA.Token!));
 
         await Assert.ThrowsAsync<IdentityException>(
             () => service.SwitchTenantAsync(tokenB, Guid.NewGuid()));
@@ -212,6 +224,25 @@ public sealed class IdentityTests
     }
 
     private IdentityService Service() => new(_fixture.IdentityConnectionString, _fixture.IdentityMfaKey);
+
+    private static async Task<string> EnrollPrivilegedAsync(
+        IdentityService service,
+        string email,
+        string password,
+        Guid tenant)
+    {
+        var required = await service.LoginAsync(email, password, tenant);
+        Assert.Equal(LoginStatus.MfaEnrollmentRequired, required.Status);
+        Assert.NotNull(required.MfaChallengeId);
+
+        var enrollment = await service.BeginMfaEnrollmentAsync(required.MfaChallengeId!.Value);
+        var completed = await service.CompleteMfaEnrollmentAsync(
+            required.MfaChallengeId.Value,
+            Totp.Code(enrollment.Secret));
+        Assert.Equal(LoginStatus.Authenticated, completed.Status);
+        Assert.NotNull(completed.RecoveryCodes);
+        return enrollment.Secret;
+    }
 
     private static string Email(string prefix) => $"{prefix}-{Guid.NewGuid():N}@example.test";
 }
