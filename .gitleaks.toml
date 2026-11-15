@@ -1,0 +1,18 @@
+# Test-only credentials and evidence fixtures are intentionally synthetic.
+title = "gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic test and evidence fixtures"
+paths = [
+  '''tests/.*''',
+  '''tasks/evidence/.*'''
+]
+regexes = [
+  '''CorrectHorseBattery1!''',
+  '''avila_app_pw''',
+  '''avila_identity_pw''',
+  '''avila_platform_pw'''
+]

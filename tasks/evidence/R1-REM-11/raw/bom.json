@@ -1,0 +1,2736 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:5b15e635-ade3-44d8-a3c8-bebcd1bede8c",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-15T10:50:41Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "authors": [
+            {
+              "name": "CycloneDX"
+            }
+          ],
+          "name": "CycloneDX module for .NET",
+          "version": "6.3.1.0",
+          "externalReferences": [
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-dotnet",
+              "type": "website"
+            }
+          ]
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "Avila@0.0.0",
+      "name": "Avila",
+      "version": "0.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/BouncyCastle.Cryptography@2.7.0",
+      "authors": [
+        {
+          "name": "Legion of the Bouncy Castle Inc."
+        }
+      ],
+      "name": "BouncyCastle.Cryptography",
+      "version": "2.7.0",
+      "description": "BouncyCastle.NET is a popular cryptography library for .NET",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2F2B3E749B61A43F2AB8E35A024455F647BC0E0113D02C015BDD4D7898CC547646BD144D3BC0E475179815F08138272F329CC9782DC3B8BAE946E9ED627ABD23"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright \u00A9 Legion of the Bouncy Castle Inc. 2000-2026",
+      "purl": "pkg:nuget/BouncyCastle.Cryptography@2.7.0",
+      "externalReferences": [
+        {
+          "url": "https://www.bouncycastle.org/stable/nuget/csharp/website",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/bcgit/bc-csharp",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/coverlet.collector@6.0.4",
+      "authors": [
+        {
+          "name": "tonerdo"
+        }
+      ],
+      "name": "coverlet.collector",
+      "version": "6.0.4",
+      "description": "Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "A0ABCE1EF08DC1267CBE07DE8D8BC69A32A3559EA9CD55DE1EA340BAD1397364C305B304E1A8A718E41549E0E64123EE706FB38CA23EAB3F959928B94193E939"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/coverlet.collector@6.0.4",
+      "externalReferences": [
+        {
+          "url": "https://github.com/coverlet-coverage/coverlet",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/coverlet-coverage/coverlet.git",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Docker.DotNet.Enhanced@4.3.3",
+      "authors": [
+        {
+          "name": "Docker.DotNet"
+        }
+      ],
+      "name": "Docker.DotNet.Enhanced",
+      "version": "4.3.3",
+      "description": "A .NET client for the Docker Engine API (v29.4.1) with fully asynchronous, non-blocking, object-oriented APIs.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "D27B82F1E6E32342E87218502CDC7D5333B8F1B047F22C68F6F6005E915021467706677DFDBC7EA87B28732584314D910F4AA32B5B800298B20223A6C27A448E"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors; Andre Hofmeister",
+      "purl": "pkg:nuget/Docker.DotNet.Enhanced@4.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/testcontainers/Docker.DotNet/",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3",
+      "authors": [
+        {
+          "name": "Docker.DotNet.Handler.Abstractions"
+        }
+      ],
+      "name": "Docker.DotNet.Enhanced.Handler.Abstractions",
+      "version": "4.3.3",
+      "description": "An abstraction layer for Docker.DotNet that defines the classes and interfaces for implementing Docker Engine handlers.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3DF49E390F13EC7F4593BB1CEB5148AFCBF1830A481AA1750308D3B1BF0EFA3D6B7F5404D901FA645AECFD783FBCE407CEEAB6A806DF9585ADA23799FA664FD9"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors; Andre Hofmeister",
+      "purl": "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/testcontainers/Docker.DotNet/",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Docker.DotNet.Enhanced.LegacyHttp@4.3.3",
+      "authors": [
+        {
+          "name": "Docker.DotNet.LegacyHttp"
+        }
+      ],
+      "name": "Docker.DotNet.Enhanced.LegacyHttp",
+      "version": "4.3.3",
+      "description": "A Docker.DotNet transport implementation for HTTP(S) Docker Engine connections.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C00F4EF976DED43D96EFAF37D957F13BCFDD0EFEAC71757D922F70AC7A7CB2B1A2FCB4C504A35EB196BF33314C9FC2B0CD9F3B80FF001B4F0F628B3DA1FE086D"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors; Andre Hofmeister",
+      "purl": "pkg:nuget/Docker.DotNet.Enhanced.LegacyHttp@4.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/testcontainers/Docker.DotNet/",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Docker.DotNet.Enhanced.NativeHttp@4.3.3",
+      "authors": [
+        {
+          "name": "Docker.DotNet.NativeHttp"
+        }
+      ],
+      "name": "Docker.DotNet.Enhanced.NativeHttp",
+      "version": "4.3.3",
+      "description": "A Docker.DotNet transport implementation for HTTP(S) Docker Engine connections.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4A2D4E42FDC9F2DD78A39EB47944503F64190404AB9586C98616CED61E3CB6A9F7BBE254F61BBD8E47D26A2AE457272EA19BB1AB5F186992D4B5D11176F4B564"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors; Andre Hofmeister",
+      "purl": "pkg:nuget/Docker.DotNet.Enhanced.NativeHttp@4.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/testcontainers/Docker.DotNet/",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Docker.DotNet.Enhanced.NPipe@4.3.3",
+      "authors": [
+        {
+          "name": "Docker.DotNet.NPipe"
+        }
+      ],
+      "name": "Docker.DotNet.Enhanced.NPipe",
+      "version": "4.3.3",
+      "description": "A Docker.DotNet transport implementation for Windows named pipe (npipe) Docker Engine connections.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "F0B484D85DDB8B02DC23985727C27E39F72E30882C4AED9E2B3F621FE6DC85D8579DEDAE092BD57F715DB0A61001DB3884C83B686EB8B45048A108257264D3A1"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors; Andre Hofmeister",
+      "purl": "pkg:nuget/Docker.DotNet.Enhanced.NPipe@4.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/testcontainers/Docker.DotNet/",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Docker.DotNet.Enhanced.Unix@4.3.3",
+      "authors": [
+        {
+          "name": "Docker.DotNet.Unix"
+        }
+      ],
+      "name": "Docker.DotNet.Enhanced.Unix",
+      "version": "4.3.3",
+      "description": "A Docker.DotNet transport implementation for Unix domain socket Docker Engine connections.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9D994DEAB92409DCFCC160B523A99BADE0EE6FD57311871940E27AE4FD59EDC7F71B3AA0EEDB311F433EAE8507CC434CA3613D091FC1D1774BF28D9BCA071CF6"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors; Andre Hofmeister",
+      "purl": "pkg:nuget/Docker.DotNet.Enhanced.Unix@4.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/testcontainers/Docker.DotNet/",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Docker.DotNet.Enhanced.X509@4.3.3",
+      "authors": [
+        {
+          "name": "Docker.DotNet.X509"
+        }
+      ],
+      "name": "Docker.DotNet.Enhanced.X509",
+      "version": "4.3.3",
+      "description": "A Docker.DotNet extension that adds X.509 client certificate authentication for remote Docker Engine connections.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "986011394E14DAECE3AACFB06E820A7023007912AADDCEE7471AD343F8A22733522AA28F33253BA5634EBD78701CA2B31E30298FF8A3F7E31060B0DCD1BE631E"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors; Andre Hofmeister",
+      "purl": "pkg:nuget/Docker.DotNet.Enhanced.X509@4.3.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/testcontainers/Docker.DotNet/",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Humanizer.Core@2.14.1",
+      "authors": [
+        {
+          "name": "Mehdi Khalili, Claire Novotny"
+        }
+      ],
+      "name": "Humanizer.Core",
+      "version": "2.14.1",
+      "description": "Humanizer core package that contains the library and the neutral language (English) resources",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "CB3A8653F1CA34B67D52FAFA92F49CDF0615FD2E4EFC8BE4948516E5617B32E8AF18B63CC12E486672CF92DEC3D4A5BC12DD849E5D08DCBCE0DAF196336E17B3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) .NET Foundation and Contributors",
+      "purl": "pkg:nuget/Humanizer.Core@2.14.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/Humanizr/Humanizer",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/Humanizr/Humanizer",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.Mvc.Testing@10.0.3",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.AspNetCore.Mvc.Testing",
+      "version": "10.0.3",
+      "description": "Support for writing functional tests for MVC applications.\n\nThis package was built from the source code at https://github.com/dotnet/dotnet/tree/c2435c3e0f46de784341ac3ed62863ce77e117b4",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C59F60BE0903668A8A70F3A9ECCB1E767731745BAC9F6AE2E93FEB79E706F6D670EBDB19A5892D195A31D03927159AAC58483B9D1C96452649774AF2DCC76854"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.Mvc.Testing@10.0.3",
+      "externalReferences": [
+        {
+          "url": "https://asp.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.AspNetCore.TestHost@10.0.3",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.AspNetCore.TestHost",
+      "version": "10.0.3",
+      "description": "ASP.NET Core web server for writing and running tests.\n\nThis package was built from the source code at https://github.com/dotnet/dotnet/tree/c2435c3e0f46de784341ac3ed62863ce77e117b4",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1884DB44DC80466D093129B6C5AAD8137C257827824335CFE6257C8107EA6FF9AB0424DE8259250B2C7EF1D7563B6397CA8D59E26D9F2E7125127BFF9D04FF51"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.AspNetCore.TestHost@10.0.3",
+      "externalReferences": [
+        {
+          "url": "https://asp.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Build.Framework@18.0.2",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Build.Framework",
+      "version": "18.0.2",
+      "description": "This package contains the Microsoft.Build.Framework assembly which is a common assembly used by other MSBuild assemblies.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7265E81A770022B0D982ED0DBA6B572524C82EFF4D1D4DAC3E1AE591C91E7CC2B55C2B8952BBC2955C649AF403A6F9B8B022B0485A255B601A9C608B349EB10F"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Build.Framework@18.0.2",
+      "externalReferences": [
+        {
+          "url": "http://go.microsoft.com/fwlink/?LinkId=624683",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/msbuild",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.CodeAnalysis.Analyzers",
+      "version": "3.11.0",
+      "description": "Analyzers for consumers of Microsoft.CodeAnalysis NuGet package, i.e. extensions and applications built on top of .NET Compiler Platform (Roslyn). This package is included as a development dependency of Microsoft.CodeAnalysis NuGet package and does not need to be installed separately if you are referencing Microsoft.CodeAnalysis NuGet package.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "B4FF522F32CAEF65C2131961F0A5DFACA6D4EB272664BDC4C4697F6B7325ECB372D9469A9BB8058E3526773C936243174F27240871E9CF1EDB0FA04CBA687C06"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/dotnet/roslyn-analyzers",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/roslyn-analyzers",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.CodeAnalysis.Common",
+      "version": "5.0.0",
+      "description": "A shared package used by the Microsoft .NET Compiler Platform (\u0022Roslyn\u0022).\n      Do not install this package manually, it will be added as a prerequisite by other packages that require it.\n    \n      More details at https://aka.ms/roslyn-packages\n      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "B8AE72B254C94365339F3625B6D16E0C26BFE8AAEE3756905BF64D1451EF2BECB203AABBBD9E68D0148FBCB8FE0A89B5FD1EF0189D3B7363B494F71B0EB99077"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.CodeAnalysis.CSharp",
+      "version": "5.0.0",
+      "description": ".NET Compiler Platform (\u0022Roslyn\u0022) support for C#, Microsoft.CodeAnalysis.CSharp.dll.\n    \n      More details at https://aka.ms/roslyn-packages\n      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C304FF089390C90EF62DDA2ECBB8234BFDD58BDDA16C00285376347BFEA66F7F7E569EDA5EBDCFC6E043EF753642B2B5CF3813CAFDD086F24FAD05F4122592F1"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.CodeAnalysis.CSharp.Workspaces",
+      "version": "5.0.0",
+      "description": ".NET Compiler Platform (\u0022Roslyn\u0022) support for analyzing C# projects and solutions.\n    \n      More details at https://aka.ms/roslyn-packages\n      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "172D01371728F5BED70BB2CA75382AF8A93AD8729AA7210CD392CDE6E6B736DE8F678A737C0021FBD0E0FD55B86927E5818A22430FE68E7A2D814B8CF4D3FA2B"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.CodeAnalysis.Workspaces.Common",
+      "version": "5.0.0",
+      "description": "A shared package used by the .NET Compiler Platform (\u0022Roslyn\u0022) including support for analyzing projects and solutions.\n      Do not install this package manually, it will be added as a prerequisite by other packages that require it.\n    \n      More details at https://aka.ms/roslyn-packages\n      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "CDB289C889055BED81C7979097F21604B99B3D3A68F7F53201BB7CBDA5535ECA22E046255EB25FB42459994B26C903FBA60DEA28C891E9CCCF7548D369D36484"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.CodeAnalysis.Workspaces.MSBuild",
+      "version": "5.0.0",
+      "description": ".NET Compiler Platform (\u0022Roslyn\u0022) support for analyzing MSBuild projects and solutions. This should be used with at least one\n      of the following packages to add the appropriate language support:\n      - Microsoft.CodeAnalysis.CSharp.Workspaces\n      - Microsoft.CodeAnalysis.VisualBasic.Workspaces\n    \n      More details at https://aka.ms/roslyn-packages\n      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C7F857EBC2E1E1D2C6A9C28E32B2D4B96CDF5444E6EDC8B0AB0F2D1BCC7AEDB5421C238588F33C5E3E2BFD98C11605FA2150E7CEDB40A095A75471E6320FC7AE"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/roslyn",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.CodeCoverage@17.14.1",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.CodeCoverage",
+      "version": "17.14.1",
+      "description": "Microsoft.CodeCoverage package brings infra for collecting code coverage from vstest.console.exe and \u0022dotnet test\u0022.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "27F6599442877E00CC65252D0DBB1A71CA0B0B5AEB113BE8B5030C7F89FA4DB7CBC72B5D6133F775B2B1684E71D83F9B5EEC2811265E4A0C9DDB8028DE9AE166"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.CodeCoverage@17.14.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.EntityFrameworkCore@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.EntityFrameworkCore",
+      "version": "10.0.4",
+      "description": "Entity Framework Core is a modern object-database mapper for .NET. It supports LINQ queries, change tracking, updates, and schema migrations. EF Core works with SQL Server, Azure SQL Database, SQLite, Azure Cosmos DB, MySQL, PostgreSQL, and other databases through a provider plugin API.\n\nCommonly Used Types:\nMicrosoft.EntityFrameworkCore.DbContext\nMicrosoft.EntityFrameworkCore.DbSet",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7EE1090F87758E988661315BC8F8358B75AAC8241D4D1D8D100230002D20F16531C363C7CE6C2F4AE01B2783840513C601CC134C4ABAE175AF38C3697B7B2671"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.EntityFrameworkCore@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://docs.microsoft.com/ef/core/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.EntityFrameworkCore.Abstractions",
+      "version": "10.0.4",
+      "description": "Provides abstractions and attributes that are used to configure Entity Framework Core",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1CB908ECCD39244CCF8BE1E96256A2F26DF4DF64E951BE539B040E452E7A90C52DACC3745F111FE50AE8AD8128B6F3428070B1DEF0A84DEC37C9076F1A3E0911"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://docs.microsoft.com/ef/core/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.EntityFrameworkCore.Analyzers",
+      "version": "10.0.4",
+      "description": "CSharp Analyzers for Entity Framework Core.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "ED340ED48469C5007A0B5DA793528C034910A7851A5D286AF6B75CB8F7CC6262A67EDE227053A7E6530D3AEB9585A315951CB1EC6320A4B7B115BDE40AE80BCB"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://docs.microsoft.com/ef/core/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.3",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.EntityFrameworkCore.Design",
+      "version": "10.0.3",
+      "description": "Shared design-time components for Entity Framework Core tools.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0F160D9474F2C54FD6288D2344219A28581BB5169B3B122A3A5D35111D57B2FA4D435D7F57C5D5FFD3A141F090943C83B6EE9FBCE70CDB34EC0407E3818B4E19"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.3",
+      "externalReferences": [
+        {
+          "url": "https://docs.microsoft.com/ef/core/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.EntityFrameworkCore.Relational",
+      "version": "10.0.4",
+      "description": "Shared Entity Framework Core components for relational database providers.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9516974D46E568EEB3F1D8C174C42101549AA30AA4CCE9697430B00DBA9A4641DFA0B3D884FC7CB37418145BDFB983F9FE44D4BA54BE7B9A7779FB07F9FF0D09"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://docs.microsoft.com/ef/core/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.Caching.Abstractions",
+      "version": "10.0.4",
+      "description": "Caching abstractions for in-memory cache and distributed cache.\n\nCommonly Used Types:\nMicrosoft.Extensions.Caching.Distributed.IDistributedCache\nMicrosoft.Extensions.Caching.Memory.IMemoryCache",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "A0A063F6992FDB9E2B6D26615DB779186844762D378D872311F12907B29EC2FC0B632EDC439BCF517C725278F4E567E5BAF9F56D602F0043300525C6864D35E4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Caching.Memory@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.Caching.Memory",
+      "version": "10.0.4",
+      "description": "In-memory cache implementation of Microsoft.Extensions.Caching.Memory.IMemoryCache.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "66223E0DB6E513CD010C5E46FB2395FFE6C9B7B20E4DDCAC6C5EEB237F6F921A192F5A26A2DB9019159CDBB750C087A976FED1F456A835F71E0B86CF39ABDB6F"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.Caching.Memory@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Configuration.Abstractions@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.Configuration.Abstractions",
+      "version": "10.0.4",
+      "description": "Provides abstractions of key-value pair based configuration. Interfaces defined in this package are implemented by classes in Microsoft.Extensions.Configuration and other configuration packages.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "EB770A4FDCAEBD12E555FA047992F159621052A77F77B6C56DF339A83DCBC43E3128452D92F30F8DD651481EC0F0B28B8116BACE80FB8EC101E56BAD6DA9D1D1"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.Configuration.Abstractions@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.DependencyInjection",
+      "version": "10.0.4",
+      "description": "Default implementation of dependency injection for Microsoft.Extensions.DependencyInjection.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5D0778A1C857F3B0269EB5B475DB0B1100508832B0758A74ACE2C18C16158DA95E4E3786B7016FD0BFE33C6019D5DF52D370B0D0FCB09699687184CCB43C16E3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.DependencyInjection@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "version": "10.0.4",
+      "description": "Abstractions for dependency injection.\n\nCommonly Used Types:\nMicrosoft.Extensions.DependencyInjection.IServiceCollection",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "124DEBE71CC246CF8E142E45CFAC895FADD539059B6F0EC0D1AA4F1D1268EA7ED49BE294EE22EEFE2BD96269E8EBE1E297E42534098983F213B706E6F91C8D2F"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.3",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.DependencyModel",
+      "version": "10.0.3",
+      "description": "Provides abstractions for reading \u0060.deps\u0060 files. When a .NET application is compiled, the SDK generates a JSON manifest file (\u0060\u003CApplicationName\u003E.deps.json\u0060) that contains information about application dependencies. You can use \u0060Microsoft.Extensions.DependencyModel\u0060 to read information from this manifest at run time. This is useful when you want to dynamically compile code (for example, using Roslyn Emit API) referencing the same dependencies as your main application.\n\nBy default, the dependency manifest contains information about the application\u0027s target framework and runtime dependencies. Set the PreserveCompilationContext project property to \u0060true\u0060 to additionally include information about reference assemblies used during compilation.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0EE289A0CA06DB810B3AB18A9B2E1BCD4DCABE4274EF383B4399B793EC9DD9D2C705DABC57B78E7EE317FA6848B394A3430254C6884394A10122B397238C0A27"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.3",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.Logging",
+      "version": "10.0.4",
+      "description": "Logging infrastructure default implementation for Microsoft.Extensions.Logging.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2BFE5E6F7732874562E2A9D1A3C3B86AD5FDC5A701709E9848EA7D23CC3CA91CD5197D294A9F16CE681C92941F6C576922C45513ABA821BA729056CAE885FAE0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.Logging@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.Logging.Abstractions",
+      "version": "10.0.4",
+      "description": "Logging abstractions for Microsoft.Extensions.Logging.\n\nCommonly Used Types:\nMicrosoft.Extensions.Logging.ILogger\nMicrosoft.Extensions.Logging.ILoggerFactory\nMicrosoft.Extensions.Logging.ILogger\u003CTCategoryName\u003E\nMicrosoft.Extensions.Logging.LogLevel\nMicrosoft.Extensions.Logging.Logger\u003CT\u003E\nMicrosoft.Extensions.Logging.LoggerMessage\nMicrosoft.Extensions.Logging.Abstractions.NullLogger",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "60C5E7078AD6ADB1C77875AC917660C4BA263EC248A4957748E50FC9CFCBF1FDEB08634E6313B547D8888D73ACF256BCEB95BE3D652220FDE54B241B336B0F50"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Options@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.Options",
+      "version": "10.0.4",
+      "description": "Provides a strongly typed way of specifying and accessing settings using dependency injection.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1300B6E9A37D644236DC8C39C61A72C88CD9BDF8D208D2043F56142F6FEA74CF26F3A7B747BBEF9C6CC7C6DE7B2B2EBA91940D8DFA335FA25E8252858F329580"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.Options@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.Extensions.Primitives",
+      "version": "10.0.4",
+      "description": "Primitives shared by framework extensions. Commonly used types include:\n\nCommonly Used Types:\nMicrosoft.Extensions.Primitives.IChangeToken\nMicrosoft.Extensions.Primitives.StringValues\nMicrosoft.Extensions.Primitives.StringSegment",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "E37827D1FD62AEF6B8D2DBE2015A1745C819687BBDD10CCA0DFF91F05F3E25E25AC0D4D738A9EB9482A8B16F0AD9E4918211FC418759A026333640FA64F9D5A0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.14.1",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.NET.Test.Sdk",
+      "version": "17.14.1",
+      "description": "The MSbuild targets and properties for building .NET test projects.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4AD1AAFD75F13D10D54EE1E892A835403356368FCD087045FBB10041622DD6B7AF95879333FCDD4C4A75F772F54AAB5DD3021486E4FFEC0888CC9290DC7371B3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.NET.Test.Sdk@17.14.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.TestPlatform.ObjectModel@17.14.1",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.TestPlatform.ObjectModel",
+      "version": "17.14.1",
+      "description": "The Microsoft Test Platform Object Model.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "FA38A8CEF2083A790EDE99D97F8408BACC286416E3F1EE3E453C75D4A91F0DBAE19C52D8C127EE5E4234A7FEF140804FE9759F66F12C99F08FAF3CBDCC8A3EDD"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.TestPlatform.ObjectModel@17.14.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.TestPlatform.TestHost@17.14.1",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.TestPlatform.TestHost",
+      "version": "17.14.1",
+      "description": "Testplatform host executes the test using specified adapter.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "FD5DC072EFE5AA760322715C69D4B983ED4F775F5077EC6B750A90E2DD3C8B87AE3FDA961FA5C6A32CFA62575305AE8451FD9BFFC700A03F1C2E3CE808601304"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.TestPlatform.TestHost@17.14.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/microsoft/vstest",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "Microsoft.VisualStudio.SolutionPersistence",
+      "version": "1.0.52",
+      "description": "Package Description",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "947C8C9B98F9C11C15682DEF9425AB147D851B2D92A45519A8BBD8873C1FD5C1142100940A153DEB487C92D78549FD356642D2809C2BCE79ACA708D6F243EDAC"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52",
+      "externalReferences": [
+        {
+          "url": "https://github.com/microsoft/vs-solutionpersistence",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/microsoft/vs-solutionpersistence",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Mono.TextTemplating@3.0.0",
+      "authors": [
+        {
+          "name": "Mikayla Hutchinson"
+        }
+      ],
+      "name": "Mono.TextTemplating",
+      "version": "3.0.0",
+      "description": "Embeddable engine for the T4 templating language, a general-purpose way to generate text or code files using C#",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C29F7669B51D5757E18CC9F64E40E743BD52DA8F6B685EE1620B20A20248DA2AEC55445CBA504CABBB8B600AEEBA6DDF19C08E0BE62E10B34D877FE9FA6B7F9A"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Mono.TextTemplating@3.0.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/mono/t4",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/mono/t4",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Newtonsoft.Json@13.0.3",
+      "authors": [
+        {
+          "name": "James Newton-King"
+        }
+      ],
+      "name": "Newtonsoft.Json",
+      "version": "13.0.3",
+      "description": "Json.NET is a popular high-performance JSON framework for .NET",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "99B252BC77D1C5F5F7B51FD4EA7D5653E9961D7B3061CF9207F8643A9C7CC9965EEBC84D6467F2989BB4723B1A244915CC232A78F894E8B748CA882A7C89FB92"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright \u00A9 James Newton-King 2008",
+      "purl": "pkg:nuget/Newtonsoft.Json@13.0.3",
+      "externalReferences": [
+        {
+          "url": "https://www.newtonsoft.com/json",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/JamesNK/Newtonsoft.Json",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Npgsql@10.0.3",
+      "authors": [
+        {
+          "name": "Shay Rojansky,Nikita Kazmin,Brar Piening,Nino Floris,Yoh Deadfall,Austin Drenski,Emil Lenngren,Francisco Figueiredo Jr.,Kenji Uno"
+        }
+      ],
+      "name": "Npgsql",
+      "version": "10.0.3",
+      "description": "Npgsql is the open source .NET data provider for PostgreSQL.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "F70658951EABD6E2C69C0C41B943CE0A681B4BA483B552B21A4674B4318F6811D86DB7440C46A30F4544AEAF96FDD9F78077C9DD6BCE75968D34DC9B9C50AEA4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "PostgreSQL"
+          }
+        }
+      ],
+      "copyright": "Copyright 2025 \u00A9 The Npgsql Development Team",
+      "purl": "pkg:nuget/Npgsql@10.0.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/npgsql/npgsql",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/npgsql/npgsql",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Npgsql.EntityFrameworkCore.PostgreSQL@10.0.3",
+      "authors": [
+        {
+          "name": "Shay Rojansky,Austin Drenski,Yoh Deadfall"
+        }
+      ],
+      "name": "Npgsql.EntityFrameworkCore.PostgreSQL",
+      "version": "10.0.3",
+      "description": "PostgreSQL/Npgsql provider for Entity Framework Core.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "A68139DF3B6F8B6301F4A502348C48D1A46EDF80CE050C26E582AE0965402FC3549D77BF0348E216C393A757D1F79D130526A433B5915909EF0BEBB8431977BD"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "PostgreSQL"
+          }
+        }
+      ],
+      "copyright": "Copyright 2025 \u00A9 The Npgsql Development Team",
+      "purl": "pkg:nuget/Npgsql.EntityFrameworkCore.PostgreSQL@10.0.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/npgsql/efcore.pg",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/npgsql/efcore.pg",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SharpZipLib@1.4.2",
+      "authors": [
+        {
+          "name": "ICSharpCode"
+        }
+      ],
+      "name": "SharpZipLib",
+      "version": "1.4.2",
+      "description": "SharpZipLib (#ziplib, formerly NZipLib) is a compression library for Zip, GZip, BZip2, and Tar written entirely in C# for .NET. It is implemented as an assembly (installable in the GAC), and thus can easily be incorporated into other projects (in any .NET language)",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4E080196E9B20427D1B5ABE23943D647C365611247CF571D3CF2575808BE7294B9957050AED57FA34326EF8965BBB314E03944693216502D0EB990253DFC94F4"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright \u00A9 2000-2022 SharpZipLib Contributors",
+      "purl": "pkg:nuget/SharpZipLib@1.4.2",
+      "externalReferences": [
+        {
+          "url": "https://github.com/icsharpcode/SharpZipLib",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/icsharpcode/SharpZipLib",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SSH.NET@2026.0.0",
+      "authors": [
+        {
+          "name": "Renci"
+        }
+      ],
+      "name": "SSH.NET",
+      "version": "2026.0.0",
+      "description": "SSH.NET is a Secure Shell (SSH) library for .NET, optimized for parallelism.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C577E02B142674DDEE068F263FCF5C5443AF4661648F9A2F04C131AD9143473E5969C94072B812C741F1D54E0EBF59893D0473E57DA51A4D21C1789C93287002"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright \u00A9 Renci 2010-2026",
+      "purl": "pkg:nuget/SSH.NET@2026.0.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/sshnet/SSH.NET",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.CodeDom@6.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "System.CodeDom",
+      "version": "6.0.0",
+      "description": "Provides types that can be used to model the structure of a source code document and to output source code for that model in a supported language.\n\nCommonly Used Types:\nSystem.CodeDom.CodeObject\nSystem.CodeDom.Compiler.CodeDomProvider\nMicrosoft.CSharp.CSharpCodeProvider\nMicrosoft.VisualBasic.VBCodeProvider",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2B911B7C9BC524C86562A26547DFC92A8C774ED5937993A4A22E8A9CA1B146151AEAEAF15E4271FF6FE6CF20AF634815AA1485A5A4C48D24ACF39B2A6BC3CF27"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.CodeDom@6.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Composition@9.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "System.Composition",
+      "version": "9.0.0",
+      "description": "Provides a version of the Managed Extensibility Framework (MEF) that is lightweight and specifically optimized for high throughput scenarios, such as the web.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6967322BDD27202847CB1ABBAE943CDC16EFB7FB7D9755FAC90B64BCE0DA67EAC99581D4315A528E2D185C86535F956571644255115D78463BEBB0423B3B9E6B"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Composition@9.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Composition.AttributedModel@9.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "System.Composition.AttributedModel",
+      "version": "9.0.0",
+      "description": "Provides the foundational attributes that allow you to declare parts for composition, such as imports, exports, and metadata with the Managed Extensibility Framework (MEF).",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "A18B90CE522F3B7D46C52953A3A34253E4672BD7556F59B5E7804D13B5469BD3D4C8933E46B390B2CF1C35B323FA221655CA7A5519F2265049DCC7F3628D7800"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Composition.AttributedModel@9.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Composition.Convention@9.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "System.Composition.Convention",
+      "version": "9.0.0",
+      "description": "Provides types that support using Managed Extensibility Framework (MEF) with a convention-based configuration model.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "DDE7E1C67FFB85023D90DCBA33A514C16ACC242CDD059678864612DCC531A97C86750DAC2C2593A17D672E79EB45869F71D45230E6369DA30F36544010A0C018"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Composition.Convention@9.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Composition.Hosting@9.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "System.Composition.Hosting",
+      "version": "9.0.0",
+      "description": "Provides Managed Extensibility Framework (MEF) types that are useful to developers of extensible applications, or hosts.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "CCB3C66CC630EB2D86A0D0637283E7BD7B7BC1224CFEA206D5F5360E8F240CE6C34D85871BA7C53A1BA5495897D08A768FEA867AE0844AA12CC02446FB10EFC0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Composition.Hosting@9.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Composition.Runtime@9.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "System.Composition.Runtime",
+      "version": "9.0.0",
+      "description": "Contains runtime components of the Managed Extensibility Framework (MEF).",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3FBEFB6813C8C262EF2F443C98F03B4628A899F8EA2D36E95FFC732A993B61324B72F3C3313BD121F345A209C4A5F25844B69D07299A04853CD6F5B73336589C"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Composition.Runtime@9.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Composition.TypedParts@9.0.0",
+      "authors": [
+        {
+          "name": "Microsoft"
+        }
+      ],
+      "name": "System.Composition.TypedParts",
+      "version": "9.0.0",
+      "description": "Provides container configuration and some extension methods for the Managed Extensibility Framework (MEF).",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "EDBEE6927E07D35E3D8CD283D6D651506DA09A4B333733BA600195FB112CC5D7C853EE522E1C56458269AA6D732B328D773A4A516F77A3210519C4EEA0DBEA1A"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Composition.TypedParts@9.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Testcontainers@4.16.0",
+      "authors": [
+        {
+          "name": "Andre Hofmeister and contributors"
+        }
+      ],
+      "name": "Testcontainers",
+      "version": "4.16.0",
+      "description": "Testcontainers for .NET is a library to support tests with throwaway instances of Docker containers for all compatible .NET Standard versions.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C6E15F19FC7CF0DDB4F6D41B82714C65A85019DF94AC433C37F5898748AAEADE38177F6003A53C0FB8080D864FE56FAA878FBF3606D6DB5857AF2C06064B5443"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) 2019 - 2026 Andre Hofmeister and other authors",
+      "purl": "pkg:nuget/Testcontainers@4.16.0",
+      "externalReferences": [
+        {
+          "url": "https://dotnet.testcontainers.org/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/testcontainers/testcontainers-dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Testcontainers.PostgreSql@4.16.0",
+      "authors": [
+        {
+          "name": "Andre Hofmeister and contributors"
+        }
+      ],
+      "name": "Testcontainers.PostgreSql",
+      "version": "4.16.0",
+      "description": "Testcontainers for .NET is a library to support tests with throwaway instances of Docker containers for all compatible .NET Standard versions.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "BE58CB2D946692B7F92538339095741B5FFCB9D96D9DAAAB403B07D71C4C088C15F912625BBC998928E7ECC5D5A6FE0F7F7B925B3F93710287C6A4D3B6ACDA2E"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright (c) 2019 - 2026 Andre Hofmeister and other authors",
+      "purl": "pkg:nuget/Testcontainers.PostgreSql@4.16.0",
+      "externalReferences": [
+        {
+          "url": "https://dotnet.testcontainers.org/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/testcontainers/testcontainers-dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit@2.9.3",
+      "authors": [
+        {
+          "name": "jnewkirk,bradwilson"
+        }
+      ],
+      "name": "xunit",
+      "version": "2.9.3",
+      "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package installs xunit.core, xunit.assert, and xunit.analyzers.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "DFF6B254F0BB35059010D4794446CE81762C6E1A09B26A67C506B9A4EE25C5B8C66DC90EB3ADA7B26E242C4AF373C9E0ED5E57CF4F2EC158CCA9A6462625C2AE"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright (C) .NET Foundation",
+      "purl": "pkg:nuget/xunit@2.9.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/xunit",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.abstractions@2.0.3",
+      "authors": [
+        {
+          "name": "James Newkirk,Brad Wilson"
+        }
+      ],
+      "name": "xunit.abstractions",
+      "version": "2.0.3",
+      "description": "Common abstractions used to exchange information between xUnit.net and version-independent runners (xunit.abstractions.dll).",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "3CA26B8B97F4A8440F16F818E82651F571BC2513A5592742FD960B9240D0B880FEF84827FB25A307E61FE7B019F14E864653FBCF7DEE0D0E3FAF90593DEAF624"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "Unknown - See URL",
+            "url": "https://raw.githubusercontent.com/xunit/xunit/master/license.txt"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/xunit.abstractions@2.0.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/xunit",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.analyzers@1.18.0",
+      "authors": [
+        {
+          "name": "jnewkirk,bradwilson,marcind"
+        }
+      ],
+      "name": "xunit.analyzers",
+      "version": "1.18.0",
+      "description": "xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.\n\nInstalling this package provides code analyzers to help developers find and fix frequent issues when writing tests and xUnit.net extensibility code.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "632F6D380CD59DC1356AF0361AB389A14C53993E9F40939CAB1B20F5FE773B1ED8ED5FFF06D438195F7383BAA7A8CCF2CF299A6EB889E7948629BD4729B3CE38"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright (C) .NET Foundation",
+      "purl": "pkg:nuget/xunit.analyzers@1.18.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/xunit.analyzers",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.assert@2.9.3",
+      "authors": [
+        {
+          "name": "jnewkirk,bradwilson"
+        }
+      ],
+      "name": "xunit.assert",
+      "version": "2.9.3",
+      "description": "Includes the assertion library from xUnit.net (xunit.assert.dll). Supports .NET Standard 1.1\u002B and .NET 6.0\u002B.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C1FAB008A0214961B2F4FFDD3EA0C64880673D6DEC509E3D3047DC4EA345FB90602708F0B476FD484EDA8D866E47CCA64DDF1DC31A041A79491E27A36E00EFF7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright (C) .NET Foundation",
+      "purl": "pkg:nuget/xunit.assert@2.9.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/xunit",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.core@2.9.3",
+      "authors": [
+        {
+          "name": "jnewkirk,bradwilson"
+        }
+      ],
+      "name": "xunit.core",
+      "version": "2.9.3",
+      "description": "Includes the libraries for writing unit tests with xUnit.net.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "72FDAC3B7EEA26421B04BDDF5C3227DC43D0DB32BC2D0E8590C24D9E7D7173D9FC9A8DE293451103831F50D0A6C030C2C7CDD9889791AC9D32D7291AB288CD26"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright (C) .NET Foundation",
+      "purl": "pkg:nuget/xunit.core@2.9.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/xunit",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.extensibility.core@2.9.3",
+      "authors": [
+        {
+          "name": "jnewkirk,bradwilson"
+        }
+      ],
+      "name": "xunit.extensibility.core",
+      "version": "2.9.3",
+      "description": "Includes xunit.core.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4B46BE8E6205FC3ADA2AE27E15F59BA97330BE970AC633F719DAD0CF3E69AF7198B60208D977C374086453FE55216A96A27D91E90DF55FFF6C4C6694FA4A0369"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright (C) .NET Foundation",
+      "purl": "pkg:nuget/xunit.extensibility.core@2.9.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/xunit",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.extensibility.execution@2.9.3",
+      "authors": [
+        {
+          "name": "jnewkirk,bradwilson"
+        }
+      ],
+      "name": "xunit.extensibility.execution",
+      "version": "2.9.3",
+      "description": "Includes xunit.execution.*.dll for extensibility purposes. Supports .NET 4.5.2 or later, and .NET Standard 1.1.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "222768052AC6C3F2A15B366C29721C4ADA218FFA111598B36D6794BFED213852DE30931E8125B942818DCE68D0B85F01B91B42C8F410BA459261D3679DF3C090"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright (C) .NET Foundation",
+      "purl": "pkg:nuget/xunit.extensibility.execution@2.9.3",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/xunit",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/xunit.runner.visualstudio@3.1.4",
+      "authors": [
+        {
+          "name": "jnewkirk,bradwilson"
+        }
+      ],
+      "name": "xunit.runner.visualstudio",
+      "version": "3.1.4",
+      "description": "Visual Studio 2022\u002B Test Explorer runner for the xUnit.net framework. Capable of running xUnit.net v1, v2, and v3 tests. Supports .NET 4.7.2 or later, and .NET 8 or later.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "90172162131785EEA66C00240AE876C2B2DBC4361D8F757334E2779B543D2E808427A78FB050B54B7BEC8E3FD0958E9A690F077918A9F35EAD9703F494BB5BDD"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright (C) .NET Foundation",
+      "purl": "pkg:nuget/xunit.runner.visualstudio@3.1.4",
+      "externalReferences": [
+        {
+          "url": "https://github.com/xunit/visualstudio.xunit",
+          "type": "vcs"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "Avila@0.0.0",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.3",
+        "pkg:nuget/Npgsql.EntityFrameworkCore.PostgreSQL@10.0.3",
+        "pkg:nuget/coverlet.collector@6.0.4",
+        "pkg:nuget/Microsoft.NET.Test.Sdk@17.14.1",
+        "pkg:nuget/Testcontainers.PostgreSql@4.16.0",
+        "pkg:nuget/xunit@2.9.3",
+        "pkg:nuget/xunit.runner.visualstudio@3.1.4",
+        "pkg:nuget/Microsoft.AspNetCore.Mvc.Testing@10.0.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/BouncyCastle.Cryptography@2.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/coverlet.collector@6.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Docker.DotNet.Enhanced.LegacyHttp@4.3.3",
+      "dependsOn": [
+        "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Docker.DotNet.Enhanced.NativeHttp@4.3.3",
+      "dependsOn": [
+        "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Docker.DotNet.Enhanced.NPipe@4.3.3",
+      "dependsOn": [
+        "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Docker.DotNet.Enhanced.Unix@4.3.3",
+      "dependsOn": [
+        "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Docker.DotNet.Enhanced.X509@4.3.3",
+      "dependsOn": [
+        "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Docker.DotNet.Enhanced@4.3.3",
+      "dependsOn": [
+        "pkg:nuget/Docker.DotNet.Enhanced.Handler.Abstractions@4.3.3",
+        "pkg:nuget/Docker.DotNet.Enhanced.LegacyHttp@4.3.3",
+        "pkg:nuget/Docker.DotNet.Enhanced.NPipe@4.3.3",
+        "pkg:nuget/Docker.DotNet.Enhanced.NativeHttp@4.3.3",
+        "pkg:nuget/Docker.DotNet.Enhanced.Unix@4.3.3",
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Humanizer.Core@2.14.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.AspNetCore.Mvc.Testing@10.0.3",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.AspNetCore.TestHost@10.0.3",
+        "pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.AspNetCore.TestHost@10.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Build.Framework@18.0.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0",
+      "dependsOn": [
+        "pkg:nuget/Humanizer.Core@2.14.1",
+        "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0",
+        "pkg:nuget/System.Composition@9.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0",
+      "dependsOn": [
+        "pkg:nuget/Humanizer.Core@2.14.1",
+        "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0",
+        "pkg:nuget/System.Composition@9.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0",
+      "dependsOn": [
+        "pkg:nuget/Humanizer.Core@2.14.1",
+        "pkg:nuget/Microsoft.Build.Framework@18.0.2",
+        "pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0",
+        "pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52",
+        "pkg:nuget/Newtonsoft.Json@13.0.3",
+        "pkg:nuget/System.Composition@9.0.0",
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Logging@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Options@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.CodeCoverage@17.14.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.3",
+      "dependsOn": [
+        "pkg:nuget/Humanizer.Core@2.14.1",
+        "pkg:nuget/Microsoft.Build.Framework@18.0.2",
+        "pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0",
+        "pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0",
+        "pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.3",
+        "pkg:nuget/Mono.TextTemplating@3.0.0",
+        "pkg:nuget/Newtonsoft.Json@13.0.3",
+        "pkg:nuget/Microsoft.Extensions.Caching.Memory@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Configuration.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Logging@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.EntityFrameworkCore@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Caching.Memory@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Configuration.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Logging@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.EntityFrameworkCore@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Caching.Memory@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Logging@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.Caching.Memory@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.Caching.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Options@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.Configuration.Abstractions@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@10.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.Logging@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Options@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.Options@10.0.4",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@10.0.4",
+        "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.Primitives@10.0.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.NET.Test.Sdk@17.14.1",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.CodeCoverage@17.14.1",
+        "pkg:nuget/Microsoft.TestPlatform.TestHost@17.14.1"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.TestPlatform.ObjectModel@17.14.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.TestPlatform.TestHost@17.14.1",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.TestPlatform.ObjectModel@17.14.1",
+        "pkg:nuget/Newtonsoft.Json@13.0.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Mono.TextTemplating@3.0.0",
+      "dependsOn": [
+        "pkg:nuget/System.CodeDom@6.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Newtonsoft.Json@13.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Npgsql.EntityFrameworkCore.PostgreSQL@10.0.3",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.EntityFrameworkCore@10.0.4",
+        "pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.4",
+        "pkg:nuget/Npgsql@10.0.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Npgsql@10.0.3",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/SharpZipLib@1.4.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SSH.NET@2026.0.0",
+      "dependsOn": [
+        "pkg:nuget/BouncyCastle.Cryptography@2.7.0",
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.CodeDom@6.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Composition.AttributedModel@9.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Composition.Convention@9.0.0",
+      "dependsOn": [
+        "pkg:nuget/System.Composition.AttributedModel@9.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.Composition.Hosting@9.0.0",
+      "dependsOn": [
+        "pkg:nuget/System.Composition.Runtime@9.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.Composition.Runtime@9.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Composition.TypedParts@9.0.0",
+      "dependsOn": [
+        "pkg:nuget/System.Composition.AttributedModel@9.0.0",
+        "pkg:nuget/System.Composition.Hosting@9.0.0",
+        "pkg:nuget/System.Composition.Runtime@9.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.Composition@9.0.0",
+      "dependsOn": [
+        "pkg:nuget/System.Composition.AttributedModel@9.0.0",
+        "pkg:nuget/System.Composition.Convention@9.0.0",
+        "pkg:nuget/System.Composition.Hosting@9.0.0",
+        "pkg:nuget/System.Composition.Runtime@9.0.0",
+        "pkg:nuget/System.Composition.TypedParts@9.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Testcontainers.PostgreSql@4.16.0",
+      "dependsOn": [
+        "pkg:nuget/Testcontainers@4.16.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Testcontainers@4.16.0",
+      "dependsOn": [
+        "pkg:nuget/Docker.DotNet.Enhanced@4.3.3",
+        "pkg:nuget/Docker.DotNet.Enhanced.X509@4.3.3",
+        "pkg:nuget/Microsoft.Extensions.Logging.Abstractions@10.0.4",
+        "pkg:nuget/SSH.NET@2026.0.0",
+        "pkg:nuget/SharpZipLib@1.4.2"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/xunit.abstractions@2.0.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/xunit.analyzers@1.18.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/xunit.assert@2.9.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/xunit.core@2.9.3",
+      "dependsOn": [
+        "pkg:nuget/xunit.extensibility.core@2.9.3",
+        "pkg:nuget/xunit.extensibility.execution@2.9.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/xunit.extensibility.core@2.9.3",
+      "dependsOn": [
+        "pkg:nuget/xunit.abstractions@2.0.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/xunit.extensibility.execution@2.9.3",
+      "dependsOn": [
+        "pkg:nuget/xunit.extensibility.core@2.9.3"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/xunit.runner.visualstudio@3.1.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/xunit@2.9.3",
+      "dependsOn": [
+        "pkg:nuget/xunit.analyzers@1.18.0",
+        "pkg:nuget/xunit.assert@2.9.3",
+        "pkg:nuget/xunit.core@2.9.3"
+      ]
+    }
+  ]
+}
