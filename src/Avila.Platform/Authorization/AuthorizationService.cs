@@ -11,6 +11,7 @@ public static class Permissions
     public const string AdministrationUserManage = "administration.user.manage";
     public const string AdministrationSettingsManage = "administration.settings.manage";
     public const string AdministrationApprovalManage = "administration.approval.manage";
+    public const string AdministrationAuditRead = "administration.audit.read";
     public const string SalesQuoteCreate = "sales.quote.create";
     public const string SalesQuoteRead = "sales.quote.read";
     public const string InventoryStockRead = "inventory.stock.read";
@@ -43,6 +44,7 @@ public static class RolePermissions
         Permissions.AdministrationUserManage,
         Permissions.AdministrationSettingsManage,
         Permissions.AdministrationApprovalManage,
+        Permissions.AdministrationAuditRead,
         Permissions.SalesQuoteCreate,
         Permissions.SalesQuoteRead,
         Permissions.InventoryStockRead,

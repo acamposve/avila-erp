@@ -25,7 +25,8 @@ public sealed class ExportAuditWriter
         string action,
         string correlationId,
         object? metadata,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        string entityType = "tenant_export")
     {
         await using var unitOfWork = await _factory.BeginAsync(
             _connectionString,
@@ -42,7 +43,7 @@ public sealed class ExportAuditWriter
             unitOfWork,
             actor,
             action,
-            "tenant_export",
+            entityType,
             entityId: null,
             before: null,
             after: metadata,

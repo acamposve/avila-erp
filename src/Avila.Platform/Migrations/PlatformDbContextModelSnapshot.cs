@@ -204,9 +204,25 @@ namespace Avila.Platform.Migrations
                         .HasColumnType("character varying(120)")
                         .HasColumnName("entity_type");
 
+                    b.Property<string>("EventHash")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("event_hash");
+
+                    b.Property<int>("HashVersion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("hash_version");
+
                     b.Property<DateTimeOffset>("OccurredAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("occurred_at");
+
+                    b.Property<string>("PreviousHash")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("previous_hash");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid")
