@@ -7,6 +7,9 @@ public sealed record AcceptInvitationRequest(string Token, string DisplayName, s
 public sealed record MfaVerifyRequest(Guid ChallengeId, string Code);
 public sealed record SwitchTenantRequest(Guid TenantId);
 public sealed record StepUpRequest(string Code);
+public sealed record ForgotPasswordRequest(string Email);
+public sealed record ResetPasswordRequest(string Token, string Password);
+public sealed record EmailVerificationRequest(string Token);
 
 public static class IdentityEndpoints
 {
@@ -92,6 +95,56 @@ public static class IdentityEndpoints
             return result.Status == LoginStatus.Authenticated
                 ? Results.Ok(result)
                 : Results.Json(result, statusCode: StatusCodes.Status401Unauthorized);
+        });
+
+        group.MapPost("/password/forgot", async (
+            ForgotPasswordRequest request,
+            IdentityService service,
+            CancellationToken cancellationToken) =>
+        {
+            await service.RequestPasswordResetAsync(request.Email, cancellationToken);
+            return Results.Accepted();
+        });
+
+        group.MapPost("/password/reset", async (
+            ResetPasswordRequest request,
+            IdentityService service,
+            CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                await service.ResetPasswordAsync(request.Token, request.Password, cancellationToken);
+                return Results.NoContent();
+            }
+            catch (IdentityException exception)
+            {
+                return Results.BadRequest(new { error = exception.Code, message = exception.Message });
+            }
+        });
+
+        group.MapPost("/email/verification/request", async (
+            ForgotPasswordRequest request,
+            IdentityService service,
+            CancellationToken cancellationToken) =>
+        {
+            await service.RequestEmailVerificationAsync(request.Email, cancellationToken);
+            return Results.Accepted();
+        });
+
+        group.MapPost("/email/verification/confirm", async (
+            EmailVerificationRequest request,
+            IdentityService service,
+            CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                await service.VerifyEmailAsync(request.Token, cancellationToken);
+                return Results.NoContent();
+            }
+            catch (IdentityException exception)
+            {
+                return Results.BadRequest(new { error = exception.Code, message = exception.Message });
+            }
         });
 
         group.MapPost("/step-up", async (

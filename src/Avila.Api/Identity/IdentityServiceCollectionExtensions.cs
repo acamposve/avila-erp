@@ -22,7 +22,25 @@ public static class IdentityServiceCollectionExtensions
                 throw new InvalidOperationException("Identity:MfaSecretKey is not configured.");
             }
 
-            return new IdentityService(connectionString, mfaSecretKey);
+            var smtpHost = configuration["Email:Smtp:Host"];
+            IEmailSender emailSender = string.IsNullOrWhiteSpace(smtpHost)
+                ? new SinkEmailSender()
+                : new SmtpEmailSender(new SmtpEmailOptions(
+                    smtpHost,
+                    int.TryParse(configuration["Email:Smtp:Port"], out var port) ? port : 587,
+                    configuration["Email:Smtp:From"] ?? "no-reply@avila.local",
+                    configuration["Email:Smtp:UserName"],
+                    configuration["Email:Smtp:Password"],
+                    !string.Equals(
+                        configuration["Email:Smtp:EnableSsl"],
+                        "false",
+                        StringComparison.OrdinalIgnoreCase)));
+
+            var auditWriter = new IdentityAuditWriter(
+                new Avila.Platform.Tenancy.TenantUnitOfWorkFactory(),
+                configuration.GetConnectionString("Avila") ?? string.Empty);
+
+            return new IdentityService(connectionString, mfaSecretKey, emailSender, auditWriter);
         });
 
         return services;

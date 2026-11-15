@@ -1,0 +1,6 @@
+Captured: 2026-11-15T07:31:03.7466342-03:00
+Branch: feat/r1-rem-09-recovery-rate-limit
+Base commit: 90ea414074f4a61c0e7cffbb85b454cd1c9c0d73
+Tests: 19 spike + 86 production
+Testcontainers: postgres:18-alpine
+Email: SinkEmailSender in tests; SMTP adapter configured by env

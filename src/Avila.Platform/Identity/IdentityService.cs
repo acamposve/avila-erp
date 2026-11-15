@@ -60,11 +60,19 @@ public sealed class IdentityService
 
     private readonly string _connectionString;
     private readonly byte[] _mfaKey;
+    private readonly IEmailSender? _emailSender;
+    private readonly IdentityAuditWriter? _auditWriter;
 
-    public IdentityService(string connectionString, string mfaSecretKey)
+    public IdentityService(
+        string connectionString,
+        string mfaSecretKey,
+        IEmailSender? emailSender = null,
+        IdentityAuditWriter? auditWriter = null)
     {
         _connectionString = connectionString;
         _mfaKey = SecretProtector.ParseKey(mfaSecretKey);
+        _emailSender = emailSender;
+        _auditWriter = auditWriter;
     }
 
     public async Task<InvitationTicket> InviteAsync(
@@ -132,7 +140,8 @@ public sealed class IdentityService
             Email = invitation.Email,
             NormalizedEmail = invitation.NormalizedEmail,
             DisplayName = displayName.Trim(),
-            PasswordHash = PasswordHasher.Hash(password)
+            PasswordHash = PasswordHasher.Hash(password),
+            EmailVerified = true
         };
 
         context.Users.Add(user);
@@ -183,6 +192,11 @@ public sealed class IdentityService
             }
 
             await context.SaveChangesAsync(cancellationToken);
+            await TryAuditLoginFailureAsync(
+                context,
+                user.Id,
+                tenantId,
+                cancellationToken);
             return new LoginResult(
                 user.LockedUntil.HasValue && user.LockedUntil > now
                     ? LoginStatus.LockedOut
@@ -274,6 +288,116 @@ public sealed class IdentityService
             UserId: user.Id,
             TenantId: selectedTenant,
             Memberships: memberships);
+    }
+
+    public async Task RequestPasswordResetAsync(
+        string email,
+        CancellationToken cancellationToken = default)
+    {
+        var normalized = NormalizeEmail(email);
+        await using var context = CreateContext();
+        var user = await context.Users
+            .SingleOrDefaultAsync(x => x.NormalizedEmail == normalized, cancellationToken);
+
+        // Enumeration-safe: missing users return exactly like existing users.
+        if (user is null)
+        {
+            return;
+        }
+
+        var token = SessionTokens.New();
+        context.PasswordResetTokens.Add(new PasswordResetToken
+        {
+            Id = Guid.NewGuid(),
+            UserId = user.Id,
+            TokenHash = SessionTokens.Hash(token),
+            ExpiresAt = DateTimeOffset.UtcNow.AddMinutes(30)
+        });
+        await context.SaveChangesAsync(cancellationToken);
+        await SendAsync(
+            user.Email,
+            "Restablece tu contraseña de ÁVILA ERP",
+            $"Usa este token de un solo uso durante 30 minutos: {token}",
+            cancellationToken);
+    }
+
+    public async Task ResetPasswordAsync(
+        string token,
+        string newPassword,
+        CancellationToken cancellationToken = default)
+    {
+        PasswordHasher.ValidatePolicy(newPassword);
+        var hash = SessionTokens.Hash(token);
+        var now = DateTimeOffset.UtcNow;
+
+        await using var context = CreateContext();
+        var reset = await context.PasswordResetTokens
+            .SingleOrDefaultAsync(x => x.TokenHash == hash, cancellationToken);
+
+        if (reset is null || reset.ConsumedAt.HasValue || reset.ExpiresAt <= now)
+        {
+            throw new IdentityException("RESET_TOKEN_INVALID", "Reset token is invalid or expired.");
+        }
+
+        var user = await context.Users.SingleAsync(x => x.Id == reset.UserId, cancellationToken);
+        user.PasswordHash = PasswordHasher.Hash(newPassword);
+        user.FailedAttempts = 0;
+        user.LockedUntil = null;
+        reset.ConsumedAt = now;
+        await context.SaveChangesAsync(cancellationToken);
+        await RevokeAllSessionsAsync(user.Id, cancellationToken: cancellationToken);
+    }
+
+    public async Task RequestEmailVerificationAsync(
+        string email,
+        CancellationToken cancellationToken = default)
+    {
+        var normalized = NormalizeEmail(email);
+        await using var context = CreateContext();
+        var user = await context.Users
+            .SingleOrDefaultAsync(x => x.NormalizedEmail == normalized, cancellationToken);
+        if (user is null)
+        {
+            return;
+        }
+
+        var token = SessionTokens.New();
+        context.EmailVerificationTokens.Add(new EmailVerificationToken
+        {
+            Id = Guid.NewGuid(),
+            UserId = user.Id,
+            TokenHash = SessionTokens.Hash(token),
+            ExpiresAt = DateTimeOffset.UtcNow.AddHours(24)
+        });
+        await context.SaveChangesAsync(cancellationToken);
+        await SendAsync(
+            user.Email,
+            "Verifica tu correo de ÁVILA ERP",
+            $"Usa este token de un solo uso durante 24 horas: {token}",
+            cancellationToken);
+    }
+
+    public async Task VerifyEmailAsync(
+        string token,
+        CancellationToken cancellationToken = default)
+    {
+        var hash = SessionTokens.Hash(token);
+        var now = DateTimeOffset.UtcNow;
+        await using var context = CreateContext();
+        var verification = await context.EmailVerificationTokens
+            .SingleOrDefaultAsync(x => x.TokenHash == hash, cancellationToken);
+
+        if (verification is null
+            || verification.ConsumedAt.HasValue
+            || verification.ExpiresAt <= now)
+        {
+            throw new IdentityException("VERIFICATION_TOKEN_INVALID", "Verification token is invalid or expired.");
+        }
+
+        var user = await context.Users.SingleAsync(x => x.Id == verification.UserId, cancellationToken);
+        user.EmailVerified = true;
+        verification.ConsumedAt = now;
+        await context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task GrantMembershipAsync(
@@ -757,6 +881,59 @@ public sealed class IdentityService
         catch (Exception exception) when (exception is CryptographicException or FormatException)
         {
             throw new IdentityException("MFA_UNAVAILABLE", "MFA secret cannot be read.");
+        }
+    }
+
+    private async Task SendAsync(
+        string to,
+        string subject,
+        string text,
+        CancellationToken cancellationToken)
+    {
+        if (_emailSender is null)
+        {
+            throw new IdentityException(
+                "EMAIL_NOT_CONFIGURED",
+                "No email sender is configured for identity operations.");
+        }
+
+        await _emailSender.SendAsync(new EmailMessage(to, subject, text), cancellationToken);
+    }
+
+    private async Task TryAuditLoginFailureAsync(
+        IdentityDbContext context,
+        Guid userId,
+        Guid? requestedTenantId,
+        CancellationToken cancellationToken)
+    {
+        if (_auditWriter is null)
+        {
+            return;
+        }
+
+        var tenantId = requestedTenantId
+                       ?? await context.Memberships
+                           .Where(x => x.UserId == userId && x.Status == "active")
+                           .OrderBy(x => x.TenantId)
+                           .Select(x => (Guid?)x.TenantId)
+                           .FirstOrDefaultAsync(cancellationToken);
+
+        if (!tenantId.HasValue || tenantId.Value == Guid.Empty)
+        {
+            return;
+        }
+
+        try
+        {
+            await _auditWriter.RecordLoginFailureAsync(
+                tenantId.Value,
+                userId,
+                Guid.NewGuid().ToString("N"),
+                cancellationToken);
+        }
+        catch
+        {
+            // Authentication behavior must not change if the audit sink is down.
         }
     }
 
