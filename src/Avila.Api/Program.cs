@@ -52,6 +52,7 @@ builder.Services.AddSingleton<AuthRateLimiter>();
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService("avila-api"))
     .WithTracing(tracing => tracing
+        .AddSource(Avila.Platform.Jobs.JobTelemetry.SourceName)
         .AddAspNetCoreInstrumentation(options =>
         {
             options.Filter = context =>

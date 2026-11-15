@@ -98,6 +98,33 @@ public sealed class SettingVersion
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
+public sealed class FiscalRuleVersion
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string RuleKey { get; set; } = string.Empty;
+    public int VersionNumber { get; set; }
+    public string ValueJson { get; set; } = "{}";
+    public string Source { get; set; } = string.Empty;
+    public DateTimeOffset EffectiveFrom { get; set; }
+    public DateTimeOffset? EffectiveTo { get; set; }
+    public Guid CreatedBy { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
+public sealed class FiscalDocumentSnapshot
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public string DocumentType { get; set; } = string.Empty;
+    public Guid DocumentId { get; set; }
+    public string RuleKey { get; set; } = string.Empty;
+    public Guid FiscalRuleVersionId { get; set; }
+    public int RuleVersion { get; set; }
+    public Guid CapturedBy { get; set; }
+    public DateTimeOffset CapturedAt { get; set; } = DateTimeOffset.UtcNow;
+}
+
 public sealed class ApprovalRule
 {
     public Guid Id { get; set; }
@@ -182,6 +209,8 @@ public sealed class PlatformDbContext : DbContext
     public DbSet<DocumentSequence> DocumentSequences => Set<DocumentSequence>();
     public DbSet<IdempotencyKeyRecord> IdempotencyKeys => Set<IdempotencyKeyRecord>();
     public DbSet<SettingVersion> SettingVersions => Set<SettingVersion>();
+    public DbSet<FiscalRuleVersion> FiscalRuleVersions => Set<FiscalRuleVersion>();
+    public DbSet<FiscalDocumentSnapshot> FiscalDocumentSnapshots => Set<FiscalDocumentSnapshot>();
     public DbSet<ApprovalRule> ApprovalRules => Set<ApprovalRule>();
     public DbSet<ApprovalRequest> ApprovalRequests => Set<ApprovalRequest>();
     public DbSet<TenantLifecycle> TenantLifecycles => Set<TenantLifecycle>();
@@ -312,8 +341,45 @@ public sealed class PlatformDbContext : DbContext
             entity.HasIndex(x => new { x.TenantId, x.Key, x.EffectiveFrom });
         });
 
-        modelBuilder.Entity<ApprovalRule>(entity =>
+        modelBuilder.Entity<FiscalRuleVersion>(entity =>
         {
+            entity.ToTable("fiscal_rule_versions", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.RuleKey).HasColumnName("rule_key").HasMaxLength(120);
+            entity.Property(x => x.VersionNumber).HasColumnName("version_number");
+            entity.Property(x => x.ValueJson).HasColumnName("value_json").HasMaxLength(8000);
+            entity.Property(x => x.Source).HasColumnName("source").HasMaxLength(300);
+            entity.Property(x => x.EffectiveFrom).HasColumnName("effective_from");
+            entity.Property(x => x.EffectiveTo).HasColumnName("effective_to");
+            entity.Property(x => x.CreatedBy).HasColumnName("created_by");
+            entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+            entity.HasIndex(x => new { x.TenantId, x.RuleKey, x.VersionNumber }).IsUnique();
+            entity.HasIndex(x => new { x.TenantId, x.RuleKey, x.EffectiveFrom });
+        });
+
+        modelBuilder.Entity<FiscalDocumentSnapshot>(entity =>
+        {
+            entity.ToTable("fiscal_document_snapshots", "platform");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.TenantId).HasColumnName("tenant_id");
+            entity.Property(x => x.DocumentType).HasColumnName("document_type").HasMaxLength(60);
+            entity.Property(x => x.DocumentId).HasColumnName("document_id");
+            entity.Property(x => x.RuleKey).HasColumnName("rule_key").HasMaxLength(120);
+            entity.Property(x => x.FiscalRuleVersionId).HasColumnName("fiscal_rule_version_id");
+            entity.Property(x => x.RuleVersion).HasColumnName("rule_version");
+            entity.Property(x => x.CapturedBy).HasColumnName("captured_by");
+            entity.Property(x => x.CapturedAt).HasColumnName("captured_at");
+            entity.HasIndex(x => new { x.TenantId, x.DocumentType, x.DocumentId, x.RuleKey }).IsUnique();
+            entity.HasOne<FiscalRuleVersion>()
+                .WithMany()
+                .HasForeignKey(x => x.FiscalRuleVersionId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ApprovalRule>(entity =>        {
             entity.ToTable("approval_rules", "platform");
             entity.HasKey(x => x.Id);
             entity.Property(x => x.Id).HasColumnName("id");
