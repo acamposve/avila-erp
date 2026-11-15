@@ -24,6 +24,18 @@ public static class TenantExportEndpoint
             return;
         }
 
+        if (principal.SteppedUpAt is null
+            || principal.SteppedUpAt < DateTimeOffset.UtcNow.AddMinutes(-5))
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = "STEP_UP_REQUIRED",
+                message = "Re-authenticate with MFA before exporting tenant data."
+            }, cancellationToken);
+            return;
+        }
+
         if (context.Request.Query.ContainsKey("tenantId")
             || context.Request.RouteValues.ContainsKey("tenantId"))
         {

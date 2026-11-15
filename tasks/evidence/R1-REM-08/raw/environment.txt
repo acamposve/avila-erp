@@ -1,0 +1,6 @@
+Captured: 2026-11-15T07:24:17.3854641-03:00
+Branch: feat/r1-rem-08-mfa-session
+Base commit: 9e490ba651b78c04aa591f12bb647d9b4ce6b604
+Tests: 19 spike + 82 production
+Testcontainers: postgres:18-alpine
+WebApplicationFactory HTTP MFA/export E2E

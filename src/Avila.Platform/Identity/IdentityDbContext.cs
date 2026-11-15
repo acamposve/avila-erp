@@ -11,6 +11,7 @@ public sealed class IdentityUser
     public string PasswordHash { get; set; } = string.Empty;
     public string? MfaSecret { get; set; }
     public bool MfaEnabled { get; set; }
+    public bool EmailVerified { get; set; }
     public int FailedAttempts { get; set; }
     public DateTimeOffset? LockedUntil { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
@@ -50,6 +51,16 @@ public sealed class Session
     public DateTimeOffset? RevokedAt { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset LastSeenAt { get; set; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset? SteppedUpAt { get; set; }
+}
+
+public sealed class MfaRecoveryCode
+{
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
+    public string CodeHash { get; set; } = string.Empty;
+    public DateTimeOffset? UsedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 
 public sealed class MfaChallenge
@@ -79,6 +90,7 @@ public sealed class IdentityDbContext : DbContext
     public DbSet<Invitation> Invitations => Set<Invitation>();
     public DbSet<Session> Sessions => Set<Session>();
     public DbSet<MfaChallenge> MfaChallenges => Set<MfaChallenge>();
+    public DbSet<MfaRecoveryCode> MfaRecoveryCodes => Set<MfaRecoveryCode>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -93,6 +105,7 @@ public sealed class IdentityDbContext : DbContext
             entity.Property(x => x.PasswordHash).HasColumnName("password_hash").HasMaxLength(500);
             entity.Property(x => x.MfaSecret).HasColumnName("mfa_secret").HasMaxLength(256);
             entity.Property(x => x.MfaEnabled).HasColumnName("mfa_enabled");
+            entity.Property(x => x.EmailVerified).HasColumnName("email_verified");
             entity.Property(x => x.FailedAttempts).HasColumnName("failed_attempts");
             entity.Property(x => x.LockedUntil).HasColumnName("locked_until");
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
@@ -144,8 +157,22 @@ public sealed class IdentityDbContext : DbContext
             entity.Property(x => x.RevokedAt).HasColumnName("revoked_at");
             entity.Property(x => x.CreatedAt).HasColumnName("created_at");
             entity.Property(x => x.LastSeenAt).HasColumnName("last_seen_at");
+            entity.Property(x => x.SteppedUpAt).HasColumnName("stepped_up_at");
             entity.HasIndex(x => x.TokenHash).IsUnique();
             entity.HasIndex(x => new { x.UserId, x.ActiveTenantId });
+        });
+
+        modelBuilder.Entity<MfaRecoveryCode>(entity =>
+        {
+            entity.ToTable("mfa_recovery_codes", "identity");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasColumnName("id");
+            entity.Property(x => x.UserId).HasColumnName("user_id");
+            entity.Property(x => x.CodeHash).HasColumnName("code_hash").HasMaxLength(128);
+            entity.Property(x => x.UsedAt).HasColumnName("used_at");
+            entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+            entity.HasIndex(x => x.CodeHash).IsUnique();
+            entity.HasIndex(x => new { x.UserId, x.UsedAt });
         });
 
         modelBuilder.Entity<MfaChallenge>(entity =>

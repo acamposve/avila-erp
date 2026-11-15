@@ -68,8 +68,14 @@ public sealed class ProvisioningTests
             email,
             "CorrectHorseBattery1!",
             result.TenantId);
-        Assert.Equal(LoginStatus.Authenticated, login.Status);
-        Assert.NotNull(login.Token);
+        Assert.Equal(LoginStatus.MfaEnrollmentRequired, login.Status);
+        Assert.NotNull(login.MfaChallengeId);
+        var enrollment = await identity.BeginMfaEnrollmentAsync(login.MfaChallengeId!.Value);
+        var completed = await identity.CompleteMfaEnrollmentAsync(
+            login.MfaChallengeId.Value,
+            Totp.Code(enrollment.Secret));
+        Assert.Equal(LoginStatus.Authenticated, completed.Status);
+        Assert.NotNull(completed.Token);
     }
 
     [Fact]

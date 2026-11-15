@@ -6,6 +6,7 @@ public sealed record LoginRequest(string Email, string Password, Guid? TenantId)
 public sealed record AcceptInvitationRequest(string Token, string DisplayName, string Password);
 public sealed record MfaVerifyRequest(Guid ChallengeId, string Code);
 public sealed record SwitchTenantRequest(Guid TenantId);
+public sealed record StepUpRequest(string Code);
 
 public static class IdentityEndpoints
 {
@@ -34,6 +35,7 @@ public static class IdentityEndpoints
         });
 
         group.MapPost("/login", async (
+            HttpContext context,
             LoginRequest request,
             IdentityService service,
             CancellationToken cancellationToken) =>
@@ -44,17 +46,83 @@ public static class IdentityEndpoints
                 request.TenantId,
                 cancellationToken);
 
+            if (result.Status == LoginStatus.Authenticated && result.Token is not null)
+            {
+                SetSessionCookie(context, result.Token, result.ExpiresAt);
+            }
+
             return result.Status is LoginStatus.InvalidCredentials or LoginStatus.LockedOut
                 ? Results.Json(result, statusCode: StatusCodes.Status401Unauthorized)
                 : Results.Ok(result);
         });
 
+        group.MapPost("/mfa/enroll/begin", async (
+            MfaVerifyRequest request,
+            IdentityService service,
+            CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                return Results.Ok(await service.BeginMfaEnrollmentAsync(
+                    request.ChallengeId,
+                    cancellationToken));
+            }
+            catch (IdentityException exception)
+            {
+                return Results.BadRequest(new { error = exception.Code, message = exception.Message });
+            }
+        });
+
+        group.MapPost("/mfa/enroll/complete", async (
+            HttpContext context,
+            MfaVerifyRequest request,
+            IdentityService service,
+            CancellationToken cancellationToken) =>
+        {
+            var result = await service.CompleteMfaEnrollmentAsync(
+                request.ChallengeId,
+                request.Code,
+                cancellationToken);
+
+            if (result.Status == LoginStatus.Authenticated && result.Token is not null)
+            {
+                SetSessionCookie(context, result.Token, result.ExpiresAt);
+            }
+
+            return result.Status == LoginStatus.Authenticated
+                ? Results.Ok(result)
+                : Results.Json(result, statusCode: StatusCodes.Status401Unauthorized);
+        });
+
+        group.MapPost("/step-up", async (
+            HttpContext context,
+            StepUpRequest request,
+            IdentityService service,
+            CancellationToken cancellationToken) =>
+        {
+            var token = BearerToken(context);
+            if (token is null)
+            {
+                return Results.Unauthorized();
+            }
+
+            return await service.StepUpAsync(token, request.Code, cancellationToken)
+                ? Results.NoContent()
+                : Results.Unauthorized();
+        });
+
         group.MapPost("/mfa/verify", async (
+            HttpContext context,
             MfaVerifyRequest request,
             IdentityService service,
             CancellationToken cancellationToken) =>
         {
             var result = await service.VerifyMfaAsync(request.ChallengeId, request.Code, cancellationToken);
+            if (result.Status == LoginStatus.Authenticated && result.Token is not null)
+            {
+                SetSessionCookie(context, result.Token, result.ExpiresAt);
+            }
+
             return result.Status == LoginStatus.Authenticated
                 ? Results.Ok(result)
                 : Results.Json(result, statusCode: StatusCodes.Status401Unauthorized);
@@ -152,6 +220,24 @@ public static class IdentityEndpoints
         var authorization = context.Request.Headers.Authorization.ToString();
         return authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase)
             ? authorization["Bearer ".Length..].Trim()
-            : null;
+            : context.Request.Cookies[SessionAuthenticationMiddleware.CookieName];
+    }
+
+    private static void SetSessionCookie(
+        HttpContext context,
+        string token,
+        DateTimeOffset? expiresAt)
+    {
+        context.Response.Cookies.Append(
+            SessionAuthenticationMiddleware.CookieName,
+            token,
+            new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = expiresAt,
+                Path = "/api"
+            });
     }
 }

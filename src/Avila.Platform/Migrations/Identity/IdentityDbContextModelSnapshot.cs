@@ -45,6 +45,10 @@ namespace Avila.Platform.Migrations.Identity
                         .HasColumnType("character varying(320)")
                         .HasColumnName("email");
 
+                    b.Property<bool>("EmailVerified")
+                        .HasColumnType("boolean")
+                        .HasColumnName("email_verified");
+
                     b.Property<int>("FailedAttempts")
                         .HasColumnType("integer")
                         .HasColumnName("failed_attempts");
@@ -210,6 +214,41 @@ namespace Avila.Platform.Migrations.Identity
                     b.ToTable("mfa_challenges", "identity");
                 });
 
+            modelBuilder.Entity("Avila.Platform.Identity.MfaRecoveryCode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("CodeHash")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
+                        .HasColumnName("code_hash");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTimeOffset?>("UsedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("used_at");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodeHash")
+                        .IsUnique();
+
+                    b.HasIndex("UserId", "UsedAt");
+
+                    b.ToTable("mfa_recovery_codes", "identity");
+                });
+
             modelBuilder.Entity("Avila.Platform.Identity.Session", b =>
                 {
                     b.Property<Guid>("Id")
@@ -236,6 +275,10 @@ namespace Avila.Platform.Migrations.Identity
                     b.Property<DateTimeOffset?>("RevokedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("revoked_at");
+
+                    b.Property<DateTimeOffset?>("SteppedUpAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("stepped_up_at");
 
                     b.Property<string>("TokenHash")
                         .IsRequired()

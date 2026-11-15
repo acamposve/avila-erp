@@ -16,6 +16,7 @@ No recibe `tenantId` en query, ruta ni body. Si se envía `?tenantId=...`, respo
 |---|---|
 | Sin sesión | `401` |
 | Rol `member` u otro no owner/admin | `403` |
+| Owner/admin sin step-up reciente (5 min) | `403 STEP_UP_REQUIRED` |
 | `tenantId` intentado por el llamador | `400` |
 | Owner/admin | `200 application/x-ndjson` |
 | Tenant suspendido | `200` (lectura/exportación permitida) |
