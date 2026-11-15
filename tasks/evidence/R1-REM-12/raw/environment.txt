@@ -1,0 +1,6 @@
+Captured: 2026-11-15T07:56:23.0641092-03:00
+Branch: feat/r1-rem-12-observability
+Base commit: 6a13bdcfc99fec8ae4010571ed020bdf6e2c72a8
+Tests: 19 spike + 94 production
+Prometheus: prom/prometheus:latest
+Alertmanager: prom/alertmanager:latest

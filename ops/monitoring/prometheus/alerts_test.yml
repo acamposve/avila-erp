@@ -1,0 +1,64 @@
+﻿rule_files:
+  - alerts.yml
+
+evaluation_interval: 1m
+
+tests:
+  - interval: 1m
+    input_series:
+      - series: avila_http_errors_total
+        values: "0+1000x20"
+    alert_rule_test:
+      - eval_time: 15m
+        alertname: AvilaHigh5xx
+        exp_alerts:
+          - exp_labels:
+              severity: critical
+              team: platform
+            exp_annotations:
+              summary: "API 5xx rate is elevated"
+              description: "More than one 5xx response per second over 5 minutes."
+
+  - interval: 1m
+    input_series:
+      - series: avila_http_request_duration_ms
+        values: "100+2000x15"
+    alert_rule_test:
+      - eval_time: 11m
+        alertname: AvilaLatencyHigh
+        exp_alerts:
+          - exp_labels:
+              severity: warning
+              team: platform
+            exp_annotations:
+              summary: "API average latency above 2 seconds"
+
+  - interval: 1m
+    input_series:
+      - series: 'up{job="avila-api"}'
+        values: "1 0x10"
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: AvilaReadinessDown
+        exp_alerts:
+          - exp_labels:
+              severity: critical
+              team: platform
+              job: avila-api
+            exp_annotations:
+              summary: "AVILA API readiness probe is down"
+
+  - interval: 1m
+    input_series:
+      - series: avila_backup_last_success_timestamp_seconds
+        values: "0x2000"
+    alert_rule_test:
+      - eval_time: 25h
+        alertname: AvilaBackupStale
+        exp_alerts:
+          - exp_labels:
+              severity: critical
+              team: operations
+            exp_annotations:
+              summary: "No successful backup in 24 hours"
+

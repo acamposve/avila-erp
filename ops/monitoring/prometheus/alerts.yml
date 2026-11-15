@@ -1,0 +1,39 @@
+groups:
+  - name: avila-api
+    rules:
+      - alert: AvilaHigh5xx
+        expr: sum(rate(avila_http_errors_total[5m])) > 1
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "API 5xx rate is elevated"
+          description: "More than one 5xx response per second over 5 minutes."
+
+      - alert: AvilaLatencyHigh
+        expr: avila_http_request_duration_ms > 2000
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "API average latency above 2 seconds"
+
+      - alert: AvilaReadinessDown
+        expr: up{job="avila-api"} == 0
+        for: 3m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "AVILA API readiness probe is down"
+
+      - alert: AvilaBackupStale
+        expr: time() - avila_backup_last_success_timestamp_seconds > 86400
+        for: 5m
+        labels:
+          severity: critical
+          team: operations
+        annotations:
+          summary: "No successful backup in 24 hours"
