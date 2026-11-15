@@ -40,7 +40,7 @@ El contenido puede ajustarse; lo que no se ajusta sin decisión es la **calidad 
 - [ ] CI/CD con pruebas, migraciones y escaneo de seguridad.
 - [ ] ADR fundacionales aprobados.
 
-> **Estado 2026-11-14:** **G1 cerrado — NO-GO.** Matriz T-013: 3 PASS, 8 PARTIAL, 1 FAIL (exportación completa). La aprobación de un PR de tarea no abre G1 ni autoriza despliegue. Ver [matriz R1](../tasks/evidence/T-013/r1-gate-matrix.md).
+> **Estado 2026-11-15 (R1-REM-14):** criterios de salida R1 **12/12 PASS** a nivel código/ensayo; **G1 sigue CERRADO** hasta decisión explícita de @acamposve. Rollup de historias: 14 PASS / 3 PARTIAL; AC: 7 PASS / 8 PARTIAL. La release es **condicional** por brechas de producto y operación pre-cloud. Ver [matriz R1-REM-14](../tasks/evidence/R1-REM-14/r1-gate-matrix.md) y [solicitud de firma](../tasks/evidence/R1-REM-14/release-signoff-request.md).
 
 **No vendible de forma independiente.**
 

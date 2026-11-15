@@ -4,6 +4,8 @@
 **Question:** does each task generate **logs** and **documents in the code**?
 **Verdict at validation time:** **No — 0 of 37 tasks were fully validated.**
 
+> **Update 2026-11-15 (R1-REM-14):** los 13 remediaciones R1 están merged en `main` (`2591a4e`). La matriz final da **12/12 criterios PASS** a nivel código/ensayo; **G1 sigue CERRADO** hasta firma explícita de @acamposve. Rollup: 14/17 historias PASS, 7/15 AC PASS. Ver [matriz final](../tasks/evidence/R1-REM-14/r1-gate-matrix.md).
+>
 > **Update 2026-11-14 (T-013):** T-001…T-012 are **`verified`** after PRs #3, #5, #6, #7, #8, #9, #10, #11, #12, #13, #14 and #15 merged. T-013 has the R1 gate matrix and is `implemented`, pending review. **G1 remains CLOSED (NO-GO): 3 PASS, 8 PARTIAL, 1 FAIL.** Verified count: **12/37**. The validation snapshot below is preserved, with the T-001…T-013 rows updated.
 
 This is not a statement that the code is worthless. It is a statement that the repository does not contain the artifacts needed to prove each task was executed, reviewed, and verified.
