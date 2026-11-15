@@ -2,6 +2,7 @@ using Avila.Api.Administration;
 using Avila.Api.Audit;
 using Avila.Api.Exporting;
 using Avila.Api.Identity;
+using Avila.Api.Inventory;
 using Avila.Api.Observability;
 using Avila.Api.Tenancy;
 using Avila.Application;
@@ -31,6 +32,7 @@ builder.Services.AddScoped<ISalesModule, SalesModule>();
 builder.Services.AddScoped<IBillingModule, BillingModule>();
 builder.Services.AddScoped<SalesFlowService>();
 builder.Services.AddScoped<ITenantExportContributor, AdministrationExportContributor>();
+builder.Services.AddScoped<ITenantExportContributor, InventoryExportContributor>();
 builder.Services.AddScoped<ITenantExportContributor, AuditExportContributor>();
 builder.Services.AddSingleton<ITenantExportContributor>(provider =>
 {
@@ -115,6 +117,7 @@ app.MapGet("/metrics", MetricsEndpoint.HandleAsync);
 app.MapIdentityEndpoints();
 app.MapAuditEndpoints();
 app.MapAdministrationEndpoints();
+app.MapInventoryCatalogEndpoints();
 app.MapGet("/api/v1/tenant/export", TenantExportEndpoint.HandleAsync);
 app.MapGet("/", () => Results.Ok(new
 {
