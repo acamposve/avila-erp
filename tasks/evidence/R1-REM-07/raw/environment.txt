@@ -1,0 +1,6 @@
+Captured: 2026-11-15T07:06:49.2885967-03:00
+Branch: feat/r1-rem-07-export-endpoint
+Base commit: 9f73043a21ee6ca1e943cbcddc9292096cbe8830
+Tests: 19 spike + 77 production
+Testcontainers: postgres:18-alpine
+Stacked on R1-REM-06 (PR #22)
