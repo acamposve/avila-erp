@@ -40,6 +40,7 @@ builder.Services.AddSingleton(provider =>
         configuration.GetConnectionString("Avila") ?? string.Empty);
 });
 builder.Services.AddSingleton<MetricsRegistry>();
+builder.Services.AddSingleton<AuthRateLimiter>();
 builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>("database", tags: ["ready"]);
 
@@ -58,6 +59,11 @@ app.UseExceptionHandler(errorApp => errorApp.Run(async context =>
         traceId = context.TraceIdentifier
     });
 }));
+
+// Rate-limit authentication endpoints before they reach identity logic.
+app.UseWhen(
+    context => context.Request.Path.StartsWithSegments("/api/v1/auth"),
+    branch => branch.UseMiddleware<AuthRateLimitingMiddleware>());
 
 // Business endpoints require a session token and a validated tenant.
 // Authentication endpoints (to be added) live under /api/v1/auth and are excluded.
